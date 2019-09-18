@@ -3,3 +3,7 @@
 ################################################################################
 
 /src/.vs/Stml/v16
+/src/Stml.Application/obj
+/src/Stml.Domain/obj
+/src/Stml.Infrastructure/obj
+/src/Stml.Web/obj
