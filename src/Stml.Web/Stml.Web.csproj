@@ -9,13 +9,23 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.5.4" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Stml.Application\Stml.Application.csproj" />
     <ProjectReference Include="..\Stml.Domain\Stml.Domain.csproj" />
+    <ProjectReference Include="..\Stml.Infrastructure.EfCore\Stml.Infrastructure.Datas.csproj" />
     <ProjectReference Include="..\Stml.Infrastructure\Stml.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

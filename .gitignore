@@ -7,3 +7,13 @@
 /src/Stml.Domain/obj
 /src/Stml.Infrastructure/obj
 /src/Stml.Web/obj
+/src/.vs/Stml
+/src/Stml.Application/bin/Debug/netstandard2.0
+/src/Stml.Domain/bin/Debug/netstandard2.0
+/src/Stml.Domain.Repositories/bin/Debug/netstandard2.0
+/src/Stml.Domain.Repositories/obj
+/src/Stml.Infrastructure/bin/Debug/netstandard2.0
+/src/Stml.Infrastructure.EfCore/bin/Debug/netstandard2.0
+/src/Stml.Infrastructure.EfCore/obj
+/src/Stml.Web/bin/Debug/netcoreapp2.2
+/src/Stml.Web/Log
