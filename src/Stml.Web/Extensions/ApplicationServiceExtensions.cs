@@ -24,6 +24,7 @@ namespace Stml.Web.Extensions
             services.ConfigureDbContext(config);
             services.AddEfCoreRepository();
             services.AddEfCoreUnitOfWork();
+            services.ConfigureAutoMapper();
             return services.UseAutofac(builder =>
             {
                 builder.ConfigureApplicationServicesByConvension();

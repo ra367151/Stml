@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Stml.Application.Dtos.Outputs
 {
-    public class ProductOutputDto
+    public class ProductDto
     {
-        public ProductOutputDto(int id, string name, decimal price)
+        public ProductDto(int id, string name, decimal price)
         {
             Id = id;
             Name = name;

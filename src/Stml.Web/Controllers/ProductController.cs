@@ -40,7 +40,7 @@ namespace Stml.Web.Controllers
         // POST: Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("Name,Price")]ProductCreateInputDto product)
+        public async Task<ActionResult> Create([Bind("Name,Price")]ProductCreateInput product)
         {
             if (ModelState.IsValid)
             {

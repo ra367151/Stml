@@ -1,4 +1,5 @@
-﻿using Stml.Application.Dtos.Inputs;
+﻿using AutoMapper;
+using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
 using Stml.Domain.Entities;
 using Stml.Domain.Repositories;
@@ -16,23 +17,26 @@ namespace Stml.Application.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly IEfCoreUnitOfWork<StmlDbContext> _stmlUnitOfWork;
+        private readonly IMapper _mapper;
 
-        public ProductAppService(IProductRepository productRepository, IEfCoreUnitOfWork<StmlDbContext> stmlUnitOfWork)
+        public ProductAppService(IProductRepository productRepository
+            , IEfCoreUnitOfWork<StmlDbContext> stmlUnitOfWork
+            , IMapper mapper)
         {
             _productRepository = productRepository;
             _stmlUnitOfWork = stmlUnitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task CreateNewProductAsync(ProductCreateInputDto product)
+        public async Task CreateNewProductAsync(ProductCreateInput product)
         {
-            var entity = new Product(product.Name, product.Price);
-            _productRepository.Add(entity);
+            _productRepository.Add(_mapper.Map<Product>(product));
             await _stmlUnitOfWork.CommitAsync();
         }
 
-        public async Task<IEnumerable<ProductOutputDto>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            return (await _productRepository.GetAllAsync()).Select(p => new ProductOutputDto(p.Id, p.Name, p.Price));
+            return _mapper.Map<IEnumerable<ProductDto>>(await _productRepository.GetAllAsync());
         }
     }
 }

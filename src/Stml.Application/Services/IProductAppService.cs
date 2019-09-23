@@ -9,7 +9,7 @@ namespace Stml.Application.Services
 {
     public interface IProductAppService
     {
-        Task<IEnumerable<ProductOutputDto>> GetAllProductsAsync();
-        Task CreateNewProductAsync(ProductCreateInputDto product);
+        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
+        Task CreateNewProductAsync(ProductCreateInput product);
     }
 }

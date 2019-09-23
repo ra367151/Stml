@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Stml.Application.Dtos.Inputs.FluentValidators
 {
-    public class ProductCreateInputValidator : AbstractValidator<ProductCreateInputDto>
+    public class ProductCreateInputValidator : AbstractValidator<ProductCreateInput>
     {
         public ProductCreateInputValidator()
         {
