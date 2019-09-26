@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/jquery-filedownload/jquery.fileDownload-1.2.4.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-filedownload/jquery.fileDownload-1.2.4.js"
+    ]
+  }
+]
