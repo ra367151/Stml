@@ -40,4 +40,14 @@
     </Content>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\layui\css\modules\laydate\default\" />
+    <Folder Include="wwwroot\lib\layui\css\modules\layer\default\" />
+    <Folder Include="wwwroot\lib\layui\font\" />
+    <Folder Include="wwwroot\lib\layui\images\face\" />
+    <Folder Include="wwwroot\lib\layui\lay\modules\" />
+    <Folder Include="wwwroot\res\" />
+  </ItemGroup>
+
 </Project>
