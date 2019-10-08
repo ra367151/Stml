@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Domain.Entities
+namespace Stml.Domain.Products
 {
     public class Product : AggregateRoot
     {

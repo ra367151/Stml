@@ -9,7 +9,7 @@ using NLog.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Stml.Web
+namespace Stml.Web.Startup
 {
     public class Program
     {

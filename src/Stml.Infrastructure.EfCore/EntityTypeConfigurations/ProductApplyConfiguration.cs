@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Stml.Domain.Entities;
+using Stml.Domain.Products;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -9,11 +9,11 @@ using Stml.Application.Services;
 
 namespace Stml.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
         private readonly IProductAppService _productAppService;
 
-        public ProductController(IProductAppService productAppService)
+        public ProductsController(IProductAppService productAppService)
         {
             _productAppService = productAppService;
         }

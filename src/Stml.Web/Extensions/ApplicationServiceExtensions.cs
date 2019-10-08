@@ -13,6 +13,8 @@ using Stml.Infrastructure.Uow.Extensions;
 using Stml.Infrastructure.Repository.Extensions;
 using Stml.Domain.Repositories.Extensions;
 using Stml.Infrastructure.EPPlus.Extensions;
+using Stml.Infrastructure.Applications.Navigation.Extensions;
+using Stml.Web.Startup;
 
 namespace Stml.Web.Extensions
 {
@@ -27,6 +29,7 @@ namespace Stml.Web.Extensions
             services.AddEfCoreUnitOfWork();
             services.ConfigureAutoMapper();
             services.AddExcelManager();
+            services.AddNavigation<StmlNavigationProvider>();
             return services.UseAutofac(builder =>
             {
                 builder.ConfigureApplicationServicesByConvension();

@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stml.Infrastructure.Applications.Navigation.Extensions;
 using Stml.Web.Extensions;
 using System;
 
-namespace Stml.Web
+namespace Stml.Web.Startup
 {
     public class Startup
     {
@@ -23,7 +24,8 @@ namespace Stml.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration cfg)
         {
-            app.ConfigureApplication(env, cfg);
+            app.ConfigureApplication(env, cfg)
+                .UseNavigationProvider<StmlNavigationProvider>();
         }
     }
 }

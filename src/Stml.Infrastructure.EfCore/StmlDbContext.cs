@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Stml.Domain.Entities;
+using Stml.Domain.Products;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

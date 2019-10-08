@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
-using Stml.Domain.Entities;
+using Stml.Domain.Products;
 using Stml.Domain.Repositories;
 using Stml.Infrastructure.Datas;
 using Stml.Infrastructure.Uow;

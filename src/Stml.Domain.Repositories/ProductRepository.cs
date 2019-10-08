@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stml.Domain.Entities;
+using Stml.Domain.Products;
 using Stml.Infrastructure.Datas;
 using Stml.Infrastructure.Repository;
 using System;
