@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace Stml.Web.Startup
 {
-    public class StmlNavigationProvider : INavigationProvider<MenuDefinition, MenuItemDefinition>
+    public class StmlNavigationProvider : INavigationProvider<MenuGroup, MenuItem>
     {
-        public void SetNavigation(INavigationProviderContext<MenuDefinition, MenuItemDefinition> context)
+        public void SetNavigation(INavigationProviderContext<MenuGroup, MenuItem> context)
         {
             context.Manager.SidebarMenu.AddItem(
-                new MenuItemDefinition(
+                new MenuItem(
                     PageNames.Home,
                     "Home",
                     "cui-home"
                 )
             ).AddItem(
-                new MenuItemDefinition(
+                new MenuItem(
                     PageNames.User,
                     "Users",
                     "cui-people"
                 )
             ).AddItem(
-                new MenuItemDefinition(
+                new MenuItem(
                     PageNames.Role,
                     "Roles",
                     "cui-tags"
                 )
             ).AddItem(
-                new MenuItemDefinition(
+                new MenuItem(
                     "产品",
                     "Products",
                     "icon-list"
                 )
             ).AddItem(
-                new MenuItemDefinition(
+                new MenuItem(
                     PageNames.Setting,
                     "Settings",
                     "cui-settings"

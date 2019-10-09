@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public interface INavigationManager<TMenuDefinition, TMenuItemDefinition>
-        where TMenuDefinition : MenuDefinition<TMenuItemDefinition>
-        where TMenuItemDefinition : MenuItemDefinition
+    public interface INavigationManager<TMenuGroup, TMenuItem>
+        where TMenuGroup : MenuGroup<TMenuItem>
+        where TMenuItem : MenuItem
     {
         Guid Id { get; }
-        IDictionary<string, TMenuDefinition> Menus { get; }
-        TMenuDefinition SidebarMenu { get; }
+        IDictionary<string, TMenuGroup> Menus { get; }
+        TMenuGroup SidebarMenu { get; }
     }
 }

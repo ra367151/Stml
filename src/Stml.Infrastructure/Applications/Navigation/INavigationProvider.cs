@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public interface INavigationProvider<TMenuDefinition, TMenuItemDefinition>
-        where TMenuDefinition : MenuDefinition<TMenuItemDefinition>
-        where TMenuItemDefinition : MenuItemDefinition
+    public interface INavigationProvider<TMenuGroup, TMenuItem>
+        where TMenuGroup : MenuGroup<TMenuItem>
+        where TMenuItem : MenuItem
     {
-        void SetNavigation(INavigationProviderContext<TMenuDefinition, TMenuItemDefinition> context);
+        void SetNavigation(INavigationProviderContext<TMenuGroup, TMenuItem> context);
     }
 }

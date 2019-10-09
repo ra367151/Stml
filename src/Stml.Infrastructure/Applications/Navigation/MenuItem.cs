@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public class MenuItemDefinition
+    public class MenuItem
     {
         /// <summary>
         /// Unique name of the menu item in the application. Can be used to find this menu item later.
@@ -36,19 +36,19 @@ namespace Stml.Infrastructure.Applications.Navigation
         /// </summary>
         public bool IsLeaf => Items.IsNullOrEmpty();
 
-        public List<MenuItemDefinition> Items { get; private set; }
+        public List<MenuItem> Items { get; private set; }
 
-        public MenuItemDefinition([NotNull]string name, string url = null, string icon = null, string target = null)
+        public MenuItem([NotNull]string name, string url = null, string icon = null, string target = null)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Name = name;
             Url = url;
             Icon = icon;
             Target = target;
-            Items = new List<MenuItemDefinition>();
+            Items = new List<MenuItem>();
         }
 
-        public MenuItemDefinition AddItem([NotNull]MenuItemDefinition menuItem)
+        public MenuItem AddItem([NotNull]MenuItem menuItem)
         {
             Check.NotNull(menuItem, nameof(menuItem));
             Items.Add(menuItem);

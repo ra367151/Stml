@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public class NavigationManager<TMenuDefinition, TMenuItemDefinition> : INavigationManager<TMenuDefinition, TMenuItemDefinition>
-        where TMenuDefinition : MenuDefinition<TMenuItemDefinition>
-        where TMenuItemDefinition : MenuItemDefinition
+    public class NavigationManager<TMenuGroup, TMenuItem> : INavigationManager<TMenuGroup, TMenuItem>
+        where TMenuGroup : MenuGroup<TMenuItem>
+        where TMenuItem : MenuItem
     {
         public Guid Id { get; private set; }
-        public IDictionary<string, TMenuDefinition> Menus { get; private set; }
+        public IDictionary<string, TMenuGroup> Menus { get; private set; }
 
-        public TMenuDefinition SidebarMenu
+        public TMenuGroup SidebarMenu
         {
             get
             {
@@ -22,9 +22,9 @@ namespace Stml.Infrastructure.Applications.Navigation
         public NavigationManager()
         {
             Id = Guid.NewGuid();
-            Menus = new Dictionary<string, TMenuDefinition>
+            Menus = new Dictionary<string, TMenuGroup>
             {
-                { "SidebarMenu", (TMenuDefinition)Activator.CreateInstance(typeof(TMenuDefinition), "SidebarMenu")}
+                { "SidebarMenu", (TMenuGroup)Activator.CreateInstance(typeof(TMenuGroup), "SidebarMenu")}
             };
         }
     }

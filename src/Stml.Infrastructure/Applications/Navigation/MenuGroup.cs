@@ -6,28 +6,28 @@ using System.Text;
 namespace Stml.Infrastructure.Applications.Navigation
 {
     /// <summary>
-    /// MenuDefinition用来区分导航的分类，如"SidebarMenu", "HeaderMenu"等。
+    /// MenuGroup，如"SidebarMenu", "HeaderMenu"等。
     /// </summary>
-    public class MenuDefinition : MenuDefinition<MenuItemDefinition>
+    public class MenuGroup : MenuGroup<MenuItem>
     {
-        public MenuDefinition([NotNull] string name) : base(name)
+        public MenuGroup([NotNull] string name) : base(name)
         {
         }
     }
 
-    public class MenuDefinition<TMenuItemDefinition> where TMenuItemDefinition : MenuItemDefinition
+    public class MenuGroup<TMenuItem> where TMenuItem : MenuItem
     {
         public string Name { get; set; }
-        public List<TMenuItemDefinition> Items { get; set; }
+        public List<TMenuItem> Items { get; set; }
 
-        public MenuDefinition([NotNull]string name)
+        public MenuGroup([NotNull]string name)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Name = name;
-            Items = new List<TMenuItemDefinition>();
+            Items = new List<TMenuItem>();
         }
 
-        public MenuDefinition<TMenuItemDefinition> AddItem([NotNull]TMenuItemDefinition menuItem)
+        public MenuGroup<TMenuItem> AddItem([NotNull]TMenuItem menuItem)
         {
             Check.NotNull(menuItem, nameof(menuItem));
             Items.Add(menuItem);
