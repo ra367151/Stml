@@ -9,7 +9,8 @@ namespace Stml.Infrastructure.Applications.Navigation
         where TMenuItem : MenuItem
     {
         Guid Id { get; }
-        IDictionary<string, TMenuGroup> Menus { get; }
-        TMenuGroup SidebarMenu { get; }
+
+        IDictionary<string, TMenuGroup> MenuGroups { get; }
+        TMenuGroup MainMenu { get; }
     }
 }

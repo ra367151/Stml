@@ -10,7 +10,7 @@ namespace Stml.Web.Startup
     {
         public void SetNavigation(INavigationProviderContext<MenuGroup, MenuItem> context)
         {
-            context.Manager.SidebarMenu.AddItem(
+            context.Manager.MainMenu.AddItem(
                 new MenuItem(
                     PageNames.Home,
                     "Home",

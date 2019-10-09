@@ -9,22 +9,22 @@ namespace Stml.Infrastructure.Applications.Navigation
         where TMenuItem : MenuItem
     {
         public Guid Id { get; private set; }
-        public IDictionary<string, TMenuGroup> Menus { get; private set; }
+        public IDictionary<string, TMenuGroup> MenuGroups { get; private set; }
 
-        public TMenuGroup SidebarMenu
+        public TMenuGroup MainMenu
         {
             get
             {
-                return Menus["SidebarMenu"];
+                return MenuGroups["MainMenu"];
             }
         }
 
         public NavigationManager()
         {
             Id = Guid.NewGuid();
-            Menus = new Dictionary<string, TMenuGroup>
+            MenuGroups = new Dictionary<string, TMenuGroup>
             {
-                { "SidebarMenu", (TMenuGroup)Activator.CreateInstance(typeof(TMenuGroup), "SidebarMenu")}
+                { "MainMenu", (TMenuGroup)Activator.CreateInstance(typeof(TMenuGroup), "MainMenu")}
             };
         }
     }
