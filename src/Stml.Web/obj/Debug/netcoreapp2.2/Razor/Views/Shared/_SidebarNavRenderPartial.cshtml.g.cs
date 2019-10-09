@@ -35,7 +35,7 @@ using Stml.Infrastructure.Extensions;
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0618268d2b33904d808145130df7670bed441253", @"/Views/Shared/_SidebarNavRenderPartial.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"54229468630c964651849623a22131df11515c82", @"/Views/_ViewImports.cshtml")]
-    public class Views_Shared__SidebarNavRenderPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<MenuItemDefinition>>
+    public class Views_Shared__SidebarNavRenderPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<MenuItem>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("nav-link"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         #line hidden
@@ -192,7 +192,7 @@ WriteAttributeValue(" ", 677, menuItem.Icon, 678, 14, false);
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.Rendering.IJsonHelper Json { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<List<MenuItemDefinition>> Html { get; private set; }
+        public global::Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<List<MenuItem>> Html { get; private set; }
     }
 }
 #pragma warning restore 1591
