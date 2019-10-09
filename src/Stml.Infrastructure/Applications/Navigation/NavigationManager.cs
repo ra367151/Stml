@@ -4,24 +4,29 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public class NavigationManager : INavigationManager
+    public class NavigationManager<TMenuDefinition, TMenuItemDefinition> : INavigationManager<TMenuDefinition, TMenuItemDefinition>
+        where TMenuDefinition : MenuDefinition<TMenuItemDefinition>
+        where TMenuItemDefinition : MenuItemDefinition
     {
-        public IDictionary<string, MenuDefinition> Menus { get; private set; }
+        public Guid Id { get; private set; }
+        public IDictionary<string, TMenuDefinition> Menus { get; private set; }
 
-        public MenuDefinition SideBarMenu
+        public TMenuDefinition SidebarMenu
         {
             get
             {
-                return Menus["SideBarMenu"];
+                return Menus["SidebarMenu"];
             }
         }
 
         public NavigationManager()
         {
-            Menus = new Dictionary<string, MenuDefinition>
+            Id = Guid.NewGuid();
+            Menus = new Dictionary<string, TMenuDefinition>
             {
-                { "SideBarMenu", new MenuDefinition("SideBarMenu")}
+                { "SidebarMenu", (TMenuDefinition)Activator.CreateInstance(typeof(TMenuDefinition), "SidebarMenu")}
             };
         }
     }
+
 }

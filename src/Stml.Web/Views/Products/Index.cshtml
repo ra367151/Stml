@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<Stml.Application.Dtos.Outputs.ProductDto>
 
-@{
-    ViewData["Title"] = "产品";
-}
-
 @section Breadcrumbs{
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -20,13 +16,7 @@
                 <h4 class="card-title mb-0">产品列表</h4>
             </div>
             <div class="col-sm-7">
-                <a href="javascript:;" class="button btn float-right" data-toggle="dropdown">
-                    <i class="icon-options-vertical"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" asp-action="Create">添加</a>
-                    <a class="dropdown-item" asp-ac>导出</a>
-                </div>
+                <button type="button" class="btn pull-right"><i class="cui-plus btn-icon"></i></button>
             </div>
         </div>
         <div class="row">

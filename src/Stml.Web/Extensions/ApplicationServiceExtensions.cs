@@ -22,14 +22,14 @@ namespace Stml.Web.Extensions
     {
         public static IServiceProvider AddApplication(this IServiceCollection services, IConfiguration config)
         {
-            services.ConfigureCookie();
+            services.ConfigureCookiePolicy();
             services.ConfigureMvc();
             services.ConfigureDbContext(config);
             services.AddEfCoreRepository();
             services.AddEfCoreUnitOfWork();
             services.ConfigureAutoMapper();
             services.AddExcelManager();
-            services.AddNavigation<StmlNavigationProvider>();
+            services.AddNavigationProvider<StmlNavigationProvider>();
             return services.UseAutofac(builder =>
             {
                 builder.ConfigureApplicationServicesByConvension();
@@ -38,7 +38,7 @@ namespace Stml.Web.Extensions
             });
         }
 
-        private static IServiceCollection ConfigureCookie(this IServiceCollection services)
+        private static IServiceCollection ConfigureCookiePolicy(this IServiceCollection services)
         {
             return services.Configure<CookiePolicyOptions>(options =>
             {

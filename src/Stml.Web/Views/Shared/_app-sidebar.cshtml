@@ -1,9 +1,9 @@
 ﻿@using Stml.Infrastructure.Applications.Navigation
 
-@inject INavigationManager NavManager
+@inject INavigationManager<MenuDefinition, MenuItemDefinition> NavManager
 
 <nav class="sidebar-nav">
     <ul class="nav">
-        @await Html.PartialAsync("_SidebarNavRenderPartial", NavManager.SideBarMenu.Items)
+        @await Html.PartialAsync("_SidebarNavRenderPartial", NavManager.SidebarMenu.Items)
     </ul>
 </nav>

@@ -6,21 +6,27 @@ using System.Threading.Tasks;
 
 namespace Stml.Web.Startup
 {
-    public class StmlNavigationProvider : NavigationProvider
+    public class StmlNavigationProvider : INavigationProvider<MenuDefinition, MenuItemDefinition>
     {
-        public override void SetNavigation(INavigationProviderContext context)
+        public void SetNavigation(INavigationProviderContext<MenuDefinition, MenuItemDefinition> context)
         {
-            context.Manager.SideBarMenu.AddItem(
+            context.Manager.SidebarMenu.AddItem(
                 new MenuItemDefinition(
                     PageNames.Home,
                     "Home",
-                    "icon-home"
+                    "cui-home"
                 )
             ).AddItem(
                 new MenuItemDefinition(
                     PageNames.User,
                     "Users",
-                    "icon-user"
+                    "cui-people"
+                )
+            ).AddItem(
+                new MenuItemDefinition(
+                    PageNames.Role,
+                    "Roles",
+                    "cui-tags"
                 )
             ).AddItem(
                 new MenuItemDefinition(
@@ -32,7 +38,7 @@ namespace Stml.Web.Startup
                 new MenuItemDefinition(
                     PageNames.Setting,
                     "Settings",
-                    "icon-settings"
+                    "cui-settings"
                 )
             );
         }

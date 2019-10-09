@@ -4,11 +4,13 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Navigation
 {
-    public class NavigationProviderContext : INavigationProviderContext
+    public class NavigationProviderContext<TMenuDefinition, TMenuItemDefinition> : INavigationProviderContext<TMenuDefinition, TMenuItemDefinition>
+        where TMenuDefinition : MenuDefinition<TMenuItemDefinition>
+        where TMenuItemDefinition : MenuItemDefinition
     {
-        public INavigationManager Manager { get; private set; }
+        public INavigationManager<TMenuDefinition, TMenuItemDefinition> Manager { get; private set; }
 
-        public NavigationProviderContext(INavigationManager manager)
+        public NavigationProviderContext(INavigationManager<TMenuDefinition, TMenuItemDefinition> manager)
         {
             Manager = manager;
         }
