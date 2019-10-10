@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
 using Stml.Domain.Products;
+using Stml.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;

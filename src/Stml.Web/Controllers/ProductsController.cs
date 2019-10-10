@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Application.Dtos.Inputs;
@@ -9,6 +10,7 @@ using Stml.Application.Services;
 
 namespace Stml.Web.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductAppService _productAppService;

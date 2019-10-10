@@ -15,6 +15,9 @@ using Stml.Domain.Repositories.Extensions;
 using Stml.Infrastructure.EPPlus.Extensions;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
 using Stml.Web.Startup;
+using Stml.Domain.Users;
+using Microsoft.AspNetCore.Identity;
+using Stml.Domain.Roles;
 
 namespace Stml.Web.Extensions
 {
@@ -25,6 +28,7 @@ namespace Stml.Web.Extensions
             services.ConfigureCookiePolicy();
             services.ConfigureMvc();
             services.ConfigureDbContext(config);
+            services.ConfigureIdentity();
             services.AddEfCoreRepository();
             services.AddEfCoreUnitOfWork();
             services.ConfigureAutoMapper();
@@ -57,6 +61,18 @@ namespace Stml.Web.Extensions
         private static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration config)
         {
             return services.AddDbContext<StmlDbContext>(options => options.UseSqlServer(config.GetConnectionString("Stml")));
+        }
+
+        private static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+                .AddEntityFrameworkStores<StmlDbContext>()
+                .AddDefaultTokenProviders();
+            return services;
         }
     }
 }

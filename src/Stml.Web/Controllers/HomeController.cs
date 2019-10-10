@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Web.Models;
 
 namespace Stml.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -15,6 +17,7 @@ namespace Stml.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
