@@ -17,3 +17,6 @@
 /src/Stml.Infrastructure.EfCore/obj
 /src/Stml.Web/bin/Debug/netcoreapp2.2
 /src/Stml.Web/Log
+bin
+obj
+obj
