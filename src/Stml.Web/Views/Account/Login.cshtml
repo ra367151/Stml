@@ -8,40 +8,99 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>登录</title>
-</head>
-<body>
+    <link href="~/lib/@@coreui/icons/css/coreui-icons.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" asp-append-version="true">
 
-    <h4>登录</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
+    <environment include="Development">
+        <link href="~/css/style.css" rel="stylesheet" />
+        <link href="~/lib/pace-progress/css/pace.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+
+    <environment exclude="Development">
+        <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/lib/pace-progress/css/pace.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        // Shared ID
+        gtag('config', 'UA-118965717-3');
+        // Bootstrap ID
+        gtag('config', 'UA-118965717-5');
+    </script>
+</head>
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h1>Login</h1>
+                            <p class="text-muted">Sign In to your account</p>
+                            <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="icon-user"></i>
+                                        </span>
+                                    </div>
+                                    <input asp-for="UserName" class="form-control" type="text" placeholder="Username">
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="icon-lock"></i>
+                                        </span>
+                                    </div>
+                                    <input asp-for="Password" class="form-control" type="password" placeholder="Password">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary px-4" type="submit">Login</button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn btn-link px-0" type="button">Forgot password?</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                        <div class="card-body text-center">
+                            <div>
+                                <h2>Sign up</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <a asp-action="Register" class="btn btn-primary active mt-3">Register Now!</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="登录" class="btn btn-primary" />
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-
-    <div>
-        <a asp-action="Register">注册新账户</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+    <script src="~/lib/jquery/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/popper.js/js/popper.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/lib/pace-progress/js/pace.min.js" asp-append-version="true"></script>
+    <script src="~/lib/perfect-scrollbar/js/perfect-scrollbar.min.js" asp-append-version="true"></script>
+    <script src="~/lib/@@coreui/coreui/js/coreui.min.js" asp-append-version="true"></script>
 </body>
 </html>
