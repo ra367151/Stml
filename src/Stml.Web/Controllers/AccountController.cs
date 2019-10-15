@@ -64,5 +64,12 @@ namespace Stml.Web.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            await _accountAppService.UserLogoutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

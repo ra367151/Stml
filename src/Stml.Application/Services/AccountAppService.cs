@@ -52,5 +52,10 @@ namespace Stml.Application.Services
             var result = await _signInManager.PasswordSignInAsync(user, input.Password, false, false);
             return result.Succeeded;
         }
+
+        public async Task UserLogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

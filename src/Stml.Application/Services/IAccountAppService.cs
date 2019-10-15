@@ -22,5 +22,11 @@ namespace Stml.Application.Services
         /// <param name="input"></param>
         /// <returns>返回登录结果</returns>
         Task<bool> UserLoginAsync(UserLoginInput input);
+
+        /// <summary>
+        /// 用户登出
+        /// </summary>
+        /// <returns></returns>
+        Task UserLogoutAsync();
     }
 }
