@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
 using Stml.Domain.Users;
@@ -16,12 +17,15 @@ namespace Stml.Application.Services
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
+        private readonly ILogger<AccountAppService> _logger;
 
         public AccountAppService(IMapper mapper
+            , ILogger<AccountAppService> logger
             , UserManager<User> userManager
             , SignInManager<User> signInManager)
         {
             _mapper = mapper;
+            _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -37,6 +41,10 @@ namespace Stml.Application.Services
             var identityResult = await _userManager.CreateAsync(user, input.Password);
             if (identityResult.Succeeded)
             {
+                _logger.LogInformation("User created a new account with password.");
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
                 return new UserRegisterDto();
             }
             return new UserRegisterDto(identityResult.Errors.Select(x => x.Description));
@@ -49,7 +57,7 @@ namespace Stml.Application.Services
             {
                 return false;
             }
-            var result = await _signInManager.PasswordSignInAsync(user, input.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(user, input.Password, input.RememberMe, false);
             return result.Succeeded;
         }
 

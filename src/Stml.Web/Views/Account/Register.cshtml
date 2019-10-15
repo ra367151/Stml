@@ -51,7 +51,7 @@
             <div class="col-md-6">
                 <div class="card mx-4">
                     <div class="card-body p-4">
-                        <form asp-action="Register">
+                        <form asp-route-returnUrl="@ViewBag.ReturnUrl" asp-action="Register">
                             <h1>Register</h1>
                             <p class="text-muted">Create your account</p>
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
