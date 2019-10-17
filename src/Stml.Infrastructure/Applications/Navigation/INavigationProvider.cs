@@ -8,6 +8,6 @@ namespace Stml.Infrastructure.Applications.Navigation
         where TMenuGroup : MenuGroup<TMenuItem>
         where TMenuItem : MenuItem
     {
-        void SetNavigation(INavigationProviderContext<TMenuGroup, TMenuItem> context);
+        void Initialize(INavigationProviderContext<TMenuGroup, TMenuItem> context);
     }
 }

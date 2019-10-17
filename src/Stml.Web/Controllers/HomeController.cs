@@ -5,13 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Web.Models;
+using Stml.Web.Startup.Permissions;
 
 namespace Stml.Web.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        [HasPermission(PermissionNames.HomeView)]
         public IActionResult Index()
         {
             return View();

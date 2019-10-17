@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Stml.Domain.Roles;
 using Stml.Domain.Users;
+using Stml.Infrastructure.Authorizations.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Text;

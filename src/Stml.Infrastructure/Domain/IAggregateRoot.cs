@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Stml.Infrastructure.Domain
 {
-    internal interface IAggregateRoot : IAggregateRoot<int>
+    public interface IAggregateRoot : IAggregateRoot<int>
     {
     }
 
-    internal interface IAggregateRoot<TKey> : IEntity<TKey>
+    public interface IAggregateRoot<TKey> : IEntity<TKey>
     {
 
     }

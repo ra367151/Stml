@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Stml.Infrastructure.Domain
 {
-    internal interface IEntity : IEntity<int>
+    public interface IEntity : IEntity<int>
     {
 
     }
 
-    internal interface IEntity<TKey>
+    public interface IEntity<TKey>
     {
         TKey Id { get; }
     }

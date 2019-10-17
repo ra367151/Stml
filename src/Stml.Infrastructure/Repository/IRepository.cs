@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Stml.Infrastructure.Repository
 {
     public interface IRepository<TAggregateRoot> : IRepository<TAggregateRoot, int>
-        where TAggregateRoot : AggregateRoot
+        where TAggregateRoot : class, IAggregateRoot
     {
 
     }
 
-    public interface IRepository<TAggregateRoot, TKey> where TAggregateRoot : AggregateRoot
+    public interface IRepository<TAggregateRoot, TKey> where TAggregateRoot : class, IAggregateRoot
     {
         void Add(TAggregateRoot obj);
         void AddRange(IEnumerable<TAggregateRoot> objs);

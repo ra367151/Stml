@@ -8,14 +8,14 @@ namespace Stml.Infrastructure.Repository
 {
     public interface IEfCoreRepository<TDbContext, TAggregateRoot> : IEfCoreRepository<TDbContext, TAggregateRoot, int>
         where TDbContext : DbContext
-        where TAggregateRoot : AggregateRoot
+        where TAggregateRoot : class, IAggregateRoot
     {
 
     }
 
     public interface IEfCoreRepository<TDbContext, TAggregateRoot, TKey> : IRepository<TAggregateRoot, TKey>
         where TDbContext : DbContext
-        where TAggregateRoot : AggregateRoot
+        where TAggregateRoot : class, IAggregateRoot
     {
 
     }

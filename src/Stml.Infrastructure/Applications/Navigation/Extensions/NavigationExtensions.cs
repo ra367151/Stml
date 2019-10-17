@@ -57,7 +57,7 @@ namespace Stml.Infrastructure.Applications.Navigation.Extensions
                 = app.ApplicationServices.GetService(typeof(INavigationProvider<TMenuGroup, TMenuItem>))
                 as
                 INavigationProvider<TMenuGroup, TMenuItem>;
-            provider.SetNavigation(context);
+            provider.Initialize(context);
             return app;
         }
     }

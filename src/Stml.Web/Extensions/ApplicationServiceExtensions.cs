@@ -14,10 +14,13 @@ using Stml.Infrastructure.Repository.Extensions;
 using Stml.Domain.Repositories.Extensions;
 using Stml.Infrastructure.EPPlus.Extensions;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
-using Stml.Web.Startup;
 using Stml.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using Stml.Domain.Roles;
+using Stml.Web.Startup.Permissions;
+using Stml.Infrastructure.Authorizations.Extensions;
+using Stml.Infrastructure.Security.Encryption;
+using Stml.Web.Startup.Navigations;
 
 namespace Stml.Web.Extensions
 {
@@ -25,6 +28,8 @@ namespace Stml.Web.Extensions
     {
         public static IServiceProvider AddApplication(this IServiceCollection services, IConfiguration config)
         {
+            services.ConfigureCoreService();
+
             services.ConfigureCookiePolicy();
             services.ConfigureMvc();
             services.ConfigureDbContext(config);
@@ -34,6 +39,7 @@ namespace Stml.Web.Extensions
             services.ConfigureAutoMapper();
             services.AddExcelManager();
             services.AddNavigationProvider<StmlNavigationProvider>();
+            services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
             return services.UseAutofac(builder =>
             {
                 builder.ConfigureApplicationServicesByConvension();
@@ -72,6 +78,14 @@ namespace Stml.Web.Extensions
             })
                 .AddEntityFrameworkStores<StmlDbContext>()
                 .AddDefaultTokenProviders();
+            return services;
+        }
+
+        private static IServiceCollection ConfigureCoreService(this IServiceCollection services)
+        {
+            services.AddSingleton<IStringEncryptionService, StringEncryptionService>()
+                .Configure<StringEncryptionOptions>(options => { });
+
             return services;
         }
     }

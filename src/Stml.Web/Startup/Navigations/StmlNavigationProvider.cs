@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Stml.Web.Startup
+namespace Stml.Web.Startup.Navigations
 {
     public class StmlNavigationProvider : INavigationProvider<MenuGroup, MenuItem>
     {
-        public void SetNavigation(INavigationProviderContext<MenuGroup, MenuItem> context)
+        public void Initialize(INavigationProviderContext<MenuGroup, MenuItem> context)
         {
             context.Manager.MainMenu.AddItem(
                 new MenuItem(

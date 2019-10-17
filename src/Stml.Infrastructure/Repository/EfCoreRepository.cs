@@ -11,7 +11,7 @@ namespace Stml.Infrastructure.Repository
 {
     public class EfCoreRepository<TDbContext, TAggregateRoot> : EfCoreRepository<TDbContext, TAggregateRoot, int>
         where TDbContext : DbContext
-        where TAggregateRoot : AggregateRoot
+        where TAggregateRoot : class, IAggregateRoot
     {
         public EfCoreRepository(TDbContext dbContext) : base(dbContext)
         {
@@ -20,7 +20,7 @@ namespace Stml.Infrastructure.Repository
 
     public class EfCoreRepository<TDbContext, TAggregateRoot, TKey> : IEfCoreRepository<TDbContext, TAggregateRoot, TKey>
         where TDbContext : DbContext
-        where TAggregateRoot : AggregateRoot
+        where TAggregateRoot : class, IAggregateRoot
     {
         protected readonly TDbContext _dbContext;
 
