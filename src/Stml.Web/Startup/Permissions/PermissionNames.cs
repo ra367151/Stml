@@ -7,6 +7,6 @@ namespace Stml.Web.Startup.Permissions
 {
     public static class PermissionNames
     {
-        public const string HomeView = "Home_Index";
+        public const string VistHome = "VistHome";
     }
 }

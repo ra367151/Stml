@@ -17,6 +17,7 @@ namespace Stml.Infrastructure.Authorizations.Extensions
         {
             services.AddScoped<IUserClaimsPrincipalFactory<TUser>, TUserClaimsPrincipalFactory>();
             services.AddSingleton<IPermissionPacker, PermissionPacker>();
+            services.AddSingleton<IPermissionChecker, PermissionChecker>();
             services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
             return services;

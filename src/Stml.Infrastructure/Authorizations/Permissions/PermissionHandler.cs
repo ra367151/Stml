@@ -10,23 +10,17 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 {
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
-        private readonly IPermissionPacker _permissionPacker;
-
-        public PermissionHandler(IPermissionPacker permissionPacker)
+        private IPermissionChecker _permissionChecker;
+        public PermissionHandler(IPermissionChecker permissionChecker)
         {
-            _permissionPacker = permissionPacker;
+            _permissionChecker = permissionChecker;
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            var permissionClaim =
-                context.User.Claims.SingleOrDefault(c => c.Type == PermissionConstants.PermissionClaimType);
-            if (permissionClaim == null)
-                return Task.CompletedTask;
-
-            if (_permissionPacker.UnPackPermissionFromString(permissionClaim.Value).Any(p => p.Name == requirement.PermissionName))
+            var check = _permissionChecker.Check(context.User, requirement.PermissionName);
+            if (check)
                 context.Succeed(requirement);
-
             return Task.CompletedTask;
         }
     }

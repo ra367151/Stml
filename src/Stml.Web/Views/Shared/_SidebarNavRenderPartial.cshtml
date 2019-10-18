@@ -1,28 +1,30 @@
 ﻿@using Stml.Infrastructure.Applications.Navigation
-@using Stml.Infrastructure.Extensions
 
 @model List<MenuItem>
 
 @foreach (var menuItem in Model)
 {
-    if (menuItem.IsLeaf)
+    if (menuItem.RequiredPermission.IsNullOrEmpty() || IsGranted(menuItem.RequiredPermission))
     {
-        <li class="nav-item">
-            <a class="nav-link" href="~/@(menuItem.Url.IsNullOrEmpty()?"#":menuItem.Url)" target="@(!menuItem.Target.IsNullOrEmpty() ? menuItem.Target : "")">
-                <i class="nav-icon @menuItem.Icon">
-                </i> @menuItem.Name
-            </a>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#">
-                <i class="nav-icon @menuItem.Icon"></i> @menuItem.Name
-            </a>
-            <ul class="nav-dropdown-items">
-                @await Html.PartialAsync("_SidebarNavRenderPartial", menuItem.Items)
-            </ul>
-        </li>
+        if (menuItem.IsLeaf)
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="~/@(menuItem.Url.IsNullOrEmpty()?"#":menuItem.Url)" target="@(!menuItem.Target.IsNullOrEmpty() ? menuItem.Target : "")">
+                    <i class="nav-icon @menuItem.Icon">
+                    </i> @menuItem.Name
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon @menuItem.Icon"></i> @menuItem.Name
+                </a>
+                <ul class="nav-dropdown-items">
+                    @await Html.PartialAsync("_SidebarNavRenderPartial", menuItem.Items)
+                </ul>
+            </li>
+        }
     }
 }

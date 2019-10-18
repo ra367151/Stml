@@ -31,6 +31,8 @@ namespace Stml.Infrastructure.Applications.Navigation
         /// </summary>
         public string Target { get; set; }
 
+        public string RequiredPermission { get; set; }
+
         /// <summary>
         /// Returns true if this menu has no child MenuItemDefinitions.
         /// </summary>
@@ -38,12 +40,13 @@ namespace Stml.Infrastructure.Applications.Navigation
 
         public List<MenuItem> Items { get; private set; }
 
-        public MenuItem([NotNull]string name, string url = null, string icon = null, string target = null)
+        public MenuItem([NotNull]string name, string url = null, string icon = null, string requiredPermission = null, string target = null)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Name = name;
             Url = url;
             Icon = icon;
+            RequiredPermission = requiredPermission;
             Target = target;
             Items = new List<MenuItem>();
         }
