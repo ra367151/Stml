@@ -17,23 +17,25 @@ namespace Stml.Web.Startup.Navigations
                         PageNames.Home,
                         "Home",
                         "cui-home",
-                        PermissionNames.VistHome
-                    )
-                ).AddItem(
-                    new MenuItem(
-                        PageNames.User,
-                        "Users",
-                        "cui-people"
+                        PermissionNames.VisitHome
                     )
                 ).AddItem(
                     new MenuItem(
                         PageNames.Role,
                         "Roles",
-                        "cui-tags"
+                        "cui-tags",
+                        PermissionNames.VisitRoles
                     )
                 ).AddItem(
                     new MenuItem(
-                        "产品",
+                        PageNames.User,
+                        "Users",
+                        "cui-people",
+                        PermissionNames.VisitUsers
+                    )
+                ).AddItem(
+                    new MenuItem(
+                        "测试",
                         "Products",
                         "icon-list"
                     )
@@ -41,7 +43,8 @@ namespace Stml.Web.Startup.Navigations
                     new MenuItem(
                         PageNames.Setting,
                         "Settings",
-                        "cui-settings"
+                        "cui-settings",
+                        PermissionNames.VisitSettings
                     )
                 );
         }

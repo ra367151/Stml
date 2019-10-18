@@ -21,6 +21,7 @@ using Stml.Web.Startup.Permissions;
 using Stml.Infrastructure.Authorizations.Extensions;
 using Stml.Infrastructure.Security.Encryption;
 using Stml.Web.Startup.Navigations;
+using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 
 namespace Stml.Web.Extensions
 {
@@ -39,6 +40,7 @@ namespace Stml.Web.Extensions
             services.ConfigureAutoMapper();
             services.AddExcelManager();
             services.AddNavigationProvider<StmlNavigationProvider>();
+            services.AddPermissionProvider<StmlPermissionProvider>();
             services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
             return services.UseAutofac(builder =>
             {

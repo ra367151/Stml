@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
+using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Web.Extensions;
 using Stml.Web.Startup.Navigations;
+using Stml.Web.Startup.Permissions;
 using System;
 
 namespace Stml.Web.Startup
@@ -26,7 +28,8 @@ namespace Stml.Web.Startup
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration cfg)
         {
             app.ConfigureApplication(env, cfg)
-                .UseNavigationProvider<StmlNavigationProvider>();
+                .UseNavigationProvider<StmlNavigationProvider>()
+                .UsePermissionProvider<StmlPermissionProvider>();
         }
     }
 }
