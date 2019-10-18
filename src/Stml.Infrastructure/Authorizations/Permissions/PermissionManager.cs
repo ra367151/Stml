@@ -20,10 +20,13 @@ namespace Stml.Infrastructure.Authorizations.Permissions
         public void AddPermission(TPermission permission)
         {
             Check.NotNull(permission, nameof(permission));
+            if (permission.Obsolete)
+                return;
             if (Permissions.ContainsKey(permission.Group))
             {
                 if (permissions[permission.Group].Any(p => p.Name == permission.Name))
                     throw new InvalidOperationException($"PermissionGroup: {permission.Group} already has Permission: {permission.Name}");
+
                 permissions[permission.Group].Add(permission);
             }
             else

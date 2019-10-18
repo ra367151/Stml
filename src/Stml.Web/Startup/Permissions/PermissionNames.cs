@@ -9,16 +9,16 @@ namespace Stml.Web.Startup.Permissions
     {
         public const string VisitHome = "VisitHome";
 
-        public const string VisitRoles = "VistRoles";
+        public const string VisitRolePage = "VistRolePage";
         public const string RoleCreate = "RoleCreate";
         public const string RoleEdit = "RoleEdit";
         public const string RoleDelete = "RoleDelete";
 
-        public const string VisitUsers = "VisitUsers";
+        public const string VisitUserPage = "VisitUserPage";
         public const string UserCreate = "UserCreate";
         public const string UserEdit = "UserEdit";
         public const string UserDelete = "UserDelete";
 
-        public const string VisitSettings = "VisitSettings";
+        public const string VisitSettingPage = "VisitSettingPage";
     }
 }

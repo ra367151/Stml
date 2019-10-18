@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Stml.Domain.Users
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<Guid>, IAggregateRoot<Guid>
     {
         public User()
         {
