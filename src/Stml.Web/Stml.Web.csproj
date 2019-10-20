@@ -548,6 +548,42 @@
     <None Include="wwwroot\lib\flag-icon-css\flags\4x3\zw.svg" />
     <None Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\lib\icheck\.gitignore" />
+    <None Include="wwwroot\lib\icheck\.git\config" />
+    <None Include="wwwroot\lib\icheck\.git\description" />
+    <None Include="wwwroot\lib\icheck\.git\HEAD" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\applypatch-msg.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\commit-msg.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\post-update.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\pre-applypatch.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\pre-commit.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\pre-push.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\pre-rebase.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\pre-receive.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="wwwroot\lib\icheck\.git\hooks\update.sample" />
+    <None Include="wwwroot\lib\icheck\.git\index" />
+    <None Include="wwwroot\lib\icheck\.git\info\exclude" />
+    <None Include="wwwroot\lib\icheck\.git\logs\HEAD" />
+    <None Include="wwwroot\lib\icheck\.git\logs\refs\heads\1.x" />
+    <None Include="wwwroot\lib\icheck\.git\logs\refs\remotes\origin\HEAD" />
+    <None Include="wwwroot\lib\icheck\.git\objects\pack\pack-dad23251911d84dcf64df63278f2b9916bc4c870.idx" />
+    <None Include="wwwroot\lib\icheck\.git\objects\pack\pack-dad23251911d84dcf64df63278f2b9916bc4c870.pack" />
+    <None Include="wwwroot\lib\icheck\.git\packed-refs" />
+    <None Include="wwwroot\lib\icheck\.git\refs\heads\1.x" />
+    <None Include="wwwroot\lib\icheck\.git\refs\remotes\origin\HEAD" />
+    <None Include="wwwroot\lib\icheck\CHANGELOG.md" />
+    <None Include="wwwroot\lib\icheck\demo\css\custom.styl" />
+    <None Include="wwwroot\lib\icheck\demo\css\montserrat-bold.svg" />
+    <None Include="wwwroot\lib\icheck\demo\css\montserrat-regular.svg" />
+    <None Include="wwwroot\lib\icheck\demo\js\custom.js" />
+    <None Include="wwwroot\lib\icheck\demo\js\custom.min.js" />
+    <None Include="wwwroot\lib\icheck\demo\js\jquery.js" />
+    <None Include="wwwroot\lib\icheck\demo\js\zepto.js" />
+    <None Include="wwwroot\lib\icheck\icheck.js" />
+    <None Include="wwwroot\lib\icheck\icheck.min.js" />
+    <None Include="wwwroot\lib\icheck\README.md" />
     <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
     <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
     <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
@@ -584,6 +620,12 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\icheck\.git\objects\info\" />
+    <Folder Include="wwwroot\lib\icheck\.git\refs\tags\" />
   </ItemGroup>
 
 </Project>
