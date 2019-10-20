@@ -1,0 +1,32 @@
+﻿@section Breadcrumbs{
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">主页</a>
+        </li>
+        <li class="breadcrumb-item active">用户</li>
+    </ol>
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">用户</h4>
+            </div>
+            <div class="col-sm-7">
+                <button class="btn btn-primary float-right" type="button">
+                    <i class="cui-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tb-users"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/res/user/index.js" asp-append-version="true"></script>
+}

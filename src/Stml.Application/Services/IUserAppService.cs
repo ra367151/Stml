@@ -9,6 +9,6 @@ namespace Stml.Application.Services
 {
     public interface IUserAppService
     {
-        Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString);
+        Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int pageNumber, int pageSize);
     }
 }

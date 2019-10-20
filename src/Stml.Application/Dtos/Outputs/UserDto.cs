@@ -6,9 +6,11 @@ using System.Text;
 
 namespace Stml.Application.Dtos.Outputs
 {
-    [AutoMap(typeof(User))]
     public class UserDto
     {
         public string UserName { get; set; }
+        public string Email { get; set; }
+        public string CreationTime { get; set; }
+        public string State { get; set; }
     }
 }

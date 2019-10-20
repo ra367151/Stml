@@ -16,6 +16,10 @@ namespace Stml.Application.Dtos
         {
             CreateMap<Product, ProductDto>();
             CreateMap<ProductCreateInput, Product>();
+
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.CreationTime, m => m.MapFrom(source => source.CreationTime.ToString("yyyy-MM-dd")))
+                .ForMember(dest => dest.State, m => m.MapFrom(source => source.IsEnable ? "启用" : "禁用"));
         }
     }
 }

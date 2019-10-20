@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,7 +28,7 @@ namespace Stml.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString)
+        public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int pageNumber, int pageSize)
         {
             var count = await _userManager.Users
                                 .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName == queryString.Trim())
@@ -36,6 +37,9 @@ namespace Stml.Application.Services
             {
                 var list = await _userManager.Users
                                     .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName == queryString.Trim())
+                                    .OrderByDescending(u => u.CreationTime)
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize)
                                     .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync();
                 return new PagedListDto<UserDto>(count, list);
