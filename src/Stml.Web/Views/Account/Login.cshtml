@@ -12,38 +12,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>登录</title>
-    <link href="~/lib/@@coreui/icons/css/coreui-icons.min.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" asp-append-version="true">
 
-    <environment include="Development">
-        <link href="~/css/style.css" rel="stylesheet" />
-        <link href="~/lib/pace-progress/css/pace.css" rel="stylesheet" />
-        <link href="~/css/site.css" rel="stylesheet" />
-    </environment>
+    @{await Html.RenderPartialAsync("_CoreStylesPartial");}
 
-    <environment exclude="Development">
-        <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/pace-progress/css/pace.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-    </environment>
-
-    <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        // Shared ID
-        gtag('config', 'UA-118965717-3');
-        // Bootstrap ID
-        gtag('config', 'UA-118965717-5');
-    </script>
 </head>
 <body class="app flex-row align-items-center">
     <div class="container">
@@ -73,17 +44,14 @@
                                     <input asp-for="Password" class="form-control" type="password" placeholder="Password">
                                 </div>
                                 <div class="input-group mb-4">
-                                    <div class="form-check checkbox">
-                                        <input asp-for="RememberMe" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="RememberMe">Rememeber me?</label>
-                                    </div>
+                                    <label>
+                                        <input type="checkbox" asp-for="RememberMe">
+                                        Remember me?
+                                    </label>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <button class="btn btn-primary px-4" type="submit">Login</button>
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        <button class="btn btn-link px-0" type="button">Forgot password?</button>
                                     </div>
                                 </div>
                             </form>
@@ -102,11 +70,8 @@
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/js/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/popper.js/js/popper.min.js" asp-append-version="true"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/lib/pace-progress/js/pace.min.js" asp-append-version="true"></script>
-    <script src="~/lib/perfect-scrollbar/js/perfect-scrollbar.min.js" asp-append-version="true"></script>
-    <script src="~/lib/@@coreui/coreui/js/coreui.min.js" asp-append-version="true"></script>
+
+    @{ await Html.RenderPartialAsync("_CoreScriptsPartial");}
+
 </body>
 </html>

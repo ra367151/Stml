@@ -7,7 +7,6 @@ namespace Stml.Web.Startup.Permissions
 {
     public static class PermissionGroupNames
     {
-        public const string Home = "首页";
         public const string Role = "角色";
         public const string User = "用户";
         public const string Setting = "配置";

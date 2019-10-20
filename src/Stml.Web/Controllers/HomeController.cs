@@ -14,7 +14,6 @@ namespace Stml.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        //[HasPermission(PermissionNames.VisitHome)]
         public IActionResult Index()
         {
             return View();

@@ -11,8 +11,6 @@ namespace Stml.Web.Startup.Permissions
         public void Initialize(IPermissionProviderContext<Permission> context)
         {
 
-            context.Manager.AddPermission(new Permission(PermissionGroupNames.Home, PermissionNames.VisitHome, "访问首页"));
-
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.VisitRolePage, "访问角色页面"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.RoleCreate, "添加角色"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.RoleEdit, "编辑角色"));

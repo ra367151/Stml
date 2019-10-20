@@ -28,7 +28,7 @@ namespace Stml.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UserRegisterInput model, string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~");
+            returnUrl = returnUrl ?? Url.Content("/");
             if (ModelState.IsValid)
             {
                 var result = await _accountAppService.UserRegisterAsync(model);
