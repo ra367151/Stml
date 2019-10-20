@@ -6,37 +6,46 @@
             $table.bootstrapTable("destroy").bootstrapTable({
                 method: 'get',
                 url: '/User/List',
+                dataType: "json",
                 columns: [{
-                    field: 'UserName',
-                    title: '用户名'
+                    field: 'userName',
+                    title: '用户名',
+                    align: 'center'
                 }, {
-                    field: 'Email',
-                    title: '邮箱'
+                    field: 'email',
+                    title: '邮箱',
+                    align: 'center'
                 }, {
-                    field: 'CreationTime',
-                    title: '创建日期'
+                    field: 'creationTime',
+                    title: '创建日期',
+                    align: 'center'
                 }, {
-                    field: 'State',
-                    title: '状态'
+                    field: 'state',
+                    title: '状态',
+                    align: 'center'
                 }],
                 uniqueId: "Id",
+                search: true,
+                searchAlign: 'left',
                 pagination: true,
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [10, 25, 50, 100],
                 sidePagination: "server",
-                queryParamsType: 'limit',
-                //queryParams: funcs.queryParams()
+                queryParams: function (params) {
+                    return params;
+                },
+                responseHandler: function (res) {
+                    return {
+                        total: res.total,
+                        rows: res.rows
+                    }
+                }
             });
-        },
-        queryParams: function () {
-            var params = {};
-
-            console.log(params);
-            return params;
         }
     };
 
     $(function () {
         funcs.initTable();
     });
-
-    $('#user-tb').bootstrapTable();
 })(jQuery);

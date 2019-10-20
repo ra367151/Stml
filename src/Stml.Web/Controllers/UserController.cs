@@ -23,11 +23,14 @@ namespace Stml.Web.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public async Task<IActionResult> List(int limit, int offset)
+        public async Task<IActionResult> List(string search, int offset = 0, int limit = 10)
         {
-            var data = await _userAppService.GetUserPagedListAsync(string.Empty, 1, 10);
-            return Json(new { total = data.Total, rows = data.Rows });
+            var data = await _userAppService.GetUserPagedListAsync(search, offset, limit);
+            return Json(new
+            {
+                total = data.Total,
+                rows = data.Rows
+            });
         }
     }
 }

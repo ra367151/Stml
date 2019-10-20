@@ -28,18 +28,18 @@ namespace Stml.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int pageNumber, int pageSize)
+        public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int skip, int take)
         {
             var count = await _userManager.Users
-                                .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName == queryString.Trim())
+                                .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName.Contains(queryString.Trim()) || u.Email.Contains(queryString.Trim()))
                                 .CountAsync();
             if (count > 0)
             {
                 var list = await _userManager.Users
-                                    .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName == queryString.Trim())
+                                    .WhereIf(!queryString.IsNullOrEmpty(), u => u.UserName.Contains(queryString.Trim()) || u.Email.Contains(queryString.Trim()))
                                     .OrderByDescending(u => u.CreationTime)
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize)
+                                    .Skip(skip)
+                                    .Take(take)
                                     .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                                     .ToListAsync();
                 return new PagedListDto<UserDto>(count, list);
