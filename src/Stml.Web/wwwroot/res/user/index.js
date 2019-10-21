@@ -26,9 +26,15 @@
                 }, {
                     field: 'operate',
                     title: '操作',
-                    class: 'dropdown',
+                    width: '100px',
                     formatter: function (value, row, index) {
-                        return '操作';
+                        var operateBtn = '<div class="dropdown">';
+                        operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
+                        operateBtn += '<div class="dropdown-menu" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">';
+                        operateBtn += '<a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> 编辑</a>';
+                        operateBtn += '<a class="dropdown-item" href="#"><i class="fa fa-trash"></i> 删除</a>';
+                        operateBtn += '</div></div>';
+                        return operateBtn;
                     }
                 }],
                 uniqueId: "Id",
