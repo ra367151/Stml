@@ -11,6 +11,6 @@ namespace Stml.Application.Dtos.Outputs
         public string UserName { get; set; }
         public string Email { get; set; }
         public string CreationTime { get; set; }
-        public string State { get; set; }
+        public bool IsEnable { get; set; }
     }
 }

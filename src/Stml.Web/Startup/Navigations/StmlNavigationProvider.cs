@@ -34,12 +34,6 @@ namespace Stml.Web.Startup.Navigations
                     )
                 ).AddItem(
                     new MenuItem(
-                        "测试",
-                        "Product"
-                    //"icon-list"
-                    )
-                ).AddItem(
-                    new MenuItem(
                         PageNames.Setting,
                         "Setting",
                         "cui-settings"

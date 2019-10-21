@@ -11,41 +11,7 @@
 
     <title>Stml</title>
 
-    @*<link rel="icon" type="image/ico" href="~/img/favicon.ico" sizes="any" />
-        <link href="~/lib/@@coreui/icons/css/coreui-icons.min.css" rel="stylesheet" asp-append-version="true">
-        <link href="~/lib/@@coreui/icons/css/free.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" asp-append-version="true">
-        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true">
-        <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" asp-append-version="true">
-
-        <environment include="Development">
-            <link href="~/css/style.css" rel="stylesheet" />
-            <link href="~/lib/pace-progress/css/pace.css" rel="stylesheet" />
-            <link href="~/css/site.css" rel="stylesheet" />
-        </environment>
-
-        <environment exclude="Development">
-            <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true" />
-            <link href="~/lib/pace-progress/css/pace.min.css" rel="stylesheet" asp-append-version="true" />
-            <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-        </environment>*@
-
     @{await Html.RenderPartialAsync("_CoreStylesPartial"); }
-
-    <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        // Shared ID
-        gtag('config', 'UA-118965717-3');
-        // Bootstrap ID
-        gtag('config', 'UA-118965717-5');
-    </script>
 
     @RenderSection("Styles", false)
 </head>
@@ -78,34 +44,6 @@
 
     <partial name="_app-footer" />
 
-    @*<environment include="Development">
-            <script src="~/lib/jquery/js/jquery.min.js"></script>
-        </environment>
-
-        <environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh">
-            </script>
-        </environment>
-
-        <script src="~/lib/popper.js/js/popper.min.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/lib/pace-progress/js/pace.min.js" asp-append-version="true"></script>
-        <script src="~/lib/perfect-scrollbar/js/perfect-scrollbar.min.js" asp-append-version="true"></script>
-        <script src="~/lib/@@coreui/coreui/js/coreui.min.js" asp-append-version="true"></script>
-
-        <environment include="Development">
-            <script src="~/lib/icheck/icheck.js" asp-append-version="true"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-
-        <environment exclude="Development">
-            <script src="~/lib/icheck/icheck.min.js"></script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>*@
     @{await Html.RenderPartialAsync("_CoreScriptsPartial");}
 
     @RenderSection("Scripts", required: false)

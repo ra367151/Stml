@@ -73,5 +73,12 @@
 
     @{ await Html.RenderPartialAsync("_CoreScriptsPartial");}
 
+    <script>
+        $(function () {
+            $('input[type="checkbox"]').iCheck({
+                checkboxClass: 'icheckbox_minimal-red'
+            });
+        });
+    </script>
 </body>
 </html>
