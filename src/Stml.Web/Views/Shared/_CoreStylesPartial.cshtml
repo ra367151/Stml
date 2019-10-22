@@ -7,13 +7,29 @@
 <link href="~/lib/pace-progress/css/pace.min.css" rel="stylesheet" />
 <link href="~/css/style.min.css" rel="stylesheet" />
 
-<link rel="stylesheet" href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css"
-      asp-fallback-href="~/lib/icheck/skins/all.css"
-      integrity="sha384-9KfG+IYQO057pfV36QCmKXBkUg+RMsscYopdiH9NJHE8fpPyxUi9iDTmE3J42ft6"
-      crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.css"
-      integrity="sha384-Bho7DVdu9SrApy14A4WS9DCKKdwI9pq83E9pY4SrU+20fU9kQCbgk+UytSXBNlzr"
-      crossorigin="anonymous">
+<environment include="Development">
+    <link href="~/lib/icheck/skins/all.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/lib/toastr/toastr.css" rel="stylesheet" />
+</environment>
+
+<environment exclude="Development">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css"
+          asp-fallback-href="~/lib/icheck/skins/all.css"
+          integrity="sha384-9KfG+IYQO057pfV36QCmKXBkUg+RMsscYopdiH9NJHE8fpPyxUi9iDTmE3J42ft6"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.css"
+          asp-fallback-href="~/lib/bootstrap-table/dist/bootstrap-table.min.css"
+          integrity="sha384-Bho7DVdu9SrApy14A4WS9DCKKdwI9pq83E9pY4SrU+20fU9kQCbgk+UytSXBNlzr"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/2.1.4/toastr.min.css"
+          asp-fallback-href="~/lib/toastr/toastr.min.css"
+          integrity="sha384-YzEqZ2pBV0i9OmlTyoz75PqwTR8If8GsXBv7HLQclEVqIC3VxIt98/U94ES6CJTR"
+          crossorigin="anonymous">
+</environment>
+
 
 <environment include="Development">
     <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />

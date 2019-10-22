@@ -17,14 +17,28 @@
 <script src="~/lib/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
 <script src="~/lib/@@coreui/coreui/js/coreui.min.js"></script>
 
-<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"
-        asp-fallback-src="~/lib/icheck/icheck.min.js"
-        integrity="sha384-fro86Q7AQA74lBpygl530tK1E36/rPV+oakVwbKyTT98X8lzz3+yQ4AJEBlRvSNV"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.js"
-        asp-fallback-src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"
-        integrity="sha384-kAbV+S9m0faTaFLnoAFNv3GYgGMyR38fsW/v929VLIiw7VgFvEC//WVxM4krTrVW"
-        crossorigin="anonymous"></script>
+<environment include="Development">
+    <script src="~/lib/icheck/icheck.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.js"></script>
+    <script src="~/lib/toastr/toastr.js"></script>
+</environment>
+
+<environment exclude="Development">
+    <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"
+            asp-fallback-src="~/lib/icheck/icheck.min.js"
+            integrity="sha384-fro86Q7AQA74lBpygl530tK1E36/rPV+oakVwbKyTT98X8lzz3+yQ4AJEBlRvSNV"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.js"
+            asp-fallback-src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"
+            integrity="sha384-kAbV+S9m0faTaFLnoAFNv3GYgGMyR38fsW/v929VLIiw7VgFvEC//WVxM4krTrVW"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.bootcss.com/toastr.js/2.1.4/toastr.min.js"
+            asp-fallback-src="~/lib/toastr/toastr.min.js"
+            integrity="sha384-VDls8ImYGI8SwVxpmjX2Bn27U2TcNodzTNROTusVEWO55+lmL+H9NczoQJk6mwZR"
+            crossorigin="anonymous"></script>
+</environment>
 
 <environment include="Development">
     <script src="~/js/site.js" asp-append-version="true"></script>
