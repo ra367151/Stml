@@ -16,5 +16,23 @@
     "inputFiles": [
       "wwwroot/js/site.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery-ajax-unobtrusive/jquery-ajax-unobtrusive.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-ajax-unobtrusive/jquery-ajax-unobtrusive.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/res/user/create.min.js",
+    "inputFiles": [
+      "wwwroot/res/user/create.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/res/user/index.min.js",
+    "inputFiles": [
+      "wwwroot/res/user/index.js"
+    ]
   }
 ]

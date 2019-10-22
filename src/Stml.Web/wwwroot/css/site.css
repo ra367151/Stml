@@ -28,3 +28,11 @@ table .dropdown-menu {
     left: 0px;
     transform: translate3d(0px, 35px, 0px);
 }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 1px solid red;
+}

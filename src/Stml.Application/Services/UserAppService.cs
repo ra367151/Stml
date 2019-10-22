@@ -7,6 +7,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
 using Stml.Domain.Users;
 using Stml.Infrastructure.Applications.Dto;
@@ -20,12 +22,27 @@ namespace Stml.Application.Services
     {
         private readonly UserManager<User> _userManager;
         private IMapper _mapper;
+        private ILogger<UserAppService> _logger;
 
         public UserAppService(UserManager<User> userManager
-            , IMapper mapper)
+            , IMapper mapper
+            , ILogger<UserAppService> logger)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _logger = logger;
+        }
+
+        public async Task<ServiceResult> CreateUserAsync(UserCreateInput input)
+        {
+            var user = new User { UserName = input.UserName, Email = input.Email };
+            var identityResult = await _userManager.CreateAsync(user.Enable(input.IsEnable), input.Password);
+            if (identityResult.Succeeded)
+            {
+                _logger.LogInformation($"A new account: {input.UserName} created with password: {input.Password}.");
+                return ServiceResult.Success;
+            }
+            return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
         }
 
         public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int skip, int take)
@@ -45,6 +62,15 @@ namespace Stml.Application.Services
                 return new PagedListDto<UserDto>(count, list);
             }
             return PagedListDto<UserDto>.Null;
+        }
+
+        public async Task DeleteUserAsync(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
         }
     }
 }

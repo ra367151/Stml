@@ -41,7 +41,7 @@ namespace Stml.Application.Services
             var identityResult = await _userManager.CreateAsync(user, input.Password);
             if (identityResult.Succeeded)
             {
-                _logger.LogInformation("User created a new account with password.");
+                _logger.LogInformation($"A new account: {input.UserName} created with password: {input.Password}.");
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
