@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Stml.Domain.Products;
+//using Stml.Domain.Products;
 using Stml.Domain.Roles;
 using Stml.Domain.Users;
 using System;
