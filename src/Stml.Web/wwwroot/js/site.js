@@ -1,26 +1,32 @@
 ﻿"use strict";
 
-; (function ($) {
-    var funcs = {
-        cfgToastr: function (options) {
-            options.positionClass = 'toast-bottom-right';
-        },
-        ajaxError: function (event, request, settings) {
-            toastr.error('抱歉！服务端发生了未知的错误', "错误");
-        }
-    };
+(function () {
+    var TOASTR_POSITION_CLASS = "toast-bottom-right";
 
-    funcs.cfgToastr(toastr.options);
+    // set global options of toastr.
+    toastr.options.positionClass = TOASTR_POSITION_CLASS;
 
-    $(document).ajaxError(funcs.ajaxError);
-
-    $('.form-group .form-line').focusin(function () {
-        $(this).closest('form').find('.focused').removeClass('focused');
-        $(this).addClass("focused");
-    }).focusout(function () {
-        $(this).removeClass("focused");
+    // set global ajax error event.
+    $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
+        toastr.error('抱歉！服务端发生了未知的错误', "错误");
     });
 
+    // form focus event
+    $('.form-group .form-line').focusin(function (e) {
+        var $this = $(this);
+        $.each($this.closest('form').find('.focused'), function (i, item) {
+            if ($(item).val().length > 0) {
+                $(item).removeClass('focused');
+            }
+        });
+        //$this.closest('form').find('.focused').removeClass('focused');
+        $this.addClass('focused');
+    }).focusout(function (e) {
+        var $this = $(this);
+        if ($(this).find('input').val().length <= 0) {
+            $this.removeClass('focused');
+        }
+    });
 
     // clear form
     $.fn.clearForm = function (options) {
@@ -42,6 +48,8 @@
             .addClass("field-validation-valid")
             .empty();
 
+        $form[0].reset();
+
         return $form;
     };
-})(jQuery);
+})();
