@@ -2,7 +2,7 @@
 
 var $table = $("#tb-users")
     , $createModal = $("#create-modal")
-    , $createForm = $('#userCreateForm')[0]
+    , $createForm = $('#userCreateForm')
     , TABLE_OPTIONS_CLASS = "table table-hover"
     , TABLE_OPTIONS_METHOD = "get"
     , TABLE_OPTIONS_URL = "/User/List"
@@ -91,9 +91,6 @@ var funcs = {
             }
         }
     },
-    createModalOpen: function (e) {
-        $createForm.reset();
-    },
     delete: function (id) {
         $.post(USER_DELETE_URL, { id: id }, function (resp) {
             toastr.success("删除用户成功!");
@@ -106,5 +103,6 @@ $(function () {
     funcs.initTable();
     funcs.initiCheck();
 
-    $createModal.on("hidden.bs.modal", function (e) { funcs.createModalOpen(e) });
+    $createModal.on("shown.bs.modal", function (e) { $($createForm.find('.form-group .form-line')[0]).focusin(); });
+    $createModal.on("hidden.bs.modal", function (e) { $createForm.clearForm(); });
 });

@@ -21,5 +21,8 @@ namespace Stml.Application.Dtos.Inputs
 
         [Display(Name = "启用")]
         public bool IsEnable { get; set; }
+
+        [Display(Name = "角色")]
+        public string[] Roles { get; set; }
     }
 }

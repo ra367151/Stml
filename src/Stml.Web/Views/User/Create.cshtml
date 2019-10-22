@@ -1,4 +1,7 @@
-﻿@model UserCreateInput
+﻿@using Stml.Domain.Roles;
+@inject RoleManager<Role> RoleManager
+
+@model UserCreateInput
 
 <form id="userCreateForm" asp-action="Create" asp-controller="User"
       data-ajax="true"
@@ -6,47 +9,64 @@
       data-ajax-success="funcs.createAjaxResponse.success">
     <div class="modal-header">
         <h5 class="modal-title">新建用户</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
     </div>
     <div class="modal-body">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label asp-for="UserName">用户名</label>
-                <input class="form-control" asp-for="UserName">
-                <span asp-validation-for="UserName" class="help-block"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Email">邮箱</label>
-                <input class="form-control" asp-for="Email">
-                <span asp-validation-for="Email" class="help-block"></span>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="UserName" />
+                        <label class="form-label">用户名</label>
+                        <span asp-validation-for="UserName" class="help-block"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label asp-for="Password">密码</label>
-                <input class="form-control" asp-for="Password" type="password">
-                <span asp-validation-for="Password" class="help-block"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="ConfirmPassword">确认密码</label>
-                <input class="form-control" asp-for="ConfirmPassword" type="password">
-                <span asp-validation-for="ConfirmPassword" class="help-block"></span>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="Email" />
+                        <label class="form-label">邮箱</label>
+                        <span asp-validation-for="Email" class="help-block"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label asp-for="IsEnable">启用</label>
-                <label class="ml-1">
-                    <input type="checkbox" asp-for="IsEnable">
-                </label>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="Password" />
+                        <label class="form-label">密码</label>
+                        <span asp-validation-for="Password" class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="ConfirmPassword" />
+                        <label class="form-label">确认密码</label>
+                        <span asp-validation-for="ConfirmPassword" class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <input type="checkbox" asp-for="IsEnable" />
+                    <label asp-for="IsEnable">启用</label>
+                </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">提交</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
     </div>
 </form>
 

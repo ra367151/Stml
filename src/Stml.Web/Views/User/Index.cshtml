@@ -28,7 +28,7 @@
 </div>
 
 <!-- User Create Modal -->
-<div id="create-modal" class="modal" tabindex="-1" role="dialog">
+<div id="create-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             @{await Html.RenderPartialAsync("Create");}
@@ -41,6 +41,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         await Html.RenderPartialAsync("_AjaxScriptsPartial");
     }
+
     <environment include="Development">
         <script src="~/res/user/index.js" asp-append-version="true"></script>
     </environment>
