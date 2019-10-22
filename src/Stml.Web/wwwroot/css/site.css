@@ -19,3 +19,12 @@
 .loading-wrap > .loading-text {
     font-size: 16px !important
 }
+
+table .dropdown-menu {
+    min-width: 0rem !important;
+    position: absolute;
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(0px, 35px, 0px);
+}
