@@ -3,7 +3,7 @@
 var $table = $("#tb-users")
     , $createModal = $("#create-modal")
     , $createForm = $('#userCreateForm')
-    , TABLE_OPTIONS_CLASS = "table table-hover"
+    , TABLE_OPTIONS_CLASS = "table"
     , TABLE_OPTIONS_METHOD = "get"
     , TABLE_OPTIONS_URL = "/User/List"
     , TABLE_OPTIONS_UNIQUEID = "Id"
@@ -41,13 +41,14 @@ var $table = $("#tb-users")
             field: 'operate',
             title: '操作',
             width: '100px',
+            class: 'dropdown',
             formatter: function (value, row, index) {
-                var operateBtn = '<div class="dropdown">';
+                var operateBtn = '';
                 operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
                 operateBtn += '<div class="dropdown-menu">';
                 operateBtn += '<a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> 编辑</a>';
                 operateBtn += '<a class="dropdown-item" href="javascript:funcs.delete(\'' + row.id + '\')"><i class="fa fa-trash"></i> 删除</a>';
-                operateBtn += '</div></div>';
+                operateBtn += '</div>';
                 return operateBtn;
             }
         }],
@@ -102,7 +103,4 @@ var funcs = {
 $(function () {
     funcs.initTable();
     funcs.initiCheck();
-
-    $createModal.on("shown.bs.modal", function (e) { $($createForm.find('.form-group .form-line')[0]).focusin(); });
-    $createModal.on("hidden.bs.modal", function (e) { $createForm.clearForm(); });
 });

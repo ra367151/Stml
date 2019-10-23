@@ -11,22 +11,25 @@
         toastr.error('抱歉！服务端发生了未知的错误', "错误");
     });
 
-    // form focus event
-    $('.form-group .form-line').focusin(function (e) {
+    // form focus
+    $('.form-group .form-line input.form-control').focusin(function (e) {
         var $this = $(this);
-        $.each($this.closest('form').find('.focused'), function (i, item) {
-            if ($(item).val().length > 0) {
-                $(item).removeClass('focused');
-            }
-        });
-        //$this.closest('form').find('.focused').removeClass('focused');
-        $this.addClass('focused');
+        $this.parent('.form-line').addClass('focused');
     }).focusout(function (e) {
         var $this = $(this);
-        if ($(this).find('input').val().length <= 0) {
-            $this.removeClass('focused');
+        if ($this.val().length <= 0) {
+            $this.parent('.focused').removeClass('focused');
         }
     });
+
+    // modal show and hide
+    $('.modal[role="dialog"]').on('shown.bs.modal', function (e) {
+        $(this).find('input.form-control').first().focus();
+    }).on('hidden.bs.modal', function (e) {
+        $(this).find('form').clearForm();
+        $(this).find('form').find('.focused').removeClass('focused');
+    });
+
 
     // clear form
     $.fn.clearForm = function (options) {
