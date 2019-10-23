@@ -3,6 +3,10 @@
 
 @model UserCreateInput
 
+@{
+    var Roles = RoleManager.Roles.ToList();
+}
+
 <form id="userCreateForm" asp-action="Create" asp-controller="User"
       data-ajax="true"
       data-ajax-method="post"
@@ -11,11 +15,14 @@
         <h5 class="modal-title">新建用户</h5>
     </div>
     <div class="modal-body">
+        <div class="title">
+            <i class="fa fa-user"></i> 基本信息
+        </div>
         <div class="row clearfix">
             <div class="col-sm-12">
                 <div class="form-group form-float">
                     <div class="form-line">
-                        <input class="form-control" type="text" asp-for="UserName" />
+                        <input class="form-control" type="text" asp-for="UserName" autocomplete="off" />
                         <label class="form-label">用户名</label>
                         <span asp-validation-for="UserName" class="help-block"></span>
                     </div>
@@ -26,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="form-group form-float">
                     <div class="form-line">
-                        <input class="form-control" type="text" asp-for="Email" />
+                        <input class="form-control" type="text" asp-for="Email" autocomplete="off" />
                         <label class="form-label">邮箱</label>
                         <span asp-validation-for="Email" class="help-block"></span>
                     </div>
@@ -63,6 +70,26 @@
                 </div>
             </div>
         </div>
+        @if (Roles.Count > 0)
+        {
+            <div class="title">
+                <i class="fa fa-tag"></i> 角色
+            </div>
+            <div class="row clearfix">
+                @for (var i = 0; i < Roles.Count; i++)
+                {
+                    <div class="col-sm-6">
+                        <div class="checkbox">
+                            <input type="checkbox" asp-for="Roles[i].Selected" />
+                            <label asp-for="Roles[i].Selected">@Roles[i].Name</label>
+                            <input type="hidden" asp-for="Roles[i].Id" value="@Roles[i].Id" />
+                            <input type="hidden" asp-for="Roles[i].Name" value="@Roles[i].Name" />
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>

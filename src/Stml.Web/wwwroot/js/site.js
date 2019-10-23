@@ -28,6 +28,7 @@
     }).on('hidden.bs.modal', function (e) {
         $(this).find('form').clearForm();
         $(this).find('form').find('.focused').removeClass('focused');
+        $(this).find('form').find('input').iCheck('update');
     });
 
 

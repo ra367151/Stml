@@ -53,7 +53,7 @@ namespace Stml.Application.Services
         public async Task<bool> UserLoginAsync(UserLoginInput input)
         {
             var user = await _userManager.FindByNameAsync(input.UserName);
-            if (user == null)
+            if (user == null || !user.IsEnable)
             {
                 return false;
             }

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stml.Application.Dtos.Inputs;
 using Stml.Application.Dtos.Outputs;
+using Stml.Domain.Roles;
 using Stml.Domain.Users;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Collection.Extensions;
@@ -21,14 +22,17 @@ namespace Stml.Application.Services
     public class UserAppService : IUserAppService
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private IMapper _mapper;
         private ILogger<UserAppService> _logger;
 
         public UserAppService(UserManager<User> userManager
+            , RoleManager<Role> roleManager
             , IMapper mapper
             , ILogger<UserAppService> logger)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _mapper = mapper;
             _logger = logger;
         }
@@ -39,6 +43,7 @@ namespace Stml.Application.Services
             var identityResult = await _userManager.CreateAsync(user.Enable(input.IsEnable), input.Password);
             if (identityResult.Succeeded)
             {
+                await _userManager.AddToRolesAsync(user, input.Roles.Where(u => u.Selected).Select(r => r.Name));
                 _logger.LogInformation($"A new account: {input.UserName} created with password: {input.Password}.");
                 return ServiceResult.Success;
             }

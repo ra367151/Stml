@@ -23,6 +23,14 @@ namespace Stml.Application.Dtos.Inputs
         public bool IsEnable { get; set; }
 
         [Display(Name = "角色")]
-        public string[] Roles { get; set; }
+        //public string[] RoleIds { get; set; }
+        public List<CheckboxRoles> Roles { get; set; }
+    }
+
+    public class CheckboxRoles
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public bool Selected { get; set; }
     }
 }
