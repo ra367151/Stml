@@ -10,8 +10,8 @@ using Stml.Infrastructure.Datas;
 namespace Stml.Infrastructure.Datas.Migrations
 {
     [DbContext(typeof(StmlDbContext))]
-    [Migration("20191010084731_AddIdentitys")]
-    partial class AddIdentitys
+    [Migration("20191023064348_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,28 +104,6 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("UserTokens","dbo");
                 });
 
-            modelBuilder.Entity("Stml.Domain.Products.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("Name")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(25);
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products","dbo");
-                });
-
             modelBuilder.Entity("Stml.Domain.Roles.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -150,6 +128,20 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("Roles","dbo");
                 });
 
+            modelBuilder.Entity("Stml.Domain.Roles.RolePermission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RolePermissions","dbo");
+                });
+
             modelBuilder.Entity("Stml.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -160,10 +152,16 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("CreationTime");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsEnable");
+
+                    b.Property<DateTime?>("LastUpdateTime");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -244,6 +242,35 @@ namespace Stml.Infrastructure.Datas.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Stml.Domain.Roles.RolePermission", b =>
+                {
+                    b.HasOne("Stml.Domain.Roles.Role", "Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId");
+
+                    b.OwnsOne("Stml.Infrastructure.Authorizations.Permissions.Permission", "Permission", b1 =>
+                        {
+                            b1.Property<Guid>("RolePermissionId");
+
+                            b1.Property<string>("DisplayName");
+
+                            b1.Property<string>("Group");
+
+                            b1.Property<string>("Name");
+
+                            b1.Property<bool>("Obsolete");
+
+                            b1.HasKey("RolePermissionId");
+
+                            b1.ToTable("RolePermissions","dbo");
+
+                            b1.HasOne("Stml.Domain.Roles.RolePermission")
+                                .WithOne("Permission")
+                                .HasForeignKey("Stml.Infrastructure.Authorizations.Permissions.Permission", "RolePermissionId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 #pragma warning restore 612, 618
         }

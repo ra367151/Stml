@@ -22,22 +22,22 @@ namespace Stml.Web.Startup.Navigations
                     new MenuItem(
                         PageNames.Role,
                         "Role",
-                        "cui-tags"
-                    //PermissionNames.VisitRolePage
+                        "cui-tags",
+                        PermissionNames.VisitRolePage
                     )
                 ).AddItem(
                     new MenuItem(
                         PageNames.User,
                         "User",
-                        "cui-people"
-                    //PermissionNames.VisitUserPage
+                        "cui-people",
+                        PermissionNames.VisitUserPage
                     )
                 ).AddItem(
                     new MenuItem(
                         PageNames.Setting,
                         "Setting",
-                        "cui-settings"
-                    //PermissionNames.VisitSettingPage
+                        "cui-settings",
+                        PermissionNames.VisitSettingPage
                     )
                 );
         }

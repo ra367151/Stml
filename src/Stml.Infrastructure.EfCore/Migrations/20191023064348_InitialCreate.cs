@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Stml.Infrastructure.Datas.Migrations
 {
-    public partial class AddIdentitys : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "Roles",
                 schema: "dbo",
@@ -42,7 +45,10 @@ namespace Stml.Infrastructure.Datas.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    IsEnable = table.Column<bool>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,6 +76,30 @@ namespace Stml.Infrastructure.Datas.Migrations
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RolePermissions",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: true),
+                    Permission_Group = table.Column<string>(nullable: true),
+                    Permission_Name = table.Column<string>(nullable: true),
+                    Permission_DisplayName = table.Column<string>(nullable: true),
+                    Permission_Obsolete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "dbo",
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +203,12 @@ namespace Stml.Infrastructure.Datas.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RolePermissions_RoleId",
+                schema: "dbo",
+                table: "RolePermissions",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 schema: "dbo",
                 table: "Roles",
@@ -217,6 +253,10 @@ namespace Stml.Infrastructure.Datas.Migrations
         {
             migrationBuilder.DropTable(
                 name: "RoleClaims",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "RolePermissions",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

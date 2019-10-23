@@ -8,6 +8,8 @@ using Stml.Application.Dtos.Inputs;
 using Stml.Application.Services;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Applications.MVC.Http;
+using Stml.Infrastructure.Authorizations.Permissions;
+using Stml.Web.Startup.Permissions;
 using static System.Net.WebRequestMethods;
 
 namespace Stml.Web.Controllers
@@ -22,11 +24,14 @@ namespace Stml.Web.Controllers
             _userAppService = userAppService;
         }
 
+        [HasPermission(PermissionNames.VisitUserPage)]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HasPermission(PermissionNames.VisitUserPage)]
+        [Ajax(Http.Get)]
         public async Task<IActionResult> List(string search, int offset = 0, int limit = 10)
         {
             var data = await _userAppService.GetUserPagedListAsync(search, offset, limit);
@@ -37,12 +42,14 @@ namespace Stml.Web.Controllers
             });
         }
 
+        [HasPermission(PermissionNames.UserCreate)]
         [Ajax(Http.Get)]
         public IActionResult CreatePartial()
         {
             return PartialView("Create");
         }
 
+        [HasPermission(PermissionNames.UserCreate)]
         [Ajax(Http.Post)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserCreateInput model)
@@ -55,6 +62,7 @@ namespace Stml.Web.Controllers
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
         }
 
+        [HasPermission(PermissionNames.UserDelete)]
         [Ajax(Http.Post)]
         public async Task Delete(Guid id)
         {

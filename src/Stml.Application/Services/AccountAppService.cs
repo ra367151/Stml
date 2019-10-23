@@ -30,26 +30,6 @@ namespace Stml.Application.Services
             _signInManager = signInManager;
         }
 
-        public async Task<UserRegisterDto> UserRegisterAsync(UserRegisterInput input)
-        {
-            var user = await _userManager.FindByNameAsync(input.UserName);
-            if (user != null)
-            {
-                return new UserRegisterDto("用户名已存在");
-            }
-            user = new User { UserName = input.UserName, Email = input.Email };
-            var identityResult = await _userManager.CreateAsync(user, input.Password);
-            if (identityResult.Succeeded)
-            {
-                _logger.LogInformation($"A new account: {input.UserName} created with password: {input.Password}.");
-
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return new UserRegisterDto();
-            }
-            return new UserRegisterDto(identityResult.Errors.Select(x => x.Description));
-        }
-
         public async Task<bool> UserLoginAsync(UserLoginInput input)
         {
             var user = await _userManager.FindByNameAsync(input.UserName);

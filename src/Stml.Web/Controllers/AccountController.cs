@@ -18,33 +18,6 @@ namespace Stml.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Register(string returnUrl = null)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(UserRegisterInput model, string returnUrl = null)
-        {
-            returnUrl = returnUrl ?? Url.Content("/");
-            if (ModelState.IsValid)
-            {
-                var result = await _accountAppService.UserRegisterAsync(model);
-                if (result.IsSuccess)
-                {
-                    return Redirect(returnUrl);
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-            }
-            return View();
-        }
-
-        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;

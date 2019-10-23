@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Stml.Application.Dtos.Inputs.FluentValidators
 {
+    #region UserCreateInputValidator
     public class UserCreateInputValidator : AbstractValidator<UserCreateInput>
     {
         public UserCreateInputValidator()
@@ -33,4 +34,5 @@ namespace Stml.Application.Dtos.Inputs.FluentValidators
                 .Equal(u => u.Password);
         }
     }
+    #endregion
 }
