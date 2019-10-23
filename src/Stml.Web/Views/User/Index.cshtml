@@ -14,9 +14,12 @@
                 <h4 class="card-title mb-0">用户</h4>
             </div>
             <div class="col-sm-7">
-                <button class="btn btn-primary btn-circle float-right" type="button" data-toggle="modal" data-target="#create-modal">
-                    <i class="cui-plus"></i>
-                </button>
+                @if (IsGranted(PermissionNames.UserCreate))
+                {
+                    <button class="btn btn-primary btn-circle float-right" type="button" data-toggle="modal" data-target="#create-modal">
+                        <i class="cui-plus"></i>
+                    </button>
+                }
             </div>
         </div>
         <div class="row">

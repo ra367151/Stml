@@ -7,13 +7,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Web.Models;
-using Stml.Web.Startup.Permissions;
 
 namespace Stml.Web.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : StmlController
     {
+        public HomeController(IPermissionPacker permissionPacker
+            , IPermissionManager<Permission> permissionManager)
+            : base(permissionPacker, permissionManager)
+        {
+        }
+
         public IActionResult Index()
         {
             return View();

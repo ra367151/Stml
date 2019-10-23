@@ -56,4 +56,15 @@
 
         return $form;
     };
+
+    // store signed user permissions to SessionStorage.
+    $.get('/Stml/GetUserPermissions', function (resp) {
+        localStorage.permissions = JSON.stringify(resp);
+    });
+
+    window.user = {
+        check: function (permission) {
+            return localStorage.permissions != null && JSON.parse(localStorage.permissions).indexOf(permission) > 0;
+        }
+    };
 })();

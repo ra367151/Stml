@@ -5,14 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Application.Dtos.Inputs;
 using Stml.Application.Services;
+using Stml.Infrastructure.Authorizations.Permissions;
 
 namespace Stml.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : StmlController
     {
         private readonly IAccountAppService _accountAppService;
 
-        public AccountController(IAccountAppService accountAppService)
+        public AccountController(IPermissionPacker permissionPacker
+            , IPermissionManager<Permission> permissionManager
+            , IAccountAppService accountAppService)
+            : base(permissionPacker, permissionManager)
         {
             _accountAppService = accountAppService;
         }

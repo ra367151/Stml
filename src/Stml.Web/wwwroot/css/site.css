@@ -20,11 +20,6 @@
     font-size: 16px !important
 }
 
-td.dropdown .dropdown-menu {
-    min-width: 100px;
-    margin-top: -40px !important
-}
-
 .bootstrap-table th {
     border: 1px !important;
 }

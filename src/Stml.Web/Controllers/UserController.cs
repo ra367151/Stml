@@ -15,11 +15,14 @@ using static System.Net.WebRequestMethods;
 namespace Stml.Web.Controllers
 {
     [Authorize]
-    public class UserController : Controller
+    public class UserController : StmlController
     {
         private readonly IUserAppService _userAppService;
 
-        public UserController(IUserAppService userAppService)
+        public UserController(IPermissionPacker permissionPacker
+            , IPermissionManager<Permission> permissionManager
+            , IUserAppService userAppService)
+            : base(permissionPacker, permissionManager)
         {
             _userAppService = userAppService;
         }

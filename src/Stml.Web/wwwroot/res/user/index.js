@@ -40,15 +40,20 @@ var $table = $("#tb-users")
         }, {
             field: 'operate',
             title: '操作',
-            width: '100px',
-            class: 'dropdown',
+            width: 100 + 'px',
             formatter: function (value, row, index) {
-                var operateBtn = '';
-                operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
-                operateBtn += '<div class="dropdown-menu">';
-                operateBtn += '<a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> 编辑</a>';
-                operateBtn += '<a class="dropdown-item" href="javascript:funcs.delete(\'' + row.id + '\')"><i class="fa fa-trash"></i> 删除</a>';
-                operateBtn += '</div>';
+                var operateBtn = '<div class="dropdown">';
+                if (window.user.check('UserEdit') || window.user.check('UserDelete')) {
+                    operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
+                    operateBtn += '<div class="dropdown-menu pull-right">';
+                    if (window.user.check('UserEdit')) {
+                        operateBtn += '<a class="dropdown-item" href="javascript:funcs.edit(\'' + row.id + '\')"><i class="fa fa-pencil"></i> 编辑</a>';
+                    }
+                    if (window.user.check('UserDelete')) {
+                        operateBtn += '<a class="dropdown-item" href="javascript:funcs.delete(\'' + row.id + '\')"><i class="fa fa-trash"></i> 删除</a>';
+                    }
+                    operateBtn += '</div></div>';
+                }
                 return operateBtn;
             }
         }],
