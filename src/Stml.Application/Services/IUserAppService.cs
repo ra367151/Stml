@@ -13,5 +13,6 @@ namespace Stml.Application.Services
         Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int skip, int take);
         Task<ServiceResult> CreateUserAsync(UserCreateInput input);
         Task DeleteUserAsync(Guid id);
+        Task<UserEditInput> FindUserEditModelAsync(Guid id);
     }
 }

@@ -1,12 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Stml.Domain.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Stml.Application.Dtos.Inputs
 {
-    public class UserCreateInput
+    [AutoMap(typeof(User))]
+    public class UserEditInput
     {
+        public Guid Id { get; set; }
+
         [Display(Name = "用户名")]
         public string UserName { get; set; }
 

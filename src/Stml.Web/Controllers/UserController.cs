@@ -52,6 +52,13 @@ namespace Stml.Web.Controllers
             return PartialView("Create");
         }
 
+        [HasPermission(PermissionNames.UserEdit)]
+        [Ajax(Http.Get)]
+        public IActionResult EditPartial(Guid id)
+        {
+            return PartialView("Edit");
+        }
+
         [HasPermission(PermissionNames.UserCreate)]
         [Ajax(Http.Post)]
         [ValidateAntiForgeryToken]

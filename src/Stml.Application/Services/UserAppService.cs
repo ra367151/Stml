@@ -13,6 +13,7 @@ using Stml.Application.Dtos.Outputs;
 using Stml.Domain.Roles;
 using Stml.Domain.Users;
 using Stml.Infrastructure.Applications.Dto;
+using Stml.Infrastructure.Applications.Exceptions;
 using Stml.Infrastructure.Collection.Extensions;
 using Stml.Infrastructure.Extensions;
 using Stml.Infrastructure.Linq.Extensions;
@@ -23,8 +24,8 @@ namespace Stml.Application.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private IMapper _mapper;
-        private ILogger<UserAppService> _logger;
+        private readonly IMapper _mapper;
+        private readonly ILogger<UserAppService> _logger;
 
         public UserAppService(UserManager<User> userManager
             , RoleManager<Role> roleManager
@@ -76,6 +77,11 @@ namespace Stml.Application.Services
             {
                 await _userManager.DeleteAsync(user);
             }
+        }
+
+        public Task<UserEditInput> FindUserEditModelAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
