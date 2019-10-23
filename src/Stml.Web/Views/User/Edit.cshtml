@@ -1,1 +1,98 @@
-﻿
+﻿@model UserEditInput
+
+<form id="userEditForm" asp-action="Edit" asp-controller="User"
+      data-ajax="true"
+      data-ajax-method="post"
+      data-ajax-success="funcs.editAjaxResponse.success">
+    <div class="modal-header">
+        <h5 class="modal-title">编辑用户</h5>
+    </div>
+    <div class="modal-body">
+        <div class="title">
+            <i class="fa fa-user"></i> 基本信息
+        </div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="UserName" autocomplete="off" />
+                        <label class="form-label">用户名</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="text" asp-for="Email" autocomplete="off" />
+                        <label class="form-label">邮箱</label>
+                        <span asp-validation-for="Email" class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="password" asp-for="Password" />
+                        <label class="form-label">密码</label>
+                        <span asp-validation-for="Password" class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="form-group form-float">
+                    <div class="form-line">
+                        <input class="form-control" type="password" asp-for="ConfirmPassword" />
+                        <label class="form-label">确认密码</label>
+                        <span asp-validation-for="ConfirmPassword" class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <input type="checkbox" asp-for="IsEnable" />
+                    <label asp-for="IsEnable">启用</label>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <i class="fa fa-tag"></i> 角色
+        </div>
+        <div class="row clearfix">
+            @for (var i = 0; i < Model.Roles.Count; i++)
+            {
+                <div class="col-sm-6">
+                    <div class="checkbox">
+                        <input type="checkbox" asp-for="Roles[i].Selected" />
+                        <label asp-for="Roles[i].Selected">@Model.Roles[i].Name</label>
+                        <input type="hidden" asp-for="Roles[i].Id" value="@Model.Roles[i].Id" />
+                        <input type="hidden" asp-for="Roles[i].Name" value="@Model.Roles[i].Name" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary btn-sm">提交</button>
+    </div>
+</form>
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    await Html.RenderPartialAsync("_AjaxScriptsPartial");
+}
+
+<script>
+    $('input[type="checkbox"]').iCheck({
+        checkboxClass: 'icheckbox_minimal-red'
+    });
+</script>

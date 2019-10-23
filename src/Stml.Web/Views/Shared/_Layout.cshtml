@@ -13,6 +13,8 @@
 
     @{await Html.RenderPartialAsync("_CoreStylesPartial"); }
 
+    @{await Html.RenderPartialAsync("_CoreScriptsPartial");}
+
     @RenderSection("Styles", false)
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -44,9 +46,7 @@
 
     <partial name="_app-footer" />
 
-    @{
-        await Html.RenderPartialAsync("_CoreScriptsPartial");
-    }
+
 
     <environment include="Development">
         <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,8 +1,10 @@
 ﻿"use strict";
 
 var $table = $("#tb-users")
-    , $createModal = $("#create-modal")
-    , $createForm = $('#userCreateForm')
+    , CREATE_MODAL_TARGET = "#create-modal"
+    , EDIT_MODAL_TARGET = "#edit-modal"
+    , $createModal = $(CREATE_MODAL_TARGET)
+    , $editModal = $(EDIT_MODAL_TARGET)
     , TABLE_OPTIONS_CLASS = "table"
     , TABLE_OPTIONS_METHOD = "get"
     , TABLE_OPTIONS_URL = "/User/List"
@@ -14,6 +16,8 @@ var $table = $("#tb-users")
     , TABLE_OPTIONS_PAGESIZE = 5
     , TABLE_OPTIONS_PAGELIST = [10, 25, 50]
     , TABLE_OPTIONS_SIDE_PAGINATION = "server"
+    , USER_CREATE_URL = "/User/CreatePartial"
+    , USER_EDIT_URL = "/User/EditPartial"
     , USER_DELETE_URL = "/User/Delete"
     , $tableOptions = {
         classes: TABLE_OPTIONS_CLASS,
@@ -47,10 +51,10 @@ var $table = $("#tb-users")
                     operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
                     operateBtn += '<div class="dropdown-menu pull-right">';
                     if (window.user.check('UserEdit')) {
-                        operateBtn += '<a class="dropdown-item" href="javascript:funcs.edit(\'' + row.id + '\')"><i class="fa fa-pencil"></i> 编辑</a>';
+                        operateBtn += '<a class="dropdown-item" onclick="funcs.edit(\'' + row.id + '\')" data-toggle="modal" data-target="' + EDIT_MODAL_TARGET + '"><i class="fa fa-pencil"></i> 编辑</a>';
                     }
                     if (window.user.check('UserDelete')) {
-                        operateBtn += '<a class="dropdown-item" href="javascript:funcs.delete(\'' + row.id + '\')"><i class="fa fa-trash"></i> 删除</a>';
+                        operateBtn += '<a class="dropdown-item" onclick="funcs.delete(\'' + row.id + '\')"><i class="fa fa-trash"></i> 删除</a>';
                     }
                     operateBtn += '</div></div>';
                 }
@@ -80,11 +84,6 @@ var funcs = {
     initTable: function () {
         $table.bootstrapTable("destroy").bootstrapTable($tableOptions);
     },
-    initiCheck: function () {
-        $('input[type="checkbox"]').iCheck({
-            checkboxClass: 'icheckbox_minimal-red'
-        });
-    },
     createAjaxResponse: {
         success: function (result) {
             if (result.isSuccess) {
@@ -97,6 +96,28 @@ var funcs = {
             }
         }
     },
+    editAjaxResponse: {
+        success: function (resule) {
+            if (result.isSuccess) {
+                toastr.success("编辑用户成功！");
+                $createModal.modal('hide');
+                $table.bootstrapTable('refresh', { pageNumber: 1 });
+            }
+            else {
+                toastr.error("编辑用户失败： " + result.errors[0]);
+            }
+        }
+    },
+    create: function () {
+        $.get(USER_CREATE_URL, function (resp) {
+            $createModal.find('.modal-content').html(resp);
+        });
+    },
+    edit: function (id) {
+        $.get(USER_EDIT_URL, { id: id }, function (resp) {
+            $editModal.find('.modal-content').html(resp);
+        });
+    },
     delete: function (id) {
         $.post(USER_DELETE_URL, { id: id }, function (resp) {
             toastr.success("删除用户成功!");
@@ -107,5 +128,4 @@ var funcs = {
 
 $(function () {
     funcs.initTable();
-    funcs.initiCheck();
 });

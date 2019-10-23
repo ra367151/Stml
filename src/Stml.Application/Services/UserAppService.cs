@@ -79,9 +79,31 @@ namespace Stml.Application.Services
             }
         }
 
-        public Task<UserEditInput> FindUserEditModelAsync(Guid id)
+        public async Task<UserEditInput> FindUserEditModelAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+                throw new FriendlyException("用户不存在，可能已经被删除");
+            var dto = _mapper.Map<UserEditInput>(user);
+            var userRolesNames = await _userManager.GetRolesAsync(user);
+            dto.Roles = await _roleManager.Roles
+                                    .Select(x => new CheckboxRole(x.Id, x.Name, userRolesNames.Contains(x.Name)))
+                                    .ToListAsync();
+            return dto;
+        }
+
+        public async Task<ServiceResult> EditUserAsync(UserEditInput input)
+        {
+            var user = await _userManager.FindByIdAsync(input.Id.ToString());
+            if (user == null)
+                throw new FriendlyException("用户不存在，可能已经被删除");
+            user = _mapper.Map<User>(input);
+            var identityResult = await _userManager.UpdateAsync(user);
+            if (identityResult.Succeeded)
+            {
+                return ServiceResult.Success;
+            }
+            return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
         }
     }
 }

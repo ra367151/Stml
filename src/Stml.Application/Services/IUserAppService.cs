@@ -14,5 +14,6 @@ namespace Stml.Application.Services
         Task<ServiceResult> CreateUserAsync(UserCreateInput input);
         Task DeleteUserAsync(Guid id);
         Task<UserEditInput> FindUserEditModelAsync(Guid id);
+        Task<ServiceResult> EditUserAsync(UserEditInput input);
     }
 }

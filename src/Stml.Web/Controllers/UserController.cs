@@ -54,9 +54,10 @@ namespace Stml.Web.Controllers
 
         [HasPermission(PermissionNames.UserEdit)]
         [Ajax(Http.Get)]
-        public IActionResult EditPartial(Guid id)
+        public async Task<IActionResult> EditPartial(Guid id)
         {
-            return PartialView("Edit");
+            var model = await _userAppService.FindUserEditModelAsync(id);
+            return PartialView("Edit", model);
         }
 
         [HasPermission(PermissionNames.UserCreate)]
@@ -67,6 +68,18 @@ namespace Stml.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _userAppService.CreateUserAsync(model);
+                return Json(result);
+            }
+            return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
+        }
+
+        [HasPermission(PermissionNames.UserEdit)]
+        [Ajax(Http.Post)]
+        public async Task<IActionResult> Edit(UserEditInput model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userAppService.EditUserAsync(model);
                 return Json(result);
             }
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));

@@ -6,6 +6,8 @@ namespace Stml.Application.Dtos.Inputs
 {
     public class CheckboxRole
     {
+        public CheckboxRole() { }
+
         public CheckboxRole(Guid id, string name, bool selected)
         {
             Id = id;

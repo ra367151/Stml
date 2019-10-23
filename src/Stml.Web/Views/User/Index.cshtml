@@ -16,7 +16,7 @@
             <div class="col-sm-7">
                 @if (IsGranted(PermissionNames.UserCreate))
                 {
-                    <button class="btn btn-primary btn-circle float-right" type="button" data-toggle="modal" data-target="#create-modal">
+                    <button class="btn btn-primary btn-circle float-right" type="button" data-toggle="modal" data-target="#create-modal" onclick="funcs.create();">
                         <i class="cui-plus"></i>
                     </button>
                 }
@@ -34,17 +34,19 @@
 <div id="create-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            @{await Html.RenderPartialAsync("Create");}
+        </div>
+    </div>
+</div>
+
+<!-- User Edit Modal -->
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
         </div>
     </div>
 </div>
 
 @section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        await Html.RenderPartialAsync("_AjaxScriptsPartial");
-    }
-
     <environment include="Development">
         <script src="~/res/user/index.js" asp-append-version="true"></script>
     </environment>

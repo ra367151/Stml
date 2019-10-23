@@ -12,10 +12,10 @@
     });
 
     // form focus
-    $('.form-group .form-line input.form-control').focusin(function (e) {
+    $(document).on('focusin', '.form-group .form-line input.form-control', function () {
         var $this = $(this);
         $this.parent('.form-line').addClass('focused');
-    }).focusout(function (e) {
+    }).on('focusout', '.form-group .form-line input.form-control', function () {
         var $this = $(this);
         if ($this.val().length <= 0) {
             $this.parent('.focused').removeClass('focused');
@@ -26,9 +26,9 @@
     $('.modal[role="dialog"]').on('shown.bs.modal', function (e) {
         $(this).find('input.form-control').first().focus();
     }).on('hidden.bs.modal', function (e) {
-        $(this).find('form').clearForm();
-        $(this).find('form').find('.focused').removeClass('focused');
-        $(this).find('form').find('input').iCheck('update');
+        //$(this).find('form').clearForm();
+        //$(this).find('form').find('.focused').removeClass('focused');
+        //$(this).find('form').find('input').iCheck('update');
     });
 
 

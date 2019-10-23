@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Stml.Application.Dtos.Inputs
 {
-    [AutoMap(typeof(User))]
+    [AutoMap(typeof(User), ReverseMap = true)]
     public class UserEditInput
     {
         public Guid Id { get; set; }

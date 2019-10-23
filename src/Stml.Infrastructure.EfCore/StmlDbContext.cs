@@ -1,8 +1,6 @@
 ﻿using JetBrains.Annotations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-//using Stml.Domain.Products;
 using Stml.Domain.Roles;
 using Stml.Domain.Users;
 using System;
@@ -14,7 +12,7 @@ namespace Stml.Infrastructure.Datas
 {
     public class StmlDbContext : IdentityDbContext<User, Role, Guid>
     {
-        public StmlDbContext(DbContextOptions<StmlDbContext> options) : base(options)
+        public StmlDbContext([NotNull]DbContextOptions<StmlDbContext> options) : base(options)
         {
         }
 
