@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Stml.Domain.Repositories.Extensions
+namespace Stml.Domain.Repositories
 {
     public static class DomainRepositoryExtensions
     {

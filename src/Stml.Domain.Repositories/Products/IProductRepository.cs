@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Domain.Repositories
+namespace Stml.Domain.Repositories.Products
 {
     //public interface IProductRepository : IEfCoreRepository<StmlDbContext, Product>
     //{

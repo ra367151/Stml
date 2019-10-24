@@ -16,7 +16,7 @@
             <div class="col-sm-7">
                 @if (IsGranted(PermissionNames.UserCreate))
                 {
-                    <button class="btn btn-primary btn-circle float-right" type="button" data-toggle="modal" data-target="#create-modal" onclick="funcs.create();">
+                    <button class="btn btn-primary btn-circle float-right create-user" type="button" data-toggle="modal" data-target="#create-modal">
                         <i class="cui-plus"></i>
                     </button>
                 }
@@ -47,6 +47,11 @@
 </div>
 
 @section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_AjaxScriptsPartial");
+    }
+
     <environment include="Development">
         <script src="~/res/user/index.js" asp-append-version="true"></script>
     </environment>

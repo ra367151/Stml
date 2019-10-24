@@ -29,7 +29,11 @@ namespace Stml.Infrastructure.Datas
         {
             if (!roleManager.RoleExistsAsync(PermissionConstants.SuperAdminRoleName).Result)
             {
-                roleManager.CreateAsync(new Role { Name = PermissionConstants.SuperAdminRoleName }).Wait();
+                roleManager.CreateAsync(new Role
+                {
+                    Name = PermissionConstants.SuperAdminRoleName,
+                    DisplayName = PermissionConstants.SuperAdminRoleDisplayName
+                }).Wait();
             }
         }
 

@@ -1,70 +1,83 @@
 ﻿"use strict";
 
 (function () {
-    var TOASTR_POSITION_CLASS = "toast-bottom-right";
+    var TOASTR_POSITION_CLASS = "toast-bottom-right"
+        , CHECKBOX_CLASS_NAME = "icheckbox_minimal-red"
+        , PERMISSIONS_REQUEST_URL = "/Stml/GetUserPermissions";
 
-    // set global options of toastr.
-    toastr.options.positionClass = TOASTR_POSITION_CLASS;
-
-    // set global ajax error event.
-    $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
-        toastr.error('抱歉！服务端发生了未知的错误', "错误");
-    });
-
-    // form focus
-    $(document).on('focusin', '.form-group .form-line input.form-control', function () {
-        var $this = $(this);
-        $this.parent('.form-line').addClass('focused');
-    }).on('focusout', '.form-group .form-line input.form-control', function () {
-        var $this = $(this);
-        if ($this.val().length <= 0) {
-            $this.parent('.focused').removeClass('focused');
+    var activator = {
+        input: {
+            activate: function ($parentSelector) {
+                $parentSelector = $parentSelector || $('body');
+                $parentSelector.find('.form-control').focus(function () {
+                    $(this).parent().addClass('focused');
+                });
+                $parentSelector.find('.form-control').focusout(function () {
+                    var $this = $(this);
+                    if ($this.parents('.form-group').hasClass('form-float')) {
+                        if ($this.val() == '') { $this.parents('.form-line').removeClass('focused'); }
+                    }
+                    else {
+                        $this.parents('.form-line').removeClass('focused');
+                    }
+                });
+                $parentSelector.on('click', '.form-float .form-line .form-label', function () {
+                    $(this).parent().find('input').focus();
+                });
+                $parentSelector.find('.form-control').each(function () {
+                    if ($(this).val() !== '') {
+                        $(this).parents('.form-line').addClass('focused');
+                    }
+                });
+            }
+        },
+        select: {
+            activate: function () {
+                if ($.fn.selectpicker) { $('select:not(.ms)').selectpicker(); }
+            }
         }
-    });
-
-    // modal show and hide
-    $('.modal[role="dialog"]').on('shown.bs.modal', function (e) {
-        $(this).find('input.form-control').first().focus();
-    }).on('hidden.bs.modal', function (e) {
-        //$(this).find('form').clearForm();
-        //$(this).find('form').find('.focused').removeClass('focused');
-        //$(this).find('form').find('input').iCheck('update');
-    });
-
-
-    // clear form
-    $.fn.clearForm = function (options) {
-        var settings = $.extend({
-            formId: this.closest('form')
-        }, options);
-
-        var $form = $(settings.formId);
-
-        $form.validate().resetForm();
-
-        $form.find("[data-valmsg-summary=true]")
-            .removeClass("validation-summary-errors")
-            .addClass("validation-summary-valid")
-            .find("ul").empty();
-
-        $form.find("[data-valmsg-replace]")
-            .removeClass("field-validation-error")
-            .addClass("field-validation-valid")
-            .empty();
-
-        $form[0].reset();
-
-        return $form;
     };
 
-    // store signed user permissions to SessionStorage.
-    $.get('/Stml/GetUserPermissions', function (resp) {
-        localStorage.permissions = JSON.stringify(resp);
-    });
-
+    // get user object to check permission.
     window.user = {
         check: function (permission) {
             return localStorage.permissions != null && JSON.parse(localStorage.permissions).indexOf(permission) > 0;
         }
     };
+
+    var funcs = {
+        setDefaultToastrOptions: function () {
+            toastr.options.positionClass = TOASTR_POSITION_CLASS;
+        },
+        setDefaultAjaxErrorEvent: function () {
+            $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
+                toastr.error('抱歉！服务端发生了未知的错误', "错误");
+            });
+        },
+        setDefaultModalShownEvent: function () {
+            $('.modal[role="dialog"]').on('shown.bs.modal', function (e) {
+                activator.input.activate($(this).find('form'));
+                $(this).find('input:not([type=hidden]):first').focus();
+
+                // init iCheck.
+                $('input[type="checkbox"]').iCheck({ checkboxClass: CHECKBOX_CLASS_NAME });
+
+                // add validation to dynamic form.
+                $.validator.unobtrusive.parse($(this).find('form'));
+            });
+        },
+        loadPermissions: function () {
+            $.get(PERMISSIONS_REQUEST_URL, function (resp) {
+                localStorage.permissions = JSON.stringify(resp);
+            });
+        }
+    };
+
+
+    funcs.setDefaultToastrOptions();
+    funcs.setDefaultAjaxErrorEvent();
+    funcs.setDefaultModalShownEvent();
+    funcs.loadPermissions();
+    activator.input.activate();
+    activator.select.activate();
 })();

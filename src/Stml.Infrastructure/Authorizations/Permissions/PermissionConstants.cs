@@ -8,6 +8,7 @@ namespace Stml.Infrastructure.Authorizations.Permissions
     {
         public const string PermissionClaimType = "Permissions";
 
-        public const string SuperAdminRoleName = "超级管理员";
+        public const string SuperAdminRoleName = "Administrator";
+        public const string SuperAdminRoleDisplayName = "超级管理员";
     }
 }

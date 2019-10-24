@@ -1,7 +1,9 @@
-﻿@using Stml.Domain.Roles;
+﻿@using Stml.Web.Models.Users;
+@using Stml.Domain.Roles;
+
 @inject RoleManager<Role> RoleManager
 
-@model UserCreateInput
+@model UserCreateViewModel
 
 @{
     var Roles = RoleManager.Roles.ToList();
@@ -10,7 +12,7 @@
 <form id="userCreateForm" asp-action="Create" asp-controller="User"
       data-ajax="true"
       data-ajax-method="post"
-      data-ajax-success="funcs.createAjaxResponse.success">
+      data-ajax-success="createUserSuccess">
     <div class="modal-header">
         <h5 class="modal-title">新建用户</h5>
     </div>
@@ -65,8 +67,8 @@
         <div class="row clearfix">
             <div class="col-sm-12">
                 <div class="checkbox">
-                    <input type="checkbox" asp-for="IsEnable" />
-                    <label asp-for="IsEnable">启用</label>
+                    <input type="checkbox" asp-for="IsActive" />
+                    <label asp-for="IsActive">启用</label>
                 </div>
             </div>
         </div>
@@ -80,10 +82,10 @@
                 {
                     <div class="col-sm-6">
                         <div class="checkbox">
-                            <input type="checkbox" asp-for="Roles[i].Selected" />
-                            <label asp-for="Roles[i].Selected">@Roles[i].Name</label>
-                            <input type="hidden" asp-for="Roles[i].Id" value="@Roles[i].Id" />
+                            <input type="checkbox" asp-for="Roles[i].Checked" />
+                            <label asp-for="Roles[i].Checked">@Roles[i].DisplayName</label>
                             <input type="hidden" asp-for="Roles[i].Name" value="@Roles[i].Name" />
+                            <input type="hidden" asp-for="Roles[i].DisplayName" value="@Roles[i].DisplayName" />
                         </div>
                     </div>
                 }
@@ -96,14 +98,3 @@
         <button type="submit" class="btn btn-primary btn-sm">提交</button>
     </div>
 </form>
-
-@{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    await Html.RenderPartialAsync("_AjaxScriptsPartial");
-}
-
-<script>
-    $('input[type="checkbox"]').iCheck({
-        checkboxClass: 'icheckbox_minimal-red'
-    });
-</script>

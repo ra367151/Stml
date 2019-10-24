@@ -6,25 +6,21 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Stml.Application.Dtos.Inputs;
-using Stml.Application.Dtos.Outputs;
+using Stml.Application.Accounts.Dto;
 using Stml.Domain.Users;
 
-namespace Stml.Application.Services
+namespace Stml.Application.Accounts
 {
     public class AccountAppService : IAccountAppService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IMapper _mapper;
         private readonly ILogger<AccountAppService> _logger;
 
-        public AccountAppService(IMapper mapper
-            , ILogger<AccountAppService> logger
+        public AccountAppService(ILogger<AccountAppService> logger
             , UserManager<User> userManager
             , SignInManager<User> signInManager)
         {
-            _mapper = mapper;
             _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +29,7 @@ namespace Stml.Application.Services
         public async Task<bool> UserLoginAsync(UserLoginInput input)
         {
             var user = await _userManager.FindByNameAsync(input.UserName);
-            if (user == null || !user.IsEnable)
+            if (user == null || !user.IsActive)
             {
                 return false;
             }

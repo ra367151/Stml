@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Stml.Application.Dtos.Inputs
+namespace Stml.Web.Models.Accounts
 {
-    public class UserLoginInput
+    public class UserLoginViewModel
     {
         [Display(Name = "账号")]
+        [Required]
         public string UserName { get; set; }
 
         [Display(Name = "密码")]
         [DataType(DataType.Password)]
+        [Required]
         public string Password { get; set; }
 
         [Display(Name = "记住密码")]

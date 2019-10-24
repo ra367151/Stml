@@ -23,6 +23,8 @@ namespace Stml.Infrastructure.Datas.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ToTable("Roles", "dbo");
+
+            builder.Property(r => r.DisplayName).HasMaxLength(256);
         }
     }
 

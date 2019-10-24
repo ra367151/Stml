@@ -8,8 +8,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Stml.Application.Dtos.Inputs;
-using Stml.Application.Dtos.Outputs;
+using Stml.Application.Users.Dto;
 using Stml.Domain.Roles;
 using Stml.Domain.Users;
 using Stml.Infrastructure.Applications.Dto;
@@ -41,10 +40,10 @@ namespace Stml.Application.Services
         public async Task<ServiceResult> CreateUserAsync(UserCreateInput input)
         {
             var user = new User { UserName = input.UserName, Email = input.Email };
-            var identityResult = await _userManager.CreateAsync(user.Enable(input.IsEnable), input.Password);
+            var identityResult = await _userManager.CreateAsync(input.IsActive ? user.UpdateToActive() : user.UpdateToUnActive(), input.Password);
             if (identityResult.Succeeded)
             {
-                await _userManager.AddToRolesAsync(user, input.Roles.Where(u => u.Selected).Select(r => r.Name));
+                await _userManager.AddToRolesAsync(user, input.Roles);
                 _logger.LogInformation($"A new account: {input.UserName} created with password: {input.Password}.");
                 return ServiceResult.Success;
             }
@@ -79,16 +78,14 @@ namespace Stml.Application.Services
             }
         }
 
-        public async Task<UserEditInput> FindUserEditModelAsync(Guid id)
+        public async Task<UserDto> FindUserAsync(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
-            if (user == null)
-                throw new FriendlyException("用户不存在，可能已经被删除");
-            var dto = _mapper.Map<UserEditInput>(user);
-            var userRolesNames = await _userManager.GetRolesAsync(user);
-            dto.Roles = await _roleManager.Roles
-                                    .Select(x => new CheckboxRole(x.Id, x.Name, userRolesNames.Contains(x.Name)))
-                                    .ToListAsync();
+            var dto = _mapper.Map<UserDto>(user);
+            if (user != null)
+            {
+                dto.Roles = (await _userManager.GetRolesAsync(user)).ToArray();
+            }
             return dto;
         }
 
@@ -96,11 +93,18 @@ namespace Stml.Application.Services
         {
             var user = await _userManager.FindByIdAsync(input.Id.ToString());
             if (user == null)
-                throw new FriendlyException("用户不存在，可能已经被删除");
-            user = _mapper.Map<User>(input);
+                throw new UserFriendlyException("用户不存在");
+            user.UpdateUserName(input.UserName).UpdateEmai(input.Email);
+            if (input.IsActive)
+                user.UpdateToActive();
+            else
+                user.UpdateToUnActive();
             var identityResult = await _userManager.UpdateAsync(user);
             if (identityResult.Succeeded)
             {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, userRoles.Except(input.Roles));
+                await _userManager.AddToRolesAsync(user, input.Roles.Except(userRoles));
                 return ServiceResult.Success;
             }
             return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());

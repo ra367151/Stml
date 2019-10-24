@@ -12,25 +12,42 @@ namespace Stml.Domain.Users
         {
             Id = Guid.NewGuid();
             CreationTime = DateTime.Now;
-            IsEnable = true;
+            IsActive = true;
         }
 
-        public bool IsEnable { get; private set; }
+        public bool IsActive { get; private set; }
 
         public DateTime CreationTime { get; private set; }
 
         public DateTime? LastUpdateTime { get; private set; }
 
+        public User UpdateUserName(string username)
+        {
+            UserName = username;
+            return Update();
+        }
+
+        public User UpdateEmai(string email)
+        {
+            Email = email;
+            return Update();
+        }
+
+        public User UpdateToActive()
+        {
+            IsActive = true;
+            return Update();
+        }
+
+        public User UpdateToUnActive()
+        {
+            IsActive = false;
+            return Update();
+        }
 
         public User Update()
         {
             LastUpdateTime = DateTime.Now;
-            return this;
-        }
-
-        public User Enable(bool isEnable = true)
-        {
-            IsEnable = isEnable;
             return this;
         }
     }

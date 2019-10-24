@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Stml.Application.Dtos.Inputs;
-using Stml.Application.Services;
+using Stml.Application.Accounts;
+using Stml.Application.Accounts.Dto;
 using Stml.Infrastructure.Authorizations.Permissions;
+using Stml.Web.Models.Accounts;
 
 namespace Stml.Web.Controllers
 {
@@ -30,11 +31,11 @@ namespace Stml.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(UserLoginInput model, string returnUrl = "/")
+        public async Task<ActionResult> Login(UserLoginViewModel model, string returnUrl = "/")
         {
             if (ModelState.IsValid)
             {
-                var result = await _accountAppService.UserLoginAsync(model);
+                var result = await _accountAppService.UserLoginAsync(new UserLoginInput(model.UserName, model.Password, model.RememberMe));
                 if (result)
                 {
                     return Redirect(returnUrl);

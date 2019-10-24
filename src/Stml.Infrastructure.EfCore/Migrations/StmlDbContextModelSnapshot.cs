@@ -110,6 +110,9 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(256);
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -157,7 +160,7 @@ namespace Stml.Infrastructure.Datas.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<bool>("IsEnable");
+                    b.Property<bool>("IsActive");
 
                     b.Property<DateTime?>("LastUpdateTime");
 

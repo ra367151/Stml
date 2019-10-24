@@ -10,7 +10,7 @@ using Stml.Infrastructure.Datas;
 namespace Stml.Infrastructure.Datas.Migrations
 {
     [DbContext(typeof(StmlDbContext))]
-    [Migration("20191023064348_InitialCreate")]
+    [Migration("20191024093035_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,9 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(256);
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -159,7 +162,7 @@ namespace Stml.Infrastructure.Datas.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<bool>("IsEnable");
+                    b.Property<bool>("IsActive");
 
                     b.Property<DateTime?>("LastUpdateTime");
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Application.Dtos.Inputs
+namespace Stml.Application.Users.Dto
 {
     public class CheckboxRole
     {

@@ -13,6 +13,8 @@ namespace Stml.Domain.Roles
             Id = Guid.NewGuid();
         }
 
+        public string DisplayName { get; set; }
+
         public ICollection<RolePermission> Permissions { get; private set; }
     }
 }

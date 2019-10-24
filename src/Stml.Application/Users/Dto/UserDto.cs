@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Application.Dtos.Outputs
+namespace Stml.Application.Users.Dto
 {
     [AutoMap(typeof(User))]
     public class UserDto
@@ -17,7 +17,7 @@ namespace Stml.Application.Dtos.Outputs
 
         public DateTime CreationTime { get; set; }
 
-        public bool IsEnable { get; set; }
+        public bool IsActive { get; set; }
 
         public string DateOfCreation
         {
@@ -34,5 +34,7 @@ namespace Stml.Application.Dtos.Outputs
                 return CreationTime.ToLongTimeString();
             }
         }
+
+        public string[] Roles { get; set; }
     }
 }

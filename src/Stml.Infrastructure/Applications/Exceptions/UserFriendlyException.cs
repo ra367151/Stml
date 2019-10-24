@@ -4,21 +4,21 @@ using System.Text;
 
 namespace Stml.Infrastructure.Applications.Exceptions
 {
-    public class FriendlyException : Exception
+    public class UserFriendlyException : Exception
     {
-        public FriendlyException()
+        public UserFriendlyException()
             : base("系统发生了一个致命的错误！")
         {
 
         }
 
-        public FriendlyException(string message)
+        public UserFriendlyException(string message)
             : base(message)
         {
 
         }
 
-        public FriendlyException(string message, Exception innerException)
+        public UserFriendlyException(string message, Exception innerException)
             : base(message, innerException)
         {
 

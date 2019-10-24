@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Stml.Application.Extensions
+namespace Stml.Application
 {
     public static class ApplicationServiceExtensions
     {
