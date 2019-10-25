@@ -5,7 +5,7 @@ namespace Stml.Domain
 {
     public static class DomainServiceExtensions
     {
-        public static ContainerBuilder ConfigureDomainServicesByConvension(this ContainerBuilder builder)
+        public static ContainerBuilder ConfigureDomainModuleServices(this ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(p => p.Name.EndsWith("DomainService"))

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stml.Infrastructure.Uow
 {
-    public class EfCoreUnitOfWork<TDbContext> : IEfCoreUnitOfWork<TDbContext>
-        where TDbContext : DbContext
+    public class EfCoreUnitOfWork<TDbContext> : IEfCoreUnitOfWork<TDbContext> where TDbContext : DbContext
     {
         private readonly TDbContext _dbContext;
 
