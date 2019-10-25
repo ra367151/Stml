@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Stml.Domain.Roles;
-using Stml.Infrastructure.Authorizations.Permissions;
+﻿using Stml.Infrastructure.Authorizations.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Text;

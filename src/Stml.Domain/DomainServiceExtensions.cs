@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using System.Reflection;
 
-namespace Stml.Domain.Extensions
+namespace Stml.Domain
 {
     public static class DomainServiceExtensions
     {

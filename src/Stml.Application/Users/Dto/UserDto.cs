@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Stml.Domain.Users;
+﻿using Stml.Application.Roles.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Stml.Application.Users.Dto
 {
-    [AutoMap(typeof(User))]
     public class UserDto
     {
         public Guid Id { get; set; }
@@ -35,6 +33,6 @@ namespace Stml.Application.Users.Dto
             }
         }
 
-        public string[] Roles { get; set; }
+        public RoleDto[] Roles { get; set; }
     }
 }

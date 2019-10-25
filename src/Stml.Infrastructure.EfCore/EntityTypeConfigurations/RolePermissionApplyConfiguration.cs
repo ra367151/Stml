@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Stml.Domain.Roles;
+using Stml.Domain.Authorizations;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -74,19 +74,6 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("UserLogins","dbo");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<Guid>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoles","dbo");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId");
@@ -102,7 +89,7 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("UserTokens","dbo");
                 });
 
-            modelBuilder.Entity("Stml.Domain.Roles.Role", b =>
+            modelBuilder.Entity("Stml.Domain.Authorizations.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -129,7 +116,7 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("Roles","dbo");
                 });
 
-            modelBuilder.Entity("Stml.Domain.Roles.RolePermission", b =>
+            modelBuilder.Entity("Stml.Domain.Authorizations.RolePermission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -143,7 +130,7 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("RolePermissions","dbo");
                 });
 
-            modelBuilder.Entity("Stml.Domain.Users.User", b =>
+            modelBuilder.Entity("Stml.Domain.Authorizations.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -200,9 +187,22 @@ namespace Stml.Infrastructure.Datas.Migrations
                     b.ToTable("Users","dbo");
                 });
 
+            modelBuilder.Entity("Stml.Domain.Authorizations.UserRole", b =>
+                {
+                    b.Property<Guid>("UserId");
+
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles","dbo");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Stml.Domain.Roles.Role")
+                    b.HasOne("Stml.Domain.Authorizations.Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -210,7 +210,7 @@ namespace Stml.Infrastructure.Datas.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Stml.Domain.Users.User")
+                    b.HasOne("Stml.Domain.Authorizations.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -218,20 +218,7 @@ namespace Stml.Infrastructure.Datas.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Stml.Domain.Users.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.HasOne("Stml.Domain.Roles.Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Stml.Domain.Users.User")
+                    b.HasOne("Stml.Domain.Authorizations.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -239,15 +226,15 @@ namespace Stml.Infrastructure.Datas.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Stml.Domain.Users.User")
+                    b.HasOne("Stml.Domain.Authorizations.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Stml.Domain.Roles.RolePermission", b =>
+            modelBuilder.Entity("Stml.Domain.Authorizations.RolePermission", b =>
                 {
-                    b.HasOne("Stml.Domain.Roles.Role", "Role")
+                    b.HasOne("Stml.Domain.Authorizations.Role", "Role")
                         .WithMany("Permissions")
                         .HasForeignKey("RoleId");
 
@@ -267,11 +254,24 @@ namespace Stml.Infrastructure.Datas.Migrations
 
                             b1.ToTable("RolePermissions","dbo");
 
-                            b1.HasOne("Stml.Domain.Roles.RolePermission")
+                            b1.HasOne("Stml.Domain.Authorizations.RolePermission")
                                 .WithOne("Permission")
                                 .HasForeignKey("Stml.Infrastructure.Authorizations.Permissions.Permission", "RolePermissionId")
                                 .OnDelete(DeleteBehavior.Cascade);
                         });
+                });
+
+            modelBuilder.Entity("Stml.Domain.Authorizations.UserRole", b =>
+                {
+                    b.HasOne("Stml.Domain.Authorizations.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Stml.Domain.Authorizations.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
-﻿@using Stml.Application.Accounts.Dto;
+﻿@using Stml.Web.Models.Accounts;
 
-@model UserLoginInput
+@model UserLoginViewModel
 
 @{
     Layout = null;
@@ -46,14 +46,13 @@
                                     <input asp-for="Password" class="form-control" type="password" placeholder="密码">
                                 </div>
                                 <div class="input-group mb-4">
-                                    <label>
-                                        <input type="checkbox" asp-for="RememberMe">
-                                        记住我
+                                    <label class="small">
+                                        <input type="checkbox" asp-for="RememberMe"> 记住我
                                     </label>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                                        <button class="btn btn-primary btn-block" type="submit">登录</button>
                                     </div>
                                 </div>
                             </form>
@@ -64,7 +63,10 @@
         </div>
     </div>
 
-    @{ await Html.RenderPartialAsync("_CoreScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_CoreScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
     <script>
         $(function () {

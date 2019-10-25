@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Stml.Application.Accounts.Dto;
-using Stml.Domain.Users;
+using Stml.Domain.Authorizations;
 
 namespace Stml.Application.Accounts
 {

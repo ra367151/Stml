@@ -13,6 +13,14 @@
     <Compile Remove="Migrations\20191010083745_AddIdentity.Designer.cs" />
     <Compile Remove="Migrations\20191010084553_AddIdentitys.cs" />
     <Compile Remove="Migrations\20191010084553_AddIdentitys.Designer.cs" />
+    <Compile Remove="Migrations\20191025013539_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191025013539_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191025031037_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191025031037_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191025031423_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191025031423_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191025031908_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191025031908_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

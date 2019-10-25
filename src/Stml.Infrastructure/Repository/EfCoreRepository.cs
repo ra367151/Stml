@@ -20,7 +20,7 @@ namespace Stml.Infrastructure.Repository
 
     public class EfCoreRepository<TDbContext, TAggregateRoot, TKey> : IEfCoreRepository<TDbContext, TAggregateRoot, TKey>
         where TDbContext : DbContext
-        where TAggregateRoot : class, IAggregateRoot
+        where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         protected readonly TDbContext _dbContext;
 

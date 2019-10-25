@@ -18,7 +18,7 @@ namespace Stml.Application.Users.Dto
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// 角色名称列表
+        /// role name array. not display name!
         /// </summary>
         public string[] Roles { get; set; }
     }

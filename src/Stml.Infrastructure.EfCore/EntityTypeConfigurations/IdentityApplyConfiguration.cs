@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Stml.Domain.Roles;
-using Stml.Domain.Users;
-using Stml.Infrastructure.Authorizations.Permissions;
+using Stml.Domain.Authorizations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +13,11 @@ namespace Stml.Infrastructure.Datas.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users", "dbo");
+
+            builder.HasMany(u => u.UserRoles)
+                .WithOne(ur => ur.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
         }
     }
 
@@ -25,6 +28,11 @@ namespace Stml.Infrastructure.Datas.EntityTypeConfigurations
             builder.ToTable("Roles", "dbo");
 
             builder.Property(r => r.DisplayName).HasMaxLength(256);
+
+            builder.HasMany(r => r.UserRoles)
+                .WithOne(ur => ur.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
         }
     }
 
@@ -60,9 +68,9 @@ namespace Stml.Infrastructure.Datas.EntityTypeConfigurations
         }
     }
 
-    public class UserRoleApplyConfiguration : IEntityTypeConfiguration<IdentityUserRole<Guid>>
+    public class UserRoleApplyConfiguration : IEntityTypeConfiguration<UserRole>
     {
-        public void Configure(EntityTypeBuilder<IdentityUserRole<Guid>> builder)
+        public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.ToTable("UserRoles", "dbo");
         }

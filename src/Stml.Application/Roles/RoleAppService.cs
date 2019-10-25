@@ -7,7 +7,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Stml.Application.Roles.Dto;
-using Stml.Domain.Roles;
+using Stml.Domain.Authorizations;
 
 namespace Stml.Application.Roles
 {

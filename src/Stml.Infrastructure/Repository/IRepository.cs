@@ -13,7 +13,7 @@ namespace Stml.Infrastructure.Repository
 
     }
 
-    public interface IRepository<TAggregateRoot, TKey> where TAggregateRoot : class, IAggregateRoot
+    public interface IRepository<TAggregateRoot, TKey> where TAggregateRoot : class, IAggregateRoot<TKey>
     {
         void Add(TAggregateRoot obj);
         void AddRange(IEnumerable<TAggregateRoot> objs);

@@ -9,7 +9,7 @@ namespace Stml.Application.Services
 {
     public interface IUserAppService
     {
-        Task<PagedListDto<UserDto>> GetUserPagedListAsync(string queryString, int skip, int take);
+        Task<PagedListDto<UserDto>> GetUserPagedListAsync(string search, int skip, int take);
         Task<ServiceResult> CreateUserAsync(UserCreateInput input);
         Task DeleteUserAsync(Guid id);
         Task<UserDto> FindUserAsync(Guid id);

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Domain.Roles
+namespace Stml.Domain.Authorizations
 {
     public class RolePermission : IEntity<Guid>
     {

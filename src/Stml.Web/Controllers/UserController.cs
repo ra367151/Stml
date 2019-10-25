@@ -55,7 +55,7 @@ namespace Stml.Web.Controllers
         [Ajax(Http.Get)]
         public IActionResult CreatePartial()
         {
-            return PartialView("Create");
+            return PartialView("_Create");
         }
 
         [HasPermission(PermissionNames.UserEdit)]
@@ -72,7 +72,7 @@ namespace Stml.Web.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 IsActive = user.IsActive,
-                Roles = roles.Select(x => new RoleCheckboxViewModel(x.Name, x.DisplayName, user.Roles.Contains(x.Name))).ToList()
+                Roles = roles.Select(x => new RoleCheckboxViewModel(x.Name, x.DisplayName, user.Roles.Any(r => r.Name == x.Name))).ToList()
             });
         }
 

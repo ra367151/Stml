@@ -21,7 +21,7 @@ namespace Stml.Infrastructure.Authorizations.Permissions
             var permissionClaim = user.Claims.SingleOrDefault(c => c.Type == PermissionConstants.PermissionClaimType);
             return permissionClaim != null
                 &&
-                (_permissionPacker.UnPackPermissionFromString(permissionClaim.Value).Any(p => p.Name == permissionName) || user.IsInRole(PermissionConstants.SuperAdminRoleName));
+                (_permissionPacker.UnPackPermissionFromString(permissionClaim.Value).Any(p => p.Name == permissionName) || user.IsInRole(RoleConstants.DefaultAdminRoleName));
         }
     }
 }

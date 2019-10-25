@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.Domain.Extensions;
 using Stml.Infrastructure.Datas;
 using Stml.Infrastructure.Dependency;
 using System;
@@ -12,9 +11,7 @@ using Stml.Infrastructure.Uow.Extensions;
 using Stml.Infrastructure.Repository.Extensions;
 using Stml.Infrastructure.EPPlus.Extensions;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
-using Stml.Domain.Users;
 using Microsoft.AspNetCore.Identity;
-using Stml.Domain.Roles;
 using Stml.Web.Startup.Permissions;
 using Stml.Infrastructure.Authorizations.Extensions;
 using Stml.Infrastructure.Security.Encryption;
@@ -22,6 +19,8 @@ using Stml.Web.Startup.Navigations;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Application;
 using Stml.Domain.Repositories;
+using Stml.Domain;
+using Stml.Domain.Authorizations;
 
 namespace Stml.Web.Extensions
 {

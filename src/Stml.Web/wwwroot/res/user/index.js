@@ -29,6 +29,16 @@
                     field: 'userName',
                     title: '用户名'
                 }, {
+                    field: 'role',
+                    title: '角色',
+                    formatter: function (value, row, index) {
+                        if (row.roles.length === 0)
+                            return '-';
+                        return row.roles.map(function (v, i, arr) {
+                            return v.displayName;
+                        }).join(',');
+                    }
+                }, {
                     field: 'email',
                     title: '邮箱'
                 }, {

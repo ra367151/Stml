@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Infrastructure.Applications.MVC.Http;
 using Stml.Infrastructure.Authorizations.Permissions;
@@ -24,7 +22,7 @@ namespace Stml.Web.Controllers
         [Ajax(Http.Get)]
         public IEnumerable<string> GetUserPermissions()
         {
-            if (User.IsInRole(PermissionConstants.SuperAdminRoleName))
+            if (User.IsInRole(RoleConstants.DefaultAdminRoleName))
                 return _permissionManager.Permissions.SelectMany(x => x.Value).Select(x => x.Name);
 
             var packedPermissions = User.Claims?.SingleOrDefault(x => x.Type == PermissionConstants.PermissionClaimType);
