@@ -9,9 +9,15 @@ namespace Stml.Infrastructure.Repository.Extensions
 {
     public static class EfCoreRepositoryExtensions
     {
-        public static IServiceCollection AddEfCoreRepository(this IServiceCollection services)
+        //public static IServiceCollection AddEfCoreRepository(this IServiceCollection services)
+        //{
+        //    services.AddScoped(typeof(IEfCoreRepository<,,>), typeof(EfCoreRepository<,,>));
+        //    return services;
+        //}
+
+        public static IServiceCollection AddEfCoreRepostiory(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IEfCoreRepository<,,>), typeof(EfCoreRepository<,,>));
+            services.AddScoped(typeof(IRepository<,>), typeof(EfCoreRepository<,>));
             return services;
         }
     }

@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stml.Domain.Authorizations;
-using Stml.Infrastructure.Datas;
 using Stml.Infrastructure.Linq.Extensions;
-using Stml.Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stml.Domain.Repositories.Users
+namespace Stml.EntityFrameworkCore.Repositories
 {
-    public class UserRepository : EfCoreRepository<StmlDbContext, User, Guid>, IUserRepository
+    public class UserRepository : StmlRepositoryBase<User, Guid>, IUserRepository
     {
         public UserRepository(StmlDbContext dbContext) : base(dbContext)
         {

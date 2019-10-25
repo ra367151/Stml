@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stml.Application.Users.Dto;
 using Stml.Domain.Authorizations;
-using Stml.Domain.Repositories.Users;
+using Stml.EntityFrameworkCore;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Applications.Exceptions;
 using Stml.Infrastructure.Extensions;
 using Stml.Infrastructure.Linq.Extensions;
+using Stml.Infrastructure.Uow;
 
 namespace Stml.Application.Services
 {
@@ -44,7 +45,6 @@ namespace Stml.Application.Services
             var identityResult = await _userManager.CreateAsync(user, input.Password);
             if (identityResult.Succeeded)
             {
-                //await _userManager.AddToRolesAsync(user, input.Roles);
                 _logger.LogInformation($"A new account: {input.UserName} created with roles: {string.Join(",", input.Roles)}.");
                 return ServiceResult.Success;
             }
@@ -81,29 +81,17 @@ namespace Stml.Application.Services
 
         public async Task<ServiceResult> EditUserAsync(UserEditInput input)
         {
-            //var user = await _userManager.FindByIdAsync(input.Id.ToString());
-            //if (user == null)
-            //    throw new UserFriendlyException("用户不存在");
-            ////user.UpdateUserName(input.UserName).UpdateEmai(input.Email);
-            ////if (input.IsActive)
-            ////    user.UpdateToActive();
-            ////else
-            ////    user.UpdateToUnActive();
-            //user.UpdateUserName(input.UserName)
-            //    .UpdateEmail(input.Email)
-            //    .UpdateState(input.IsActive)
-            //    .AddToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
-            //var identityResult = await _userManager.UpdateAsync(user);
-            //if (identityResult.Succeeded)
-            //{
-            //    //var userRoles = await _userManager.GetRolesAsync(user);
-            //    //await _userManager.RemoveFromRolesAsync(user, userRoles.Except(input.Roles));
-            //    //await _userManager.AddToRolesAsync(user, input.Roles.Except(userRoles));
-            //    return ServiceResult.Success;
-            //}
-            //return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
-
-            return ServiceResult.Success;
+            var user = await _userRepository.FindUserIncludeRolesAsync(input.Id);
+            if (user == null)
+                throw new UserFriendlyException("用户不存在");
+            user.UpdateUserName(input.UserName)
+                .UpdateEmail(input.Email)
+                .UpdateState(input.IsActive)
+                .AddToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
+            var identityResult = await _userManager.UpdateAsync(user);
+            if (identityResult.Succeeded)
+                return ServiceResult.Success;
+            return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
         }
     }
 }

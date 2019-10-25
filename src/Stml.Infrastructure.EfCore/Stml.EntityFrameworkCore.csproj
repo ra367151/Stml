@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Stml.EntityFrameworkCore</AssemblyName>
+    <RootNamespace>Stml.EntityFrameworkCore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

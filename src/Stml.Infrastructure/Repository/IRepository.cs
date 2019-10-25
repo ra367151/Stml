@@ -25,5 +25,7 @@ namespace Stml.Infrastructure.Repository
         Task<IEnumerable<TAggregateRoot>> GetAllAsync();
         IEnumerable<TAggregateRoot> Get(Expression<Func<TAggregateRoot, bool>> predicate);
         Task<IEnumerable<TAggregateRoot>> GetAsync(Expression<Func<TAggregateRoot, bool>> predicate);
+        void Update(TAggregateRoot obj);
+        void UpdateRange(IEnumerable<TAggregateRoot> objs);
     }
 }

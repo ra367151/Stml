@@ -9,7 +9,7 @@ using NLog.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.Infrastructure.Datas;
+using Stml.EntityFrameworkCore;
 
 namespace Stml.Web.Startup
 {

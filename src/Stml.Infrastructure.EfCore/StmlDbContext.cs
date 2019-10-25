@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Stml.Infrastructure.Datas
+namespace Stml.EntityFrameworkCore
 {
     public class StmlDbContext : IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
     {

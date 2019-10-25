@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Infrastructure.Datas.EntityTypeConfigurations
+namespace Stml.EntityFrameworkCore.EntityTypeConfigurations
 {
     public class UserApplyConfiguration : IEntityTypeConfiguration<User>
     {

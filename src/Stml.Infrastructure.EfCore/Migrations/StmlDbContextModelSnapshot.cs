@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Stml.Infrastructure.Datas;
+using Stml.EntityFrameworkCore;
 
-namespace Stml.Infrastructure.Datas.Migrations
+namespace Stml.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(StmlDbContext))]
     partial class StmlDbContextModelSnapshot : ModelSnapshot

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.Infrastructure.Datas;
+using Stml.EntityFrameworkCore;
 using Stml.Infrastructure.Dependency;
 using System;
 using Stml.Infrastructure.Uow.Extensions;
@@ -18,9 +18,9 @@ using Stml.Infrastructure.Security.Encryption;
 using Stml.Web.Startup.Navigations;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Application;
-using Stml.Domain.Repositories;
 using Stml.Domain;
 using Stml.Domain.Authorizations;
+using Stml.EntityFrameworkCore.Repositories;
 
 namespace Stml.Web.Extensions
 {
@@ -34,7 +34,7 @@ namespace Stml.Web.Extensions
             services.ConfigureMvc();
             services.ConfigureDbContext(config);
             services.ConfigureIdentity();
-            services.AddEfCoreRepository();
+            services.AddEfCoreRepostiory();
             services.AddEfCoreUnitOfWork();
             services.ConfigureAutoMapper();
             services.AddExcelManager();
@@ -45,7 +45,7 @@ namespace Stml.Web.Extensions
             {
                 builder.ConfigureApplicationServicesByConvension();
                 builder.ConfigureDomainServicesByConvension();
-                builder.ConfigureDomainRepositoriesByConvension();
+                builder.ConfigureRepositoriesByConvension();
             });
         }
 

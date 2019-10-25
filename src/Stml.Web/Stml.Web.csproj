@@ -746,7 +746,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Stml.Application\Stml.Application.csproj" />
     <ProjectReference Include="..\Stml.Domain\Stml.Domain.csproj" />
-    <ProjectReference Include="..\Stml.Infrastructure.EfCore\Stml.Infrastructure.Datas.csproj" />
+    <ProjectReference Include="..\Stml.Infrastructure.EfCore\Stml.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Stml.Infrastructure\Stml.Infrastructure.csproj" />
   </ItemGroup>
 

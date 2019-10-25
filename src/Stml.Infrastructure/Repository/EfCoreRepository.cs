@@ -18,7 +18,7 @@ namespace Stml.Infrastructure.Repository
         }
     }
 
-    public class EfCoreRepository<TDbContext, TAggregateRoot, TKey> : IEfCoreRepository<TDbContext, TAggregateRoot, TKey>
+    public class EfCoreRepository<TDbContext, TAggregateRoot, TKey> : IRepository<TAggregateRoot, TKey>
         where TDbContext : DbContext
         where TAggregateRoot : class, IAggregateRoot<TKey>
     {
@@ -77,6 +77,16 @@ namespace Stml.Infrastructure.Repository
         public void RemoveRange(IEnumerable<TAggregateRoot> objs)
         {
             _dbContext.RemoveRange(objs);
+        }
+
+        public void Update(TAggregateRoot obj)
+        {
+            _dbContext.Update(obj);
+        }
+
+        public void UpdateRange(IEnumerable<TAggregateRoot> objs)
+        {
+            _dbContext.UpdateRange(objs);
         }
     }
 }

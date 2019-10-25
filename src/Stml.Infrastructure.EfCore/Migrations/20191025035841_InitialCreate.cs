@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Stml.Infrastructure.Datas.Migrations
+namespace Stml.EntityFrameworkCore.Migrations
 {
     public partial class InitialCreate : Migration
     {

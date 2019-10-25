@@ -49,10 +49,15 @@ namespace Stml.Domain.Authorizations
 
         public User AddToRoles(params Role[] roles)
         {
-            foreach (var role in roles)
-            {
-                UserRoles.Add(new UserRole { User = this, Role = role });
-            }
+            //foreach (var role in roles)
+            //{
+            //    UserRoles.Add(new UserRole { User = this, Role = role });
+            //}
+            //UserRoles = new List<UserRole>
+            //{
+            //    new UserRole{User = this, Role = Role}
+            //};
+            UserRoles = roles.Select(r => new UserRole { User = this, Role = r }).ToList();
             return this;
         }
 
