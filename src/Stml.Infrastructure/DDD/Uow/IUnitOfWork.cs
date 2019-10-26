@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stml.Infrastructure.Uow
+namespace Stml.Infrastructure.DDD.Uow
 {
     public interface IUnitOfWork : IDisposable
     {

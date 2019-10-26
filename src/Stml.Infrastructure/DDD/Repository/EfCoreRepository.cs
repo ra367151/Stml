@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stml.Infrastructure.Domain;
+using Stml.Infrastructure.DDD.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stml.Infrastructure.Repository
+namespace Stml.Infrastructure.DDD.Repository
 {
     public class EfCoreRepository<TDbContext, TAggregateRoot> : EfCoreRepository<TDbContext, TAggregateRoot, int>
         where TDbContext : DbContext
@@ -77,16 +77,6 @@ namespace Stml.Infrastructure.Repository
         public void RemoveRange(IEnumerable<TAggregateRoot> objs)
         {
             _dbContext.RemoveRange(objs);
-        }
-
-        public void Update(TAggregateRoot obj)
-        {
-            _dbContext.Update(obj);
-        }
-
-        public void UpdateRange(IEnumerable<TAggregateRoot> objs)
-        {
-            _dbContext.UpdateRange(objs);
         }
     }
 }

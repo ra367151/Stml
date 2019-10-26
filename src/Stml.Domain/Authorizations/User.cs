@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Stml.Infrastructure.Authorizations.Permissions;
-using Stml.Infrastructure.Domain;
+using Stml.Infrastructure.DDD.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

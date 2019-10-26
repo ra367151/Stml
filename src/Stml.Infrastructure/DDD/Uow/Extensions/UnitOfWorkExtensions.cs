@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Infrastructure.Uow.Extensions
+namespace Stml.Infrastructure.DDD.Uow.Extensions
 {
     public static class UnitOfWorkExtensions
     {

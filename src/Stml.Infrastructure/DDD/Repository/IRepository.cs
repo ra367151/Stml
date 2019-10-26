@@ -1,11 +1,11 @@
-﻿using Stml.Infrastructure.Domain;
+﻿using Stml.Infrastructure.DDD.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stml.Infrastructure.Repository
+namespace Stml.Infrastructure.DDD.Repository
 {
     public interface IRepository<TAggregateRoot> : IRepository<TAggregateRoot, int>
         where TAggregateRoot : class, IAggregateRoot
@@ -25,7 +25,5 @@ namespace Stml.Infrastructure.Repository
         Task<IEnumerable<TAggregateRoot>> GetAllAsync();
         IEnumerable<TAggregateRoot> Get(Expression<Func<TAggregateRoot, bool>> predicate);
         Task<IEnumerable<TAggregateRoot>> GetAsync(Expression<Func<TAggregateRoot, bool>> predicate);
-        void Update(TAggregateRoot obj);
-        void UpdateRange(IEnumerable<TAggregateRoot> objs);
     }
 }

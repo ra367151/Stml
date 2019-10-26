@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stml.Infrastructure.Uow
+namespace Stml.Infrastructure.DDD.Uow
 {
     public class EfCoreUnitOfWork<TDbContext> : IEfCoreUnitOfWork<TDbContext> where TDbContext : DbContext
     {

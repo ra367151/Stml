@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stml.Infrastructure.Domain
+namespace Stml.Infrastructure.DDD.Domain
 {
     public interface IHasLastUpdateTime
     {

@@ -1,5 +1,5 @@
-﻿using Stml.Infrastructure.Domain;
-using Stml.Infrastructure.Repository;
+﻿using Stml.Infrastructure.DDD.Domain;
+using Stml.Infrastructure.DDD.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;

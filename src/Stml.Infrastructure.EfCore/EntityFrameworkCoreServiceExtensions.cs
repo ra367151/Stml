@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore.Repositories;
 using Stml.Infrastructure;
-using Stml.Infrastructure.Uow;
+using Stml.Infrastructure.DDD.Uow;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

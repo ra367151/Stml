@@ -8,12 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stml.Application.Users.Dto;
 using Stml.Domain.Authorizations;
-using Stml.EntityFrameworkCore;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Applications.Exceptions;
 using Stml.Infrastructure.Extensions;
 using Stml.Infrastructure.Linq.Extensions;
-using Stml.Infrastructure.Uow;
 
 namespace Stml.Application.Services
 {
