@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Stml.Application
 {
-    public class AutoMapperProfile : Profile
+    public class ApplicationMapProfile : Profile
     {
-        public AutoMapperProfile()
+        public ApplicationMapProfile()
         {
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Roles, options => options.MapFrom(src => src.UserRoles.Select(ur => ur.Role)));
