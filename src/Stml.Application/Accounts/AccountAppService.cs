@@ -32,7 +32,7 @@ namespace Stml.Application.Accounts
             {
                 return false;
             }
-            var result = await _signInManager.PasswordSignInAsync(user, input.Password, input.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(input.UserName, input.Password, input.RememberMe, false);
             return result.Succeeded;
         }
 

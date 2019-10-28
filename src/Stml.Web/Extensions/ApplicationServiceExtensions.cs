@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore;
-using Stml.Infrastructure.Dependency;
 using System;
 using Stml.Infrastructure.EPPlus.Extensions;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
@@ -16,14 +14,13 @@ using Stml.Infrastructure.Security.Encryption;
 using Stml.Web.Startup.Navigations;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Application;
-using Stml.Domain;
 using Stml.Domain.Authorizations;
 
 namespace Stml.Web.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-        public static IServiceProvider AddApplication(this IServiceCollection services, IConfiguration config)
+        public static void AddApplication(this IServiceCollection services, IConfiguration config)
         {
             services.ConfigureCoreService();
 
@@ -36,12 +33,6 @@ namespace Stml.Web.Extensions
             services.AddNavigationProvider<StmlNavigationProvider>();
             services.AddPermissionProvider<StmlPermissionProvider>();
             services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
-            return services.UseAutofac(builder =>
-            {
-                builder.ConfigureApplicationModuleServices();
-                builder.ConfigureDomainModuleServices();
-                builder.ConfigureEntityFrameworkCoreModuleServices();
-            });
         }
 
         private static IServiceCollection ConfigureCookiePolicy(this IServiceCollection services)
@@ -53,11 +44,9 @@ namespace Stml.Web.Extensions
             });
         }
 
-        private static IMvcBuilder ConfigureMvc(this IServiceCollection services)
+        private static void ConfigureMvc(this IServiceCollection services)
         {
-            return services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                        .ConfigureFluentValidaton()
-                        .AddControllersAsServices();
+            services.AddControllersWithViews().AddControllersAsServices();
         }
 
         private static IServiceCollection ConfigureDbContext(this IServiceCollection services, IConfiguration config)

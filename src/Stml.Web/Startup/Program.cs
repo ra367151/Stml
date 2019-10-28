@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Autofac.Extensions.DependencyInjection;
 
 namespace Stml.Web.Startup
 {
@@ -17,9 +19,8 @@ namespace Stml.Web.Startup
     {
         public static void Main(string[] args)
         {
-            var webHost = CreateWebHostBuilder(args).Build();
-
-            using (var scope = webHost.Services.CreateScope())
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
                 try
@@ -32,13 +33,16 @@ namespace Stml.Web.Startup
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
-
-            webHost.Run();
+            host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging(loggerBuilder => loggerBuilder.AddNLog())
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureLogging(loggingBuilder => loggingBuilder.AddNLog());
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

@@ -41,7 +41,7 @@
     // get user object to check permission.
     window.user = {
         check: function (permission) {
-            return localStorage.permissions != null && JSON.parse(localStorage.permissions).indexOf(permission) > 0;
+            return localStorage.permissions !== 'undefined' && JSON.parse(localStorage.permissions).indexOf(permission) > 0;
         }
     };
 

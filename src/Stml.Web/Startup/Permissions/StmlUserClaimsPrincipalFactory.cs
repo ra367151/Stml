@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Stml.Domain.Authorizations;
 using Stml.Infrastructure.Authorizations.Permissions;
@@ -30,7 +31,8 @@ namespace Stml.Web.Startup.Permissions
             var permissions = RoleManager.Roles
                                     .Where(r => roleNames.Contains(r.Name))
                                     .SelectMany(r => r.Permissions)
-                                    .Select(rp => rp.Permission);
+                                    .Select(rp => rp.Permission)
+                                    .AsNoTracking();
             identity.AddClaim(new Claim(PermissionConstants.PermissionClaimType, _permissionPacker.PackPermissionsIntoString(permissions)));
             return await Task.FromResult(identity);
         }

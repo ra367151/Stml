@@ -49,7 +49,7 @@ namespace Stml.Web.Controllers
         public async Task<ActionResult> Logout()
         {
             await _accountAppService.UserLogoutAsync();
-            return RedirectToAction("Index", "Home");
+            return Redirect("/");
         }
     }
 }

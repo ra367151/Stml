@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stml.Application;
+using Stml.Domain;
+using Stml.EntityFrameworkCore;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Web.Extensions;
@@ -13,23 +17,46 @@ namespace Stml.Web.Startup
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; private set; }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureContainer(ContainerBuilder builder)
         {
-            return services.AddApplication(Configuration);
+            builder.ConfigureApplicationModuleServices();
+            builder.ConfigureDomainModuleServices();
+            builder.ConfigureEntityFrameworkCoreModuleServices();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration cfg)
+        public void ConfigureServices(IServiceCollection services)
         {
-            app.ConfigureApplication(env, cfg)
+            services.AddApplication(Configuration);
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.ConfigureApplication(env)
                 .UseNavigationProvider<StmlNavigationProvider>()
                 .UsePermissionProvider<StmlPermissionProvider>();
         }
+
+        //public IServiceProvider ConfigureServices(IServiceCollection services)
+        //{
+        //    return services.AddApplication(Configuration);
+        //}
+
+        //public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration cfg)
+        //{
+        //    app.ConfigureApplication(env, cfg)
+        //        .UseNavigationProvider<StmlNavigationProvider>()
+        //        .UsePermissionProvider<StmlPermissionProvider>();
+        //}
     }
 }

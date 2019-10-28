@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,11 +12,6 @@ namespace Stml.Application
         public static void ConfigureApplicationModuleServices(this ContainerBuilder builder)
         {
             builder.ConfigureApplicationServicesByConvension();
-        }
-
-        public static IMvcBuilder ConfigureFluentValidaton(this IMvcBuilder mvcBuilder)
-        {
-            return mvcBuilder.AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
         }
 
         private static ContainerBuilder ConfigureApplicationServicesByConvension(this ContainerBuilder builder)

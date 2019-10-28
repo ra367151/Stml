@@ -24,7 +24,7 @@ namespace Stml.Application.Roles
 
         public async Task<IEnumerable<RoleDto>> GetRolesAsync()
         {
-            return await _roleManager.Roles.ProjectTo<RoleDto>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _roleManager.Roles.ProjectTo<RoleDto>(_mapper.ConfigurationProvider).AsNoTracking().ToListAsync();
         }
     }
 }
