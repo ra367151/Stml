@@ -1,5 +1,5 @@
-﻿using Autofac;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -9,19 +9,11 @@ namespace Stml.Application
 {
     public static class ApplicationModuleExtensions
     {
-        public static void ConfigureApplicationModuleServices(this ContainerBuilder builder)
+        public static IServiceCollection ConfigureApplicationModuleServices(this IServiceCollection services)
         {
-            builder.ConfigureApplicationServicesByConvension();
-        }
-
-        private static ContainerBuilder ConfigureApplicationServicesByConvension(this ContainerBuilder builder)
-        {
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(p => p.Name.EndsWith("AppService"))
-                .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .PropertiesAutowired();
-            return builder;
+            return services.RegisterAssemblyTypes()
+                        .Where(t => t.Name.EndsWith("AppService"))
+                        .AsImplementedInterfaces();
         }
     }
 }

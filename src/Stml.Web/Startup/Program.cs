@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using NLog.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using Autofac.Extensions.DependencyInjection;
 
 namespace Stml.Web.Startup
 {
@@ -38,7 +31,6 @@ namespace Stml.Web.Startup
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureLogging(loggingBuilder => loggingBuilder.AddNLog());

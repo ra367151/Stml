@@ -15,6 +15,7 @@ using Stml.Web.Startup.Navigations;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Application;
 using Stml.Domain.Authorizations;
+using Stml.Domain;
 
 namespace Stml.Web.Extensions
 {
@@ -23,13 +24,15 @@ namespace Stml.Web.Extensions
         public static void AddApplication(this IServiceCollection services, IConfiguration config)
         {
             services.ConfigureCoreService();
-
             services.ConfigureCookiePolicy();
             services.ConfigureMvc();
             services.ConfigureDbContext(config);
             services.ConfigureIdentity();
             services.ConfigureAutoMapper();
             services.AddExcelManager();
+            services.ConfigureApplicationModuleServices();
+            services.ConfigureDomainModuleServices();
+            services.ConfigureEntityFrameworkCoreModuleServices();
             services.AddNavigationProvider<StmlNavigationProvider>();
             services.AddPermissionProvider<StmlPermissionProvider>();
             services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();

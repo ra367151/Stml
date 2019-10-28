@@ -1,18 +1,16 @@
-﻿using Autofac;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Stml.Infrastructure.DependencyInjection.Extensions;
 using System.Reflection;
 
 namespace Stml.Domain
 {
     public static class DomainServiceExtensions
     {
-        public static ContainerBuilder ConfigureDomainModuleServices(this ContainerBuilder builder)
+        public static IServiceCollection ConfigureDomainModuleServices(this IServiceCollection services)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .Where(p => p.Name.EndsWith("DomainService"))
-                .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .PropertiesAutowired();
-            return builder;
+            return services.RegisterAssemblyTypes()
+                        .Where(p => p.Name.EndsWith("DomainService"))
+                        .AsImplementedInterfaces();
         }
     }
 }

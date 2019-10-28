@@ -1,9 +1,8 @@
-﻿using Autofac;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore.Repositories;
-using Stml.Infrastructure;
 using Stml.Infrastructure.DDD.Uow;
+using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -13,31 +12,28 @@ namespace Stml.EntityFrameworkCore
 {
     public static class EntityFrameworkCoreServiceExtensions
     {
-        public static ContainerBuilder ConfigureEntityFrameworkCoreModuleServices(this ContainerBuilder builder)
+        public static IServiceCollection ConfigureEntityFrameworkCoreModuleServices(this IServiceCollection services)
         {
-            builder.RegisterGenericRepository();
-            builder.RegisterRepositoriesByConvention();
-            builder.RegisterUnitOfWork<StmlDbContext>();
-            return builder;
+            return services.RegisterGenericRepository()
+                        .RegisterRepositoriesByConvention()
+                        .RegisterUnitOfWork<StmlDbContext>();
         }
 
-        private static void RegisterGenericRepository(this ContainerBuilder builder)
+        private static IServiceCollection RegisterGenericRepository(this IServiceCollection services)
         {
-            builder.RegisterGeneric(typeof(StmlRepositoryBase<,>)).AsImplementedInterfaces();
+            return services.AddTransient(typeof(StmlRepositoryBase<,>));
         }
 
-        private static void RegisterRepositoriesByConvention(this ContainerBuilder builder)
+        private static IServiceCollection RegisterRepositoriesByConvention(this IServiceCollection services)
         {
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                            .Where(p => p.Name.EndsWith("Repository"))
-                            .AsImplementedInterfaces()
-                            .InstancePerDependency()
-                            .PropertiesAutowired();
+            return services.RegisterAssemblyTypes()
+                        .Where(p => p.Name.EndsWith("Repository"))
+                        .AsImplementedInterfaces();
         }
 
-        private static void RegisterUnitOfWork<TDbContext>(this ContainerBuilder builder) where TDbContext : DbContext
+        private static IServiceCollection RegisterUnitOfWork<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
-            builder.RegisterType(typeof(EfCoreUnitOfWork<TDbContext>)).As(typeof(EfCoreUnitOfWork<TDbContext>));
+            return services.AddScoped(typeof(IEfCoreUnitOfWork<TDbContext>), typeof(EfCoreUnitOfWork<TDbContext>));
         }
     }
 }
