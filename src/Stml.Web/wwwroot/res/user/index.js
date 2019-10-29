@@ -60,7 +60,7 @@
                     formatter: function (value, row, index) {
                         var operateBtn = '<div class="dropdown">';
                         if (window.user.check('UserEdit') || window.user.check('UserDelete')) {
-                            operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
+                            operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
                             operateBtn += '<div class="dropdown-menu pull-right">';
                             if (window.user.check('UserEdit')) {
                                 operateBtn += '<a class="dropdown-item edit-user" data-user-id="' + row.id + '" data-toggle="modal" data-target="' + EDIT_MODAL_TARGET + '"><i class="fa fa-pencil"></i> 编辑</a>';
