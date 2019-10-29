@@ -10,8 +10,8 @@ using Stml.Application.Users.Dto;
 using Stml.Domain.Authorizations;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Applications.Exceptions;
-using Stml.Infrastructure.Extensions;
-using Stml.Infrastructure.Linq.Extensions;
+using Stml.Infrastructure.System.Linq;
+using Stml.Infrastructure.System.String;
 
 namespace Stml.Application.Services
 {

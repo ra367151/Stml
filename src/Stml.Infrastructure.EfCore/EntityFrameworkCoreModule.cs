@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore.Repositories;
-using Stml.Infrastructure;
+using Stml.Infrastructure.Applications;
 using Stml.Infrastructure.DDD.Uow;
 using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
@@ -20,6 +21,11 @@ namespace Stml.EntityFrameworkCore
             services.AddTransient(typeof(StmlRepositoryBase<,>));
             services.RegisterAssemblyTypes().Where(p => p.Name.EndsWith("Repository")).AsImplementedInterfaces();
             services.AddScoped(typeof(IEfCoreUnitOfWork<StmlDbContext>), typeof(EfCoreUnitOfWork<StmlDbContext>));
+        }
+
+        public override void Configure(IApplicationBuilder app)
+        {
+
         }
     }
 }

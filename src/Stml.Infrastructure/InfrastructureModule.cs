@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stml.Infrastructure.Applications;
 using Stml.Infrastructure.EPPlus.Extensions;
-using Stml.Infrastructure.Security.Encryption;
+using Stml.Infrastructure.System.Security.Encryption;
 
 namespace Stml.Infrastructure
 {
@@ -16,6 +18,11 @@ namespace Stml.Infrastructure
                 .Configure<StringEncryptionOptions>(options => { });
 
             services.AddExcelManager();
+        }
+
+        public override void Configure(IApplicationBuilder app)
+        {
+
         }
     }
 }

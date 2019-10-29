@@ -1,5 +1,5 @@
-﻿using Stml.Infrastructure.Json.Extensions;
-using Stml.Infrastructure.Security.Encryption;
+﻿using Stml.Infrastructure.System.Json;
+using Stml.Infrastructure.System.Security.Encryption;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +9,6 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 {
     public class PermissionPacker : IPermissionPacker
     {
-        //public const char PackType = 'H';
-        //public const int PackSize = 4;
-
-        //private static string DefaultPackPrefix()
-        //{
-        //    return $"{PackType}{PackSize:D1}-";
-        //}
-
         public readonly IStringEncryptionService _stringEncryptionService;
         public PermissionPacker(IStringEncryptionService stringEncryptionService)
         {
@@ -25,8 +17,6 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 
         public string PackPermissionsIntoString(IEnumerable<Permission> permissions)
         {
-            //return permissions.Aggregate(DefaultPackPrefix(), (s, permission) => s + permission.Name);
-
             return _stringEncryptionService.Encrypt(permissions.ToJsonString());
         }
 

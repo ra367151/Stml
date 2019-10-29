@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.Application;
+using Microsoft.Extensions.Hosting;
 using Stml.Domain.Authorizations;
 using Stml.EntityFrameworkCore;
-using Stml.Infrastructure;
 using Stml.Infrastructure.Applications.Navigation.Extensions;
 using Stml.Infrastructure.Authorizations.Extensions;
 using Stml.Infrastructure.Authorizations.Permissions.Extensions;
+using Stml.Infrastructure.Applications;
 using Stml.Web.Startup.Navigations;
 using Stml.Web.Startup.Permissions;
 using System;
@@ -25,40 +26,14 @@ namespace Stml.Web
     {
         public override void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            ConfigureCookiePolicy(services);
-            ConfigureMvc(services);
-            ConfigureIdentity(services);
-            //ConfigureAutoMapper(services);
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            var mappintConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new WebMapProfile());
-                mc.AddProfile(new ApplicationMapProfile());
-            });
-            services.AddSingleton(mappintConfig.CreateMapper());
-
-
-            services.AddNavigationProvider<StmlNavigationProvider>();
-            services.AddPermissionProvider<StmlPermissionProvider>();
-            services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
-        }
-
-        private void ConfigureCookiePolicy(IServiceCollection services)
-        {
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-        }
 
-        private void ConfigureMvc(IServiceCollection services)
-        {
-            services.AddControllersWithViews();
-        }
-
-        private void ConfigureIdentity(IServiceCollection services)
-        {
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireUppercase = false;
@@ -66,11 +41,46 @@ namespace Stml.Web
             })
             .AddEntityFrameworkStores<StmlDbContext>()
             .AddDefaultTokenProviders();
+
+            services.AddNavigationProvider<StmlNavigationProvider>();
+            services.AddPermissionProvider<StmlPermissionProvider>();
+            services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
+
+            AddMap<WebMapProfile>();
         }
 
-        private void ConfigureAutoMapper(IServiceCollection services)
+        public override void Configure(IApplicationBuilder app)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseNavigationProvider<StmlNavigationProvider>()
+                .UsePermissionProvider<StmlPermissionProvider>();
         }
     }
 }

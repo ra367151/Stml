@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.Infrastructure.Applications.Navigation.Extensions;
-using Stml.Infrastructure.Authorizations.Permissions.Extensions;
-using Stml.Web.Extensions;
-using Stml.Web.Startup.Navigations;
-using Stml.Web.Startup.Permissions;
+using Stml.Application;
+using Stml.Domain;
+using Stml.EntityFrameworkCore;
+using Stml.Infrastructure;
+using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 
 namespace Stml.Web.Startup
@@ -26,14 +26,17 @@ namespace Stml.Web.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication(Configuration);
+            services.Start<WebModule>()
+                    .Then<ApplicationModule>()
+                    .Then<DomainModule>()
+                    .Then<EntityFrameworkCoreModule>()
+                    .Then<InfrastructureModule>()
+                    .ConfigureService(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            app.ConfigureApplication(env)
-                .UseNavigationProvider<StmlNavigationProvider>()
-                .UsePermissionProvider<StmlPermissionProvider>();
+            app.Configure();
         }
     }
 }

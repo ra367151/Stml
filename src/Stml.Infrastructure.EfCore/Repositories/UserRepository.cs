@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stml.Domain.Authorizations;
-using Stml.Infrastructure.Linq.Extensions;
+using Stml.Infrastructure.System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
