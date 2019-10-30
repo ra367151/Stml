@@ -3,6 +3,7 @@ using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Infrastructure.DDD.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Stml.Domain.Authorizations
@@ -12,6 +13,8 @@ namespace Stml.Domain.Authorizations
         public Role()
         {
             Id = Guid.NewGuid();
+            UserRoles = new List<UserRole>();
+            Permissions = new List<RolePermission>();
         }
 
         public string DisplayName { get; private set; }
@@ -37,6 +40,24 @@ namespace Stml.Domain.Authorizations
                 Name = name,
                 DisplayName = displayName ?? name
             };
+        }
+
+        public Role AddPermissions(params Permission[] permissions)
+        {
+            Permissions = permissions.Select(p => new RolePermission(this, p)).ToList();
+            return this;
+        }
+
+        public Role UpdateName(string name)
+        {
+            Name = name;
+            return this;
+        }
+
+        public Role UpdateDisplayName(string displayName)
+        {
+            DisplayName = displayName;
+            return this;
         }
     }
 }

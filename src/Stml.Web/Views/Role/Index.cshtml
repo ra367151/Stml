@@ -3,7 +3,7 @@
         <li class="breadcrumb-item">
             <a asp-controller="Home" asp-action="Index">主页</a>
         </li>
-        <li class="breadcrumb-item active">用户</li>
+        <li class="breadcrumb-item active">角色</li>
     </ol>
 }
 
@@ -11,12 +11,12 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-5">
-                <h4 class="card-title mb-0">用户</h4>
+                <h4 class="card-title mb-0">角色</h4>
             </div>
             <div class="col-sm-7">
-                @if (IsGranted(PermissionNames.UserCreate))
+                @if (IsGranted(PermissionNames.RoleCreate))
                 {
-                    <button class="btn btn-primary btn-circle float-right create-user" type="button" data-toggle="modal">
+                    <button class="btn btn-primary btn-circle float-right create-role" type="button" data-toggle="modal">
                         <i class="cui-plus"></i>
                     </button>
                 }
@@ -24,13 +24,13 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <table id="tb-users"></table>
+                <table id="tb-roles"></table>
             </div>
         </div>
     </div>
 </div>
 
-<!-- User Create Modal -->
+<!-- Role Create Modal -->
 <div id="create-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<!-- User Edit Modal -->
+<!-- Role Edit Modal -->
 <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -53,10 +53,10 @@
     }
 
     <environment include="Development">
-        <script src="~/res/user/index.js" asp-append-version="true"></script>
+        <script src="~/res/role/index.js" asp-append-version="true"></script>
     </environment>
 
     <environment exclude="Development">
-        <script src="~/res/user/index.min.js" asp-append-version="true"></script>
+        <script src="~/res/role/index.min.js" asp-append-version="true"></script>
     </environment>
 }

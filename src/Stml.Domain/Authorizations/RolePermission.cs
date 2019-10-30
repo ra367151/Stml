@@ -1,4 +1,5 @@
-﻿using Stml.Infrastructure.Authorizations.Permissions;
+﻿using Stml.Infrastructure.Applications;
+using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Infrastructure.DDD.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,15 @@ namespace Stml.Domain.Authorizations
         public RolePermission()
         {
             Id = Guid.NewGuid();
+        }
+
+        public RolePermission(Role role, Permission permission)
+            : this()
+        {
+            Check.NotNull(role, nameof(role));
+            Check.NotNull(permission, nameof(permission));
+            Role = role;
+            Permission = permission;
         }
 
         public Guid Id { get; private set; }

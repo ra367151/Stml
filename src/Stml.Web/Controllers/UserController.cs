@@ -66,7 +66,7 @@ namespace Stml.Web.Controllers
             if (user == null)
                 throw new UserFriendlyException("用户不存在.");
             var roles = await _roleAppService.GetRolesAsync();
-            return PartialView("Edit", new UserEditViewModel
+            return PartialView("_Edit", new UserEditViewModel
             {
                 Id = id,
                 UserName = user.UserName,
