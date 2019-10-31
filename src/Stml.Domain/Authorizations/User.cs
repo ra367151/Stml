@@ -47,7 +47,7 @@ namespace Stml.Domain.Authorizations
             return user;
         }
 
-        public User AddToRoles(params Role[] roles)
+        public User SetUserToRoles(params Role[] roles)
         {
             UserRoles = roles.Select(r => new UserRole(this, r)).ToList();
             return this;

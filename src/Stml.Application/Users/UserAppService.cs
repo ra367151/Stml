@@ -39,7 +39,7 @@ namespace Stml.Application.Services
         public async Task<ServiceResult> CreateUserAsync(UserCreateInput input)
         {
             var user = User.CreateUser(input.UserName, input.Email, input.IsActive)
-                            .AddToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
+                            .SetUserToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
             var identityResult = await _userManager.CreateAsync(user, input.Password);
             if (identityResult.Succeeded)
             {
@@ -85,7 +85,7 @@ namespace Stml.Application.Services
             user.UpdateUserName(input.UserName)
                 .UpdateEmail(input.Email)
                 .UpdateState(input.IsActive)
-                .AddToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
+                .SetUserToRoles(_roleManager.Roles.Where(r => input.Roles.Contains(r.Name)).ToArray());
             var identityResult = await _userManager.UpdateAsync(user);
             if (identityResult.Succeeded)
                 return ServiceResult.Success;

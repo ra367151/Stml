@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Stml.Domain.Authorizations;
 using Stml.Infrastructure.Authorizations.Permissions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -28,13 +27,11 @@ namespace Stml.Web.Startup.Permissions
         {
             var identity = await base.GenerateClaimsAsync(user);
             var roleNames = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
-            var permissions = RoleManager.Roles
+            var permissions = await (RoleManager.Roles
                                     .Where(r => roleNames.Contains(r.Name))
-                                    .SelectMany(r => r.Permissions)
-                                    .Select(rp => rp.Permission)
-                                    .AsNoTracking();
+                                    .AsNoTracking()).SelectMany(x => x.Permissions).ToListAsync();
             identity.AddClaim(new Claim(PermissionConstants.PermissionClaimType, _permissionPacker.PackPermissionsIntoString(permissions)));
-            return await Task.FromResult(identity);
+            return identity;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Stml.Infrastructure.Authorizations.Permissions;
+﻿using Stml.Domain.Authorizations;
+using Stml.Infrastructure.Authorizations.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Text;

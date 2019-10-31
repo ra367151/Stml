@@ -14,13 +14,9 @@ namespace Stml.EntityFrameworkCore.Repositories
         {
         }
 
-        public async Task<Role> FindRoleIncludePermissionsAndUsersAsync(Guid id)
+        public async Task<Role> FindRoleIncludeUsersAsync(Guid id)
         {
             return await _dbContext.Roles
-                                .Include(r => r.Permissions)
-                                    .ThenInclude(rp => rp.Permission)
-                                .Include(r => r.Permissions)
-                                    .ThenInclude(rp => rp.Role)
                                 .Include(r => r.UserRoles)
                                     .ThenInclude(ur => ur.User)
                                 .Where(r => r.Id == id).SingleOrDefaultAsync();

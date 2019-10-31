@@ -16,8 +16,7 @@ namespace Stml.Application
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Roles, options => options.MapFrom(src => src.UserRoles.Select(ur => ur.Role)));
 
-            CreateMap<Role, RoleDto>()
-                .ForMember(dest => dest.Permissions, options => options.MapFrom(src => src.Permissions.Select(p => p.Permission).ToArray()));
+            CreateMap<Role, RoleDto>();
         }
     }
 }

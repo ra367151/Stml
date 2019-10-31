@@ -9,9 +9,9 @@ namespace Stml.Web.Models.Roles
     public class RoleCreateViewModel
     {
         public const int RoleNameMinLength = 3;
-        private const int RoleNameMaxLength = 10;
+        private const int RoleNameMaxLength = 13;
         private const int RoleDisplayNameMinLength = 2;
-        private const int RoleDisplayNameMaxLength = 10;
+        private const int RoleDisplayNameMaxLength = 13;
 
         [Display(Name = "名称")]
         [StringLength(RoleNameMaxLength, MinimumLength = RoleNameMinLength)]

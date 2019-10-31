@@ -14,14 +14,14 @@ namespace Stml.Domain.Authorizations
         {
             Id = Guid.NewGuid();
             UserRoles = new List<UserRole>();
-            Permissions = new List<RolePermission>();
+            Permissions = new List<Permission>();
         }
 
         public string DisplayName { get; private set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; private set; }
 
-        public virtual ICollection<RolePermission> Permissions { get; set; }
+        public ICollection<Permission> Permissions { get; private set; }
 
         public static Role CreateAdministratorRole()
         {
@@ -42,9 +42,9 @@ namespace Stml.Domain.Authorizations
             };
         }
 
-        public Role AddPermissions(params Permission[] permissions)
+        public Role SetPermissionsToRole(params Permission[] permissions)
         {
-            Permissions = permissions.Select(p => new RolePermission(this, p)).ToList();
+            Permissions = permissions.ToList();
             return this;
         }
 

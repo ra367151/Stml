@@ -7,6 +7,6 @@ namespace Stml.Domain.Authorizations
 {
     public interface IRoleRepository
     {
-        Task<Role> FindRoleIncludePermissionsAndUsersAsync(Guid id);
+        Task<Role> FindRoleIncludeUsersAsync(Guid id);
     }
 }

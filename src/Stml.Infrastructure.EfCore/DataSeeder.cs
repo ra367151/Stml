@@ -33,7 +33,7 @@ namespace Stml.EntityFrameworkCore
             if (userManager.FindByNameAsync(UserConstants.DefaultAdminUserName).Result == null)
             {
                 var role = roleManager.FindByNameAsync(RoleConstants.DefaultAdminRoleName).Result;
-                var user = User.CreateAdministrator().AddToRoles(role);
+                var user = User.CreateAdministrator().SetUserToRoles(role);
                 userManager.CreateAsync(user, UserConstants.DefaultUserPassword).Wait();
             }
         }

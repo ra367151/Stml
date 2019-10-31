@@ -33,6 +33,14 @@ namespace Stml.EntityFrameworkCore.EntityTypeConfigurations
                 .WithOne(ur => ur.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+
+            builder.OwnsMany(r => r.Permissions, p =>
+            {
+                p.ToTable("RolePermissions");
+                p.WithOwner().HasForeignKey("RoleId");
+                p.Property<Guid>("Id").ValueGeneratedOnAdd();
+                p.HasKey("Id");
+            });
         }
     }
 

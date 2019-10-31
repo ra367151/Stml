@@ -42,7 +42,7 @@ namespace Stml.Application.Roles
         public async Task<ServiceResult> CreateRoleAsync(RoleCreateInput input)
         {
             var role = Role.CreateRole(input.Name, input.DisplayName)
-                            .AddPermissions(_permissionManager.Permissions.SelectMany(x => x.Value).Where(x => input.Permissions.Contains(x.Name)).ToArray());
+                            .SetPermissionsToRole(_permissionManager.Permissions.SelectMany(x => x.Value).Where(x => input.Permissions.Contains(x.Name)).ToArray());
             var identityResult = await _roleManager.CreateAsync(role);
             if (identityResult.Succeeded)
             {
@@ -62,28 +62,20 @@ namespace Stml.Application.Roles
 
         public async Task<ServiceResult> EditRoleAsync(RoleEditInput input)
         {
-            var role = await _roleRepository.FindRoleIncludePermissionsAndUsersAsync(input.Id);
+            var role = await _roleRepository.FindRoleIncludeUsersAsync(input.Id);
             if (role == null)
                 throw new UserFriendlyException("角色不存在");
             role.UpdateName(input.Name).UpdateDisplayName(input.DisplayName)
-                .AddPermissions(_permissionManager.Permissions.SelectMany(x => x.Value).Where(x => input.Permissions.Contains(x.Name)).ToArray());
-            try
-            {
-                var identityResult = await _roleManager.UpdateAsync(role);
-            }
-            catch(Exception e)
-            {
-
-            }
-            
-            //if (identityResult.Succeeded)
+                .SetPermissionsToRole(_permissionManager.Permissions.SelectMany(x => x.Value).Where(x => input.Permissions.Contains(x.Name)).ToArray());
+            var identityResult = await _roleManager.UpdateAsync(role);
+            if (identityResult.Succeeded)
                 return ServiceResult.Success;
-            //return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
+            return ServiceResult.Fail(identityResult.Errors.Select(x => x.Description).ToArray());
         }
 
         public async Task<RoleDto> FindRoleAsync(Guid id)
         {
-            return _mapper.Map<RoleDto>(await _roleRepository.FindRoleIncludePermissionsAndUsersAsync(id));
+            return _mapper.Map<RoleDto>(await _roleRepository.FindRoleIncludeUsersAsync(id));
         }
 
         public async Task<PagedListDto<RoleDto>> GetRolePagedListAsync(string search, int skip, int take)

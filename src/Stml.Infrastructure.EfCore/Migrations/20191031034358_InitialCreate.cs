@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Stml.EntityFrameworkCore.Migrations
@@ -57,12 +56,35 @@ namespace Stml.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RolePermissions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Group = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    DisplayName = table.Column<string>(nullable: true),
+                    Obsolete = table.Column<bool>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "dbo",
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -80,36 +102,12 @@ namespace Stml.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RolePermissions",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: true),
-                    Permission_Group = table.Column<string>(nullable: true),
-                    Permission_Name = table.Column<string>(nullable: true),
-                    Permission_DisplayName = table.Column<string>(nullable: true),
-                    Permission_Obsolete = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RolePermissions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolePermissions_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalSchema: "dbo",
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserClaims",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -198,15 +196,14 @@ namespace Stml.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleClaims_RoleId",
-                schema: "dbo",
-                table: "RoleClaims",
+                name: "IX_RolePermissions_RoleId",
+                table: "RolePermissions",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermissions_RoleId",
+                name: "IX_RoleClaims_RoleId",
                 schema: "dbo",
-                table: "RolePermissions",
+                table: "RoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -253,11 +250,10 @@ namespace Stml.EntityFrameworkCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RoleClaims",
-                schema: "dbo");
+                name: "RolePermissions");
 
             migrationBuilder.DropTable(
-                name: "RolePermissions",
+                name: "RoleClaims",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
