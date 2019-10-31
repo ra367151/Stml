@@ -13,11 +13,14 @@
             , TABLE_OPTIONS_UNIQUEID = "Id"
             , TABLE_OPTIONS_SEARCH = true
             , TABLE_OPTIONS_SEARCH_ALIGN = "left"
+            , TABLE_OPTIONS_SEARCHONENTERKEY = true
             , TABLE_OPTIONS_PAGINATION = true
             , TABLE_OPTIONS_PAGENUMBER = 1
             , TABLE_OPTIONS_PAGESIZE = 5
             , TABLE_OPTIONS_PAGELIST = [10, 25, 50]
             , TABLE_OPTIONS_SIDE_PAGINATION = "server"
+            , TABLE_OPTIONS_LOCALE = "zh-CN"
+            , TABLE_OPTIONS_PAGINATIONLOOP = false
             , USER_CREATE_URL = "/User/CreatePartial"
             , USER_EDIT_URL = "/User/EditPartial"
             , USER_DELETE_URL = "/User/Delete"
@@ -74,9 +77,12 @@
                     }
                 }],
                 uniqueId: TABLE_OPTIONS_UNIQUEID,
+                locale: TABLE_OPTIONS_LOCALE,
                 search: TABLE_OPTIONS_SEARCH,
                 searchAlign: TABLE_OPTIONS_SEARCH_ALIGN,
+                searchOnEnterKey: TABLE_OPTIONS_SEARCHONENTERKEY,
                 pagination: TABLE_OPTIONS_PAGINATION,
+                paginationLoop: TABLE_OPTIONS_PAGINATIONLOOP,
                 pageNumber: TABLE_OPTIONS_PAGENUMBER,
                 pageSize: TABLE_OPTIONS_PAGESIZE,
                 pageList: TABLE_OPTIONS_PAGELIST,

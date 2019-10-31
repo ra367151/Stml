@@ -88,6 +88,7 @@ namespace Stml.Application.Roles
                 var list = await _roleManager.Roles
                                         .AsNoTracking()
                                         .WhereIf(!search.IsNullOrEmpty(), r => r.Name.Contains(search))
+                                        .OrderByDescending(r => r.Name)
                                         .Skip(skip)
                                         .Take(take)
                                         .ProjectTo<RoleDto>(_mapper.ConfigurationProvider)

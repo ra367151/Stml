@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using Stml.Application.Accounts.Dto;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Stml.Web.Models.Accounts
 {
+    [AutoMap(typeof(UserLoginInput), ReverseMap = true)]
     public class UserLoginViewModel
     {
         [Display(Name = "账号")]

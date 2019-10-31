@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +13,6 @@ using Stml.Infrastructure.Authorizations.Permissions.Extensions;
 using Stml.Infrastructure.Applications;
 using Stml.Web.Startup.Navigations;
 using Stml.Web.Startup.Permissions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Stml.Web
 {
@@ -46,7 +40,7 @@ namespace Stml.Web
             services.AddPermissionProvider<StmlPermissionProvider>();
             services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
 
-            AddMap<WebMapProfile>();
+            MapCurrentAssembly();
         }
 
         public override void Configure(IApplicationBuilder app)

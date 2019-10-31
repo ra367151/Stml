@@ -1,4 +1,5 @@
-﻿using Stml.Domain.Authorizations;
+﻿using AutoMapper;
+using Stml.Domain.Authorizations;
 using Stml.Infrastructure.Authorizations.Permissions;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Text;
 
 namespace Stml.Application.Roles.Dto
 {
+    [AutoMap(typeof(Role))]
     public class RoleDto
     {
         public Guid Id { get; set; }

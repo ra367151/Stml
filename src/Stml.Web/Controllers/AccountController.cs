@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Application.Accounts;
 using Stml.Application.Accounts.Dto;
@@ -16,8 +17,9 @@ namespace Stml.Web.Controllers
 
         public AccountController(IPermissionPacker permissionPacker
             , IPermissionManager<Permission> permissionManager
+            , IMapper mapper
             , IAccountAppService accountAppService)
-            : base(permissionPacker, permissionManager)
+            : base(permissionPacker, permissionManager, mapper)
         {
             _accountAppService = accountAppService;
         }
@@ -35,7 +37,7 @@ namespace Stml.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _accountAppService.UserLoginAsync(new UserLoginInput(model.UserName, model.Password, model.RememberMe));
+                var result = await _accountAppService.UserLoginAsync(_mapper.Map<UserLoginInput>(model));
                 if (result)
                 {
                     return Redirect(returnUrl);

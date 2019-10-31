@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Application.Roles;
@@ -22,8 +23,9 @@ namespace Stml.Web.Controllers
         private readonly IRoleAppService _roleAppService;
         public RoleController(IPermissionPacker permissionPacker
             , IPermissionManager<Permission> permissionManager
+            , IMapper mapper
             , IRoleAppService roleAppService)
-            : base(permissionPacker, permissionManager)
+            : base(permissionPacker, permissionManager, mapper)
         {
             _roleAppService = roleAppService;
         }
@@ -60,21 +62,7 @@ namespace Stml.Web.Controllers
             var role = await _roleAppService.FindRoleAsync(id);
             if (role == null)
                 throw new UserFriendlyException("角色不存在");
-            return PartialView("_Edit", new RoleEditViewModel
-            {
-                Id = id,
-                Name = role.Name,
-                DisplayName = role.DisplayName,
-                Permissions = _permissionManager.Permissions
-                                        .SelectMany(x => x.Value)
-                                        .OrderBy(x => x.Group)
-                                        .Select(x => new PermissionCheckboxViewModel(
-                                            x.Group,
-                                            x.Name,
-                                            x.DisplayName,
-                                            role.Permissions.Any(p => p.Name == x.Name))
-                                        ).ToList()
-            });
+            return PartialView("_Edit", _mapper.Map<RoleEditViewModel>(role));
         }
 
         [HasPermission(PermissionNames.RoleCreate)]
@@ -84,13 +72,7 @@ namespace Stml.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _roleAppService.CreateRoleAsync(new RoleCreateInput
-                {
-                    Name = model.Name,
-                    DisplayName = model.DisplayName,
-                    Permissions = model.Permissions.Where(x => x.Checked).Select(x => x.Name).ToArray()
-                });
-                return Json(result);
+                return Json(await _roleAppService.CreateRoleAsync(_mapper.Map<RoleCreateInput>(model)));
             }
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
         }
@@ -102,14 +84,7 @@ namespace Stml.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _roleAppService.EditRoleAsync(new RoleEditInput
-                {
-                    Id = model.Id,
-                    Name = model.Name,
-                    DisplayName = model.DisplayName,
-                    Permissions = model.Permissions.Where(x => x.Checked).Select(x => x.Name).ToArray()
-                });
-                return Json(result);
+                return Json(await _roleAppService.EditRoleAsync(_mapper.Map<RoleEditInput>(model)));
             }
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
         }

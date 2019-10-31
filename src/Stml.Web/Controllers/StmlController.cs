@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Infrastructure.Applications.MVC.Http;
 using Stml.Infrastructure.Authorizations.Permissions;
@@ -12,11 +13,15 @@ namespace Stml.Web.Controllers
     {
         protected readonly IPermissionPacker _permissionPacker;
         protected readonly IPermissionManager<Permission> _permissionManager;
+        protected readonly IMapper _mapper;
 
-        public StmlController(IPermissionPacker permissionPacker, IPermissionManager<Permission> permissionManager)
+        public StmlController(IPermissionPacker permissionPacker
+            , IPermissionManager<Permission> permissionManager
+            , IMapper mapper)
         {
             _permissionPacker = permissionPacker;
             _permissionManager = permissionManager;
+            _mapper = mapper;
         }
 
         [Ajax(Http.Get)]
@@ -28,7 +33,5 @@ namespace Stml.Web.Controllers
             var packedPermissions = User.Claims?.SingleOrDefault(x => x.Type == PermissionConstants.PermissionClaimType);
             return packedPermissions == null ? null : _permissionPacker.UnPackPermissionFromString(packedPermissions.Value)?.Select(x => x.Name);
         }
-
-
     }
 }

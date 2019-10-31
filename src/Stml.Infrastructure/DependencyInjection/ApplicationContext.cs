@@ -52,11 +52,7 @@ namespace Stml.Infrastructure.DependencyInjection
             {
                 module.ConfigureServices(Services, configuration);
             }
-            var mappintConfig = new MapperConfiguration(mc =>
-            {
-                _modules.SelectMany(x => x.Maps).ToList().ForEach(t => mc.AddProfile(Activator.CreateInstance(t) as Profile));
-            });
-            Services.AddSingleton(mappintConfig.CreateMapper());
+            Services.AddAutoMapper(_modules.Where(x => x.IsMapCurrentAssembly).Select(m => m.GetType().Assembly).ToArray());
             return Services;
         }
 

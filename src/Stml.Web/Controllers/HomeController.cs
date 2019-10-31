@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stml.Infrastructure.Authorizations.Permissions;
@@ -14,8 +15,9 @@ namespace Stml.Web.Controllers
     public class HomeController : StmlController
     {
         public HomeController(IPermissionPacker permissionPacker
-            , IPermissionManager<Permission> permissionManager)
-            : base(permissionPacker, permissionManager)
+            , IPermissionManager<Permission> permissionManager
+            , IMapper mapper)
+            : base(permissionPacker, permissionManager, mapper)
         {
         }
 

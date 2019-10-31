@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Stml.Application.Roles;
 using Stml.Application.Services;
 using Stml.Application.Users.Dto;
 using Stml.Infrastructure.Applications.Dto;
@@ -21,16 +21,14 @@ namespace Stml.Web.Controllers
     public class UserController : StmlController
     {
         private readonly IUserAppService _userAppService;
-        private readonly IRoleAppService _roleAppService;
 
         public UserController(IPermissionPacker permissionPacker
             , IPermissionManager<Permission> permissionManager
-            , IUserAppService userAppService
-            , IRoleAppService roleAppService)
-            : base(permissionPacker, permissionManager)
+            , IMapper mapper
+            , IUserAppService userAppService)
+            : base(permissionPacker, permissionManager, mapper)
         {
             _userAppService = userAppService;
-            _roleAppService = roleAppService;
         }
 
         [HasPermission(PermissionNames.VisitUserPage)]
@@ -43,7 +41,7 @@ namespace Stml.Web.Controllers
         [Ajax(Http.Get)]
         public async Task<IActionResult> List(string search, int offset = 0, int limit = 10)
         {
-            var data = await _userAppService.GetUserPagedListAsync(search, offset, limit);
+            var data = await _userAppService.GetUserPagedListAsync(search?.Trim(), offset, limit);
             return Json(new
             {
                 total = data.Total,
@@ -64,16 +62,8 @@ namespace Stml.Web.Controllers
         {
             var user = await _userAppService.FindUserAsync(id);
             if (user == null)
-                throw new UserFriendlyException("用户不存在.");
-            var roles = await _roleAppService.GetRolesAsync();
-            return PartialView("_Edit", new UserEditViewModel
-            {
-                Id = id,
-                UserName = user.UserName,
-                Email = user.Email,
-                IsActive = user.IsActive,
-                Roles = roles.Select(x => new RoleCheckboxViewModel(x.Name, x.DisplayName, user.Roles.Any(r => r.Name == x.Name))).ToList()
-            });
+                throw new UserFriendlyException("用户不存在");
+            return PartialView("_Edit", _mapper.Map<UserEditViewModel>(user));
         }
 
         [HasPermission(PermissionNames.UserCreate)]
@@ -83,16 +73,7 @@ namespace Stml.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userAppService.CreateUserAsync(new UserCreateInput
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    Password = model.Password,
-                    ConfirmPassword = model.ConfirmPassword,
-                    IsActive = model.IsActive,
-                    Roles = model.Roles.Where(x => x.Checked).Select(x => x.Name).ToArray()
-                });
-                return Json(result);
+                return Json(await _userAppService.CreateUserAsync(_mapper.Map<UserCreateInput>(model)));
             }
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
         }
@@ -103,15 +84,7 @@ namespace Stml.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userAppService.EditUserAsync(new UserEditInput
-                {
-                    Id = model.Id,
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    IsActive = model.IsActive,
-                    Roles = model.Roles.Where(r => r.Checked).Select(r => r.Name).ToArray()
-                });
-                return Json(result);
+                return Json(await _userAppService.EditUserAsync(_mapper.Map<UserEditInput>(model)));
             }
             return Json(ServiceResult.Fail(ModelState.Values.SelectMany(m => m.Errors).First().ErrorMessage));
         }

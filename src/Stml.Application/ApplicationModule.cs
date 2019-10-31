@@ -5,7 +5,6 @@ using Stml.Infrastructure.Applications;
 using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 
 namespace Stml.Application
@@ -16,7 +15,7 @@ namespace Stml.Application
         {
             services.RegisterAssemblyTypes().Where(p => p.Name.EndsWith("AppService")).AsImplementedInterfaces();
 
-            AddMap<ApplicationMapProfile>();
+            MapCurrentAssembly();
         }
 
         public override void Configure(IApplicationBuilder app)
