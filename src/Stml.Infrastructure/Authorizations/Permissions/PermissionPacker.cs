@@ -15,14 +15,14 @@ namespace Stml.Infrastructure.Authorizations.Permissions
             _stringEncryptionService = stringEncryptionService;
         }
 
-        public string PackPermissionsIntoString(IEnumerable<Permission> permissions)
+        public string PackPermissionsIntoString<TPermission>(IEnumerable<TPermission> permissions) where TPermission : Permission
         {
             return _stringEncryptionService.Encrypt(permissions.ToJsonString());
         }
 
-        public IEnumerable<Permission> UnPackPermissionFromString(string packedPermissions)
+        public IEnumerable<TPermission> UnPackPermissionFromString<TPermission>(string packedPermissions) where TPermission : Permission
         {
-            return _stringEncryptionService.Decrypt(packedPermissions).FromJsonString<IEnumerable<Permission>>();
+            return _stringEncryptionService.Decrypt(packedPermissions).FromJsonString<IEnumerable<TPermission>>();
         }
     }
 }

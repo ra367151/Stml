@@ -11,7 +11,7 @@ namespace Stml.Web.Views
 
         protected virtual bool IsGranted(string permissionName)
         {
-            return PermissionChecker.Check(User, permissionName);
+            return PermissionChecker.Check<Permission>(User, permissionName);
         }
     }
 

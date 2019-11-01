@@ -31,7 +31,7 @@ namespace Stml.Web.Controllers
                 return _permissionManager.Permissions.SelectMany(x => x.Value).Select(x => x.Name);
 
             var packedPermissions = User.Claims?.SingleOrDefault(x => x.Type == PermissionConstants.PermissionClaimType);
-            return packedPermissions == null ? null : _permissionPacker.UnPackPermissionFromString(packedPermissions.Value)?.Select(x => x.Name);
+            return packedPermissions == null ? null : _permissionPacker.UnPackPermissionFromString<Permission>(packedPermissions.Value)?.Select(x => x.Name);
         }
     }
 }

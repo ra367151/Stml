@@ -6,7 +6,7 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 {
     public interface IPermissionPacker
     {
-        string PackPermissionsIntoString(IEnumerable<Permission> permissions);
-        IEnumerable<Permission> UnPackPermissionFromString(string packedPermissions);
+        string PackPermissionsIntoString<TPermission>(IEnumerable<TPermission> permissions) where TPermission : Permission;
+        IEnumerable<TPermission> UnPackPermissionFromString<TPermission>(string packedPermissions) where TPermission : Permission;
     }
 }

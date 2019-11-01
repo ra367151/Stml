@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Stml.Infrastructure.Authorizations.Permissions
 {
-    public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
+    public class PermissionHandler<TPermission> : AuthorizationHandler<PermissionRequirement> where TPermission : Permission
     {
         private IPermissionChecker _permissionChecker;
         public PermissionHandler(IPermissionChecker permissionChecker)
@@ -17,7 +17,7 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            var check = _permissionChecker.Check(context.User, requirement.PermissionName);
+            var check = _permissionChecker.Check<TPermission>(context.User, requirement.PermissionName);
             if (check)
                 context.Succeed(requirement);
             return Task.CompletedTask;

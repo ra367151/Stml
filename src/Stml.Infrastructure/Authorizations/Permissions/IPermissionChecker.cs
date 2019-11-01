@@ -8,6 +8,6 @@ namespace Stml.Infrastructure.Authorizations.Permissions
 {
     public interface IPermissionChecker
     {
-        bool Check(ClaimsPrincipal user, string permissionName);
+        bool Check<TPermission>(ClaimsPrincipal user, string permissionName) where TPermission : Permission;
     }
 }

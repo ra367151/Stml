@@ -16,12 +16,12 @@ namespace Stml.Infrastructure.Authorizations.Permissions
             _permissionPacker = permissionPacker;
         }
 
-        public bool Check(ClaimsPrincipal user, string permissionName)
+        public bool Check<TPermission>(ClaimsPrincipal user, string permissionName) where TPermission : Permission
         {
             var permissionClaim = user.Claims.SingleOrDefault(c => c.Type == PermissionConstants.PermissionClaimType);
             return permissionClaim != null
                 &&
-                (_permissionPacker.UnPackPermissionFromString(permissionClaim.Value).Any(p => p.Name == permissionName) || user.IsInRole(RoleConstants.DefaultAdminRoleName));
+                (_permissionPacker.UnPackPermissionFromString<TPermission>(permissionClaim.Value).Any(p => p.Name == permissionName) || user.IsInRole(RoleConstants.DefaultAdminRoleName));
         }
     }
 }

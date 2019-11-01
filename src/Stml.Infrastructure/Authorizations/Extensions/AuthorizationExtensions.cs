@@ -10,6 +10,20 @@ namespace Stml.Infrastructure.Authorizations.Extensions
 {
     public static class AuthorizationExtensions
     {
+        public static IServiceCollection ConfigureAuthorization<TUserClaimsPrincipalFactory, TUser, TRole, TPermission>(this IServiceCollection services)
+            where TUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<TUser, TRole>
+            where TUser : class
+            where TRole : class
+            where TPermission : Permission
+        {
+            services.AddScoped<IUserClaimsPrincipalFactory<TUser>, TUserClaimsPrincipalFactory>();
+            services.AddSingleton<IPermissionPacker, PermissionPacker>();
+            services.AddSingleton<IPermissionChecker, PermissionChecker>();
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler<TPermission>>();
+            return services;
+        }
+
         public static IServiceCollection ConfigureAuthorization<TUserClaimsPrincipalFactory, TUser, TRole>(this IServiceCollection services)
             where TUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<TUser, TRole>
             where TUser : class
@@ -19,7 +33,7 @@ namespace Stml.Infrastructure.Authorizations.Extensions
             services.AddSingleton<IPermissionPacker, PermissionPacker>();
             services.AddSingleton<IPermissionChecker, PermissionChecker>();
             services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
-            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler<Permission>>();
             return services;
         }
     }
