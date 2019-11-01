@@ -91,9 +91,18 @@
                 });
             },
             delete: function (id) {
-                $.post(ROLE_DELETE_URL, { id: id }, function (resp) {
-                    toastr.success("删除角色成功!");
-                    $table.bootstrapTable('refresh', { pageNumber: 1 });
+                swal({
+                    title: "确定执行该操作?",
+                    icon: "warning",
+                    buttons: ["取消", "确定"],
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.post(ROLE_DELETE_URL, { id: id }, function (resp) {
+                            swal("成功!", "删除角色成功", "success");
+                            $table.bootstrapTable('refresh', { pageNumber: 1 });
+                        });
+                    }
                 });
             }
         };
@@ -118,22 +127,22 @@
 
 function createRoleSuccess(result) {
     if (result.isSuccess) {
-        toastr.success("新建角色成功！");
+        swal("成功!", "新建角色成功", "success");
         $('#create-modal').modal('hide');
         $("#tb-roles").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
-        toastr.error("新建角色失败： " + result.errors[0]);
+        swal("失败！", result.errors[0], "error");
     }
 }
 
 function editRoleSuccess(result) {
     if (result.isSuccess) {
-        toastr.success("编辑角色成功！");
+        swal("成功!", "编辑角色成功", "success");
         $('#edit-modal').modal('hide');
         $("#tb-roles").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
-        toastr.error("编辑角色失败： " + result.errors[0]);
+        swal("失败！", result.errors[0], "error");
     }
 }

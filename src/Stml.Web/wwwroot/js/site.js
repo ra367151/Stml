@@ -1,8 +1,7 @@
 ﻿"use strict";
 
 (function () {
-    var TOASTR_POSITION_CLASS = "toast-bottom-right"
-        , CHECKBOX_CLASS_NAME = "icheckbox_minimal-red"
+    var CHECKBOX_CLASS_NAME = "icheckbox_minimal-red"
         , PERMISSIONS_REQUEST_URL = "/Stml/GetUserPermissions";
 
     var activator = {
@@ -46,12 +45,9 @@
     };
 
     var funcs = {
-        setDefaultToastrOptions: function () {
-            toastr.options.positionClass = TOASTR_POSITION_CLASS;
-        },
         setDefaultAjaxErrorEvent: function () {
             $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
-                toastr.error('抱歉！服务端发生了未知的错误', "错误");
+                swal("抱歉！", "服务端发生了致命的错误", "error");
             });
         },
         setDefaultModalShownEvent: function () {
@@ -74,7 +70,6 @@
     };
 
 
-    funcs.setDefaultToastrOptions();
     funcs.setDefaultAjaxErrorEvent();
     funcs.setDefaultModalShownEvent();
     funcs.loadPermissions();

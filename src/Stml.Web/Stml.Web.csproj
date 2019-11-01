@@ -732,6 +732,7 @@
     <None Include="wwwroot\lib\popper.js\js\popper.min.js.map" />
     <None Include="wwwroot\lib\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <None Include="wwwroot\lib\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <None Include="wwwroot\lib\sweetalert\sweetalert.min.js" />
   </ItemGroup>
 
 

@@ -113,10 +113,20 @@
                 });
             },
             delete: function (id) {
-                $.post(USER_DELETE_URL, { id: id }, function (resp) {
-                    toastr.success("删除用户成功!");
-                    $table.bootstrapTable('refresh', { pageNumber: 1 });
+                swal({
+                    title: "确定执行该操作?",
+                    icon: "warning",
+                    buttons: ["取消", "确定"],
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.post(USER_DELETE_URL, { id: id }, function (resp) {
+                            swal("成功!", "删除用户成功", "success");
+                            $table.bootstrapTable('refresh', { pageNumber: 1 });
+                        });
+                    }
                 });
+
             }
         };
 
@@ -140,22 +150,22 @@
 
 function createUserSuccess(result) {
     if (result.isSuccess) {
-        toastr.success("新建用户成功！");
+        swal("成功!", "新建用户成功", "success");
         $('#create-modal').modal('hide');
         $("#tb-users").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
-        toastr.error("新建用户失败： " + result.errors[0]);
+        swal("失败！", result.errors[0], "error");
     }
 }
 
 function editUserSuccess(result) {
     if (result.isSuccess) {
-        toastr.success("编辑用户成功！");
+        swal("成功!", "编辑用户成功", "success");
         $('#edit-modal').modal('hide');
         $("#tb-users").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
-        toastr.error("编辑用户失败： " + result.errors[0]);
+        swal("失败！", result.errors[0], "error");
     }
 }
