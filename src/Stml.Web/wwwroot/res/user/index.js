@@ -38,8 +38,8 @@
                         if (row.roles.length === 0)
                             return '-';
                         return row.roles.map(function (v, i, arr) {
-                            return v.displayName;
-                        }).join(',');
+                            return '<span class="badge badge-success">' + v.displayName + '</span>';
+                        }).join(' ');
                     }
                 }, {
                     field: 'email',
