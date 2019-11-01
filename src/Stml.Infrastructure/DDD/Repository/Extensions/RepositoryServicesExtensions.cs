@@ -2,6 +2,7 @@
 using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Stml.Infrastructure.DDD.Repository.Extensions
@@ -10,7 +11,7 @@ namespace Stml.Infrastructure.DDD.Repository.Extensions
     {
         public static IServiceCollection RegisterRepositoriesByConvension(this IServiceCollection services)
         {
-            services.RegisterAssemblyTypes().Where(p => p.Name.EndsWith("Repository")).AsImplementedInterfaces();
+            services.RegisterAssemblyTypes(Assembly.GetCallingAssembly()).Where(p => p.Name.EndsWith("Repository")).AsImplementedInterfaces();
             return services;
         }
     }

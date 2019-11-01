@@ -2,6 +2,7 @@
 using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Stml.Infrastructure.DDD.Domain.Extensions
@@ -10,7 +11,7 @@ namespace Stml.Infrastructure.DDD.Domain.Extensions
     {
         public static IServiceCollection RegisterDomainServicesByConvension(this IServiceCollection services)
         {
-            services.RegisterAssemblyTypes().Where(p => p.Name.EndsWith("DomainService")).AsImplementedInterfaces();
+            services.RegisterAssemblyTypes(Assembly.GetCallingAssembly()).Where(p => p.Name.EndsWith("DomainService")).AsImplementedInterfaces();
             return services;
         }
     }

@@ -13,7 +13,7 @@ namespace Stml.Infrastructure.DependencyInjection.Extensions
         public static IRegistrationBuilder RegisterAssemblyTypes(this IServiceCollection services, params Assembly[] assemblies)
         {
             if (assemblies.Length == 0)
-                assemblies = new[] { Assembly.GetCallingAssembly() };
+                throw new ArgumentException($"there is no assembly to register");
 
             var allPublicTypes = assemblies.SelectMany(
                 x => x.GetExportedTypes().Where(y => y.IsClass && !y.IsAbstract && !y.IsNested)
