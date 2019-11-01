@@ -2,10 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stml.EntityFrameworkCore.Repositories;
 using Stml.Infrastructure.Applications;
+using Stml.Infrastructure.DDD.Repository.Extensions;
 using Stml.Infrastructure.DDD.Uow;
-using Stml.Infrastructure.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,8 +17,14 @@ namespace Stml.EntityFrameworkCore
         {
             services.AddDbContext<StmlDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Stml")));
 
-            services.AddTransient(typeof(StmlRepositoryBase<,>));
-            services.RegisterAssemblyTypes().Where(p => p.Name.EndsWith("Repository")).AsImplementedInterfaces();
+            // register services:
+            //  IRepository<User,Guid> -> UserRepository
+            //  IUserRepository -> UserRepository
+            //  IRepository<Role,Guid> -> RoleRepository
+            //  IRoleRepository -> RoleRepository
+            //  other services...
+            services.RegisterRepositoriesByConvension();
+
             services.AddScoped(typeof(IEfCoreUnitOfWork<StmlDbContext>), typeof(EfCoreUnitOfWork<StmlDbContext>));
         }
 

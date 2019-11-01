@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Stml.Infrastructure.DDD.Repository
 {
-    public interface IRepository<TAggregateRoot> : IRepository<TAggregateRoot, int>
-        where TAggregateRoot : class, IAggregateRoot
+    public interface IRepository<TAggregateRoot> : IRepository<TAggregateRoot, int> where TAggregateRoot : class, IAggregateRoot
     {
 
     }
