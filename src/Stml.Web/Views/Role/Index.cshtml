@@ -16,7 +16,7 @@
             <div class="col-sm-7">
                 @if (IsGranted(PermissionNames.RoleCreate))
                 {
-                    <button class="btn btn-primary btn-circle float-right create-role" type="button" data-toggle="modal">
+                    <button id="create" class="btn btn-primary btn-circle float-right" type="button">
                         <i class="cui-plus"></i>
                     </button>
                 }
@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <table id="tb-roles"></table>
+                <table id="table"></table>
             </div>
         </div>
     </div>

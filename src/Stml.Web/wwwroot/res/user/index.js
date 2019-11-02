@@ -2,11 +2,10 @@
     "use strict";
 
     $(function () {
-        var $table = $("#tb-users")
-            , CREATE_MODAL_TARGET = "#create-modal"
-            , EDIT_MODAL_TARGET = "#edit-modal"
-            , $createModal = $(CREATE_MODAL_TARGET)
-            , $editModal = $(EDIT_MODAL_TARGET)
+        var $table = $("#table")
+            , $createBtn = $("#create")
+            , $createModal = $("#create-modal")
+            , $editModal = $("#edit-modal")
             , TABLE_OPTIONS_CLASS = "table"
             , TABLE_OPTIONS_METHOD = "get"
             , TABLE_OPTIONS_URL = "/User/List"
@@ -60,20 +59,31 @@
                     field: 'operate',
                     title: '操作',
                     width: 100 + 'px',
+                    class: 'dropdown',
                     formatter: function (value, row, index) {
-                        var operateBtn = '<div class="dropdown">';
+                        var arr = [];
                         if (window.user.check('UserEdit') || window.user.check('UserDelete')) {
-                            operateBtn += '<a href="#" class="btn text-primary" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars font-lg"></i></a>';
-                            operateBtn += '<div class="dropdown-menu pull-right">';
+                            arr.push('<a href="#" class="btn text-primary" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">');
+                            arr.push('<i class="fa fa-bars font-lg"></i>');
+                            arr.push('</a>');
+                            arr.push('<div class="dropdown-menu pull-right">');
                             if (window.user.check('UserEdit')) {
-                                operateBtn += '<a class="dropdown-item edit-user" data-user-id="' + row.id + '" data-toggle="modal"><i class="fa fa-pencil"></i> 编辑</a>';
+                                arr.push('<a class="dropdown-item edit"><i class="fa fa-pencil"></i> 编辑</a>');
                             }
                             if (window.user.check('UserDelete')) {
-                                operateBtn += '<a class="dropdown-item delete-user" data-user-id="' + row.id + '"><i class="fa fa-trash"></i> 删除</a>';
+                                arr.push('<a class="dropdown-item delete"><i class="fa fa-trash"></i> 删除</a>');
                             }
-                            operateBtn += '</div></div>';
+                            arr.push('</div>');
                         }
-                        return operateBtn;
+                        return arr.join('');
+                    },
+                    events: {
+                        'click .edit': function (e, value, row, index) {
+                            funcs.edit(row.id);
+                        },
+                        'click .delete': function (e, value, row, index) {
+                            funcs.delete(row.id);
+                        }
                     }
                 }],
                 uniqueId: TABLE_OPTIONS_UNIQUEID,
@@ -130,18 +140,8 @@
             }
         };
 
-        $('.create-user').click(function (e) {
+        $createBtn.click(function (e) {
             funcs.create();
-        });
-
-        $(document).on('click', '.edit-user', function (e) {
-            var id = $(this).data('user-id');
-            funcs.edit(id);
-        });
-
-        $(document).on('click', '.delete-user', function (e) {
-            var id = $(this).data('user-id');
-            funcs.delete(id);
         });
 
         funcs.initTable();
@@ -152,7 +152,7 @@ function createUserSuccess(result) {
     if (result.isSuccess) {
         swal("成功!", "新建用户成功", "success");
         $('#create-modal').modal('hide');
-        $("#tb-users").bootstrapTable('refresh', { pageNumber: 1 });
+        $("#table").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
         swal("失败！", result.errors[0], "error");
@@ -163,7 +163,7 @@ function editUserSuccess(result) {
     if (result.isSuccess) {
         swal("成功!", "编辑用户成功", "success");
         $('#edit-modal').modal('hide');
-        $("#tb-users").bootstrapTable('refresh', { pageNumber: 1 });
+        $("#table").bootstrapTable('refresh', { pageNumber: 1 });
     }
     else {
         swal("失败！", result.errors[0], "error");
