@@ -10,54 +10,58 @@
         <h5 class="modal-title">编辑用户</h5>
     </div>
     <div class="modal-body">
-        <div class="group-title">
-            <i class="fa fa-user"></i> 基本信息
-        </div>
-        <input type="hidden" asp-for="Id" />
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input class="form-control" type="text" asp-for="UserName" autocomplete="off" />
-                        <label class="form-label">用户名</label>
+        <nav class="nav nav-tabs" role="tablist">
+            <a class="nav-item nav-link active" data-toggle="tab" href="#edit-user-details" role="tab">基本信息</a>
+            <a class="nav-item nav-link" data-toggle="tab" href="#edit-user-roles" role="tab">用户角色</a>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane animated fade show active" id="edit-user-details" role="tabpanel">
+                <input type="hidden" asp-for="Id" />
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" asp-for="UserName" autocomplete="off" />
+                                <label class="form-label">用户名</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" asp-for="Email" autocomplete="off" />
+                                <label class="form-label">邮箱</label>
+                                <span asp-validation-for="Email" class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="checkbox">
+                            <input type="checkbox" asp-for="IsActive" />
+                            <label asp-for="IsActive">启用</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input class="form-control" type="text" asp-for="Email" autocomplete="off" />
-                        <label class="form-label">邮箱</label>
-                        <span asp-validation-for="Email" class="help-block"></span>
-                    </div>
+            <div class="tab-pane animated fade" id="edit-user-roles" role="tabpanel">
+                <div class="row clearfix">
+                    @for (var i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <input type="checkbox" asp-for="Roles[i].Checked" />
+                                <label asp-for="Roles[i].Checked">@Model.Roles[i].DisplayName</label>
+                                <input type="hidden" asp-for="Roles[i].Name" value="@Model.Roles[i].Name" />
+                                <input type="hidden" asp-for="Roles[i].DisplayName" value="@Model.Roles[i].DisplayName" />
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="checkbox">
-                    <input type="checkbox" asp-for="IsActive" />
-                    <label asp-for="IsActive">启用</label>
-                </div>
-            </div>
-        </div>
-        <div class="group-title">
-            <i class="fa fa-tag"></i> 角色
-        </div>
-        <div class="row clearfix">
-            @for (var i = 0; i < Model.Roles.Count; i++)
-            {
-                <div class="col-sm-6">
-                    <div class="checkbox">
-                        <input type="checkbox" asp-for="Roles[i].Checked" />
-                        <label asp-for="Roles[i].Checked">@Model.Roles[i].DisplayName</label>
-                        <input type="hidden" asp-for="Roles[i].Name" value="@Model.Roles[i].Name" />
-                        <input type="hidden" asp-for="Roles[i].DisplayName" value="@Model.Roles[i].DisplayName" />
-                    </div>
-                </div>
-            }
         </div>
     </div>
     <div class="modal-footer">

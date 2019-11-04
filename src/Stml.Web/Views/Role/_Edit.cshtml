@@ -10,59 +10,61 @@
         <h5 class="modal-title">编辑角色</h5>
     </div>
     <div class="modal-body">
-        <div class="group-title">
-            <i class="fa fa-user"></i> 基本信息
-        </div>
-        <input type="hidden" asp-for="Id" />
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input class="form-control" type="text" asp-for="Name" autocomplete="off" />
-                        <label class="form-label">名称</label>
-                        <span asp-validation-for="Name" class="help-block"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-sm-12">
-                <div class="form-group form-float">
-                    <div class="form-line">
-                        <input class="form-control" type="text" asp-for="DisplayName" autocomplete="off" />
-                        <label class="form-label">显示名称</label>
-                        <span asp-validation-for="DisplayName" class="help-block"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @if (Model.Permissions.Count > 0)
-        {
-            <div class="group-title">
-                <i class="fa fa-legal"></i> 权限
-            </div>
-            var i = 0;
-            foreach (var group in Model.Permissions.Select(x => x.Group).Distinct())
-            {
-                <div class="group-title">@group</div>
+        <nav class="nav nav-tabs" role="tablist">
+            <a class="nav-item nav-link active" data-toggle="tab" href="#edit-role-details" role="tab">基本信息</a>
+            <a class="nav-item nav-link" data-toggle="tab" href="#edit-role-permissions" role="tab">角色权限</a>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane animated fade show active" id="edit-role-details" role="tabpanel">
+                <input type="hidden" asp-for="Id" />
                 <div class="row clearfix">
-                    @foreach (var permission in Model.Permissions.Where(x => x.Group == group))
-                    {
-
-                        <div class="col-sm-6">
-                            <div class="checkbox">
-                                <input type="checkbox" asp-for="Permissions[i].Checked" />
-                                <label asp-for="Permissions[i].Checked">@permission.DisplayName</label>
-                                <input type="hidden" asp-for="Permissions[i].Name" value="@permission.Name" />
-                                <input type="hidden" asp-for="Permissions[i].DisplayName" value="@permission.DisplayName" />
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" asp-for="Name" autocomplete="off" />
+                                <label class="form-label">名称</label>
+                                <span asp-validation-for="Name" class="help-block"></span>
                             </div>
                         </div>
-                        i++;
-                    }
+                    </div>
                 </div>
-            }
-        }
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input class="form-control" type="text" asp-for="DisplayName" autocomplete="off" />
+                                <label class="form-label">显示名称</label>
+                                <span asp-validation-for="DisplayName" class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane animated fade" id="edit-role-permissions" role="tabpanel">
+                @{
+                    var i = 0;
+                    foreach (var group in Model.Permissions.Select(x => x.Group).Distinct())
+                    {
+                        <div class="group-title">@group</div>
+                        <div class="row clearfix">
+                            @foreach (var permission in Model.Permissions.Where(x => x.Group == group))
+                            {
+
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input type="checkbox" asp-for="Permissions[i].Checked" />
+                                        <label asp-for="Permissions[i].Checked">@permission.DisplayName</label>
+                                        <input type="hidden" asp-for="Permissions[i].Name" value="@permission.Name" />
+                                        <input type="hidden" asp-for="Permissions[i].DisplayName" value="@permission.DisplayName" />
+                                    </div>
+                                </div>
+                                i++;
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>

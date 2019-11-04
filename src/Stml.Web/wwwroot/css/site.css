@@ -137,5 +137,21 @@
 
 .modal .modal-footer {
     border: none;
-    /*padding: 25px 25px 5px 25px;*/
 }
+
+.nav-tabs {
+    border-bottom: 2px solid #eee;
+    margin-bottom: .75em;
+}
+
+    .nav-tabs a {
+        border: none !important;
+    }
+
+        .nav-tabs a.active {
+            border-bottom: 2px solid #1f91f3 !important;
+        }
+
+    .nav-tabs + .tab-content {
+        border: none;
+    }
