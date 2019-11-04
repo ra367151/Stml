@@ -125,7 +125,8 @@
 .group-title {
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 1.5em
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 
 .group-title-secondry {

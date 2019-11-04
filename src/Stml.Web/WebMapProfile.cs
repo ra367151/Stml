@@ -58,7 +58,6 @@ namespace Stml.Web
         {
             return _permissionManager.Permissions
                                     .SelectMany(x => x.Value)
-                                    .OrderBy(x => x.Group)
                                     .Select(x => new PermissionCheckboxViewModel(
                                         x.Group,
                                         x.Name,

@@ -45,6 +45,14 @@ namespace Stml.Web
 
         public override void Configure(IApplicationBuilder app)
         {
+            ConfigureCoreMiddleware(app);
+            ConfigureNavigationProvider(app);
+            ConfigurePermissionProvider(app);
+        }
+
+        #region ConfigureCoreMiddleware
+        private void ConfigureCoreMiddleware(IApplicationBuilder app)
+        {
             var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
 
             if (env.IsDevelopment())
@@ -72,9 +80,21 @@ namespace Stml.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            app.UseNavigationProvider<StmlNavigationProvider>()
-                .UsePermissionProvider<StmlPermissionProvider>();
         }
+        #endregion
+
+        #region ConfigureNavigationProvider
+        private void ConfigureNavigationProvider(IApplicationBuilder app)
+        {
+            app.UseNavigationProvider<StmlNavigationProvider>();
+        }
+        #endregion
+
+        #region ConfigurePermissionProvider
+        private void ConfigurePermissionProvider(IApplicationBuilder app)
+        {
+            app.UsePermissionProvider<StmlPermissionProvider>();
+        }
+        #endregion
     }
 }
