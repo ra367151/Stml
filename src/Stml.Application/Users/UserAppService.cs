@@ -10,6 +10,7 @@ using Stml.Application.Users.Dto;
 using Stml.Domain.Authorizations;
 using Stml.Infrastructure.Applications.Dto;
 using Stml.Infrastructure.Applications.Exceptions;
+using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Infrastructure.System.Linq;
 using Stml.Infrastructure.System.String;
 
@@ -52,6 +53,7 @@ namespace Stml.Application.Services
         public async Task<PagedListDto<UserDto>> GetUserPagedListAsync(string search, int skip, int take)
         {
             var count = await _userManager.Users
+                                .Where(u => u.UserName != UserConstants.DefaultAdminUserName)
                                 .WhereIf(!search.IsNullOrEmpty(), u => u.UserName.Contains(search) || u.Email.Contains(search))
                                 .CountAsync();
             if (count > 0)

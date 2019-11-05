@@ -81,12 +81,14 @@ namespace Stml.Application.Roles
         public async Task<PagedListDto<RoleDto>> GetRolePagedListAsync(string search, int skip, int take)
         {
             var count = await _roleManager.Roles
+                                        .Where(r => r.Name != RoleConstants.DefaultAdminRoleName)
                                         .WhereIf(!search.IsNullOrEmpty(), r => r.Name.Contains(search))
                                         .CountAsync();
             if (count > 0)
             {
                 var list = await _roleManager.Roles
                                         .AsNoTracking()
+                                        .Where(r => r.Name != RoleConstants.DefaultAdminRoleName)
                                         .WhereIf(!search.IsNullOrEmpty(), r => r.Name.Contains(search))
                                         .OrderByDescending(r => r.Name)
                                         .Skip(skip)

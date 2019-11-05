@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stml.Domain.Authorizations;
+using Stml.Infrastructure.Authorizations.Permissions;
 using Stml.Infrastructure.System.Linq;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Stml.EntityFrameworkCore.Repositories
         public async Task<IEnumerable<User>> GetUsersIncludeRolesAsync(string search, int skip, int take)
         {
             return await _dbContext.Users
+                                .Where(u => u.UserName != UserConstants.DefaultAdminUserName)
                                 .WhereIf(!string.IsNullOrEmpty(search), u => u.UserName.Contains(search) || u.Email.Contains(search))
                                 .Include(u => u.UserRoles)
                                     .ThenInclude(ur => ur.Role)

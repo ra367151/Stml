@@ -28,8 +28,6 @@ namespace Stml.Infrastructure.DependencyInjection
         {
             if (_modules.Any())
                 throw new NotImplementedException($"it's already has start module.");
-            if (!typeof(StmlModule).IsAssignableFrom(typeof(TModule)))
-                throw new ArgumentException($"type {typeof(TModule).Name} is not inherit from {typeof(StmlModule).Name}.");
             if (!_modules.Any(x => x.GetType() == typeof(TModule)))
                 _modules.Add(Activator.CreateInstance<TModule>());
             Services = services;
@@ -39,8 +37,6 @@ namespace Stml.Infrastructure.DependencyInjection
         {
             if (!_modules.Any())
                 throw new NotImplementedException("without a start module.");
-            if (!typeof(StmlModule).IsAssignableFrom(typeof(TModule)))
-                throw new ArgumentException($"type {typeof(TModule).Name} is not inherit from {typeof(StmlModule).Name}.");
             if (!_modules.Any(x => x.GetType() == typeof(TModule)))
                 _modules.Add(Activator.CreateInstance<TModule>());
             return this;
