@@ -10,7 +10,6 @@ namespace Stml.Web.Startup.Permissions
     {
         public void Initialize(IPermissionProviderContext<Permission> context)
         {
-
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.VisitRolePage, "访问角色页面"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.RoleCreate, "添加角色"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.Role, PermissionNames.RoleEdit, "编辑角色"));
@@ -20,8 +19,6 @@ namespace Stml.Web.Startup.Permissions
             context.Manager.AddPermission(new Permission(PermissionGroupNames.User, PermissionNames.UserCreate, "添加用户"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.User, PermissionNames.UserEdit, "编辑用户"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.User, PermissionNames.UserDelete, "删除用户"));
-
-            //context.Manager.AddPermission(new Permission(PermissionGroupNames.Setting, PermissionNames.VisitSettingPage, "访问配置页面"));
         }
     }
 }

@@ -9,6 +9,5 @@ namespace Stml.Web.Startup.Permissions
     {
         public const string Role = "角色";
         public const string User = "用户";
-        //public const string Setting = "配置";
     }
 }

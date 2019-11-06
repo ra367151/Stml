@@ -16,7 +16,5 @@ namespace Stml.Web.Startup.Permissions
         public const string UserCreate = "UserCreate";
         public const string UserEdit = "UserEdit";
         public const string UserDelete = "UserDelete";
-
-        //public const string VisitSettingPage = "VisitSettingPage";
     }
 }
