@@ -60,6 +60,13 @@
 
                 // add validation to dynamic form.
                 $.validator.unobtrusive.parse($(this).find('form'));
+
+                // switch to first invalid tab when form invalid.
+                $(this).find('.nav-tabs').closest('form').bind('invalid-form.validate', function (event, validator) {
+                    var firstInvalidElement = validator.errorList[0].element;
+                    var firstInvalidElementOnTabId = $(firstInvalidElement).closest('.tab-pane').attr('id');
+                    $(this).find('a.nav-item[href="#' + firstInvalidElementOnTabId + '"]').tab('show');
+                })
             });
         },
         loadPermissions: function () {
@@ -75,4 +82,8 @@
     funcs.loadPermissions();
     activator.input.activate();
     activator.select.activate();
+
+    $.validator.setDefaults({
+        ignore: []
+    });
 })();
