@@ -21,7 +21,7 @@ namespace Stml.Web.Startup.Permissions
             context.Manager.AddPermission(new Permission(PermissionGroupNames.User, PermissionNames.UserEdit, "编辑用户"));
             context.Manager.AddPermission(new Permission(PermissionGroupNames.User, PermissionNames.UserDelete, "删除用户"));
 
-            context.Manager.AddPermission(new Permission(PermissionGroupNames.Setting, PermissionNames.VisitSettingPage, "访问配置页面"));
+            //context.Manager.AddPermission(new Permission(PermissionGroupNames.Setting, PermissionNames.VisitSettingPage, "访问配置页面"));
         }
     }
 }

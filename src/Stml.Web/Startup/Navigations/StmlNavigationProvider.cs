@@ -32,13 +32,6 @@ namespace Stml.Web.Startup.Navigations
                         "cui-people",
                         PermissionNames.VisitUserPage
                     )
-                ).AddItem(
-                    new MenuItem(
-                        PageNames.Setting,
-                        "Setting",
-                        "cui-settings",
-                        PermissionNames.VisitSettingPage
-                    )
                 );
         }
     }
