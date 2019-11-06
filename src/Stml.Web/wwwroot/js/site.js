@@ -83,7 +83,7 @@
     activator.input.activate();
     activator.select.activate();
 
-    $.validator.setDefaults({
+    $.validator && $.validator.setDefaults({
         ignore: []
     });
 })();
