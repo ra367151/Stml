@@ -36,6 +36,8 @@ PM> Update-Database
 
 ## 运行预览
 
+登录账户：administrator / 123qwe
+
 1. 角色列表
 
 ![角色列表](./docs/pics/role.png)
