@@ -14,6 +14,9 @@ namespace Stml.EntityFrameworkCore
     {
         public StmlDbContext([NotNull]DbContextOptions<StmlDbContext> options) : base(options)
         {
+#if !DEBUG
+            Database.Migrate();
+#endif
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

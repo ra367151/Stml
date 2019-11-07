@@ -6,12 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Stml.Domain\Stml.Domain.csproj" />
-    <ProjectReference Include="..\Stml.Infrastructure.EfCore\Stml.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Stml.Infrastructure\Stml.Infrastructure.csproj" />
   </ItemGroup>
 
