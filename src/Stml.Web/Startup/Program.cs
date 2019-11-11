@@ -33,7 +33,7 @@ namespace Stml.Web.Startup
 
         private static void Migrate<TDbContext>(IServiceProvider serviceProvider) where TDbContext : DbContext
         {
-            using var context = serviceProvider.GetService<TDbContext>();
+            var context = serviceProvider.GetService<TDbContext>();
             try
             {
                 context.Database.Migrate();
@@ -42,6 +42,7 @@ namespace Stml.Web.Startup
             {
                 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occured while migrate DbContext: {0}", typeof(TDbContext).Name);
+                throw;
             }
         }
 
@@ -55,6 +56,7 @@ namespace Stml.Web.Startup
             {
                 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occurred while [{0}] seeding datas.", nameof(DataSeeder));
+                throw;
             }
         }
     }
