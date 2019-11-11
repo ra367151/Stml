@@ -34,22 +34,10 @@ PM> Update-Database
 * StmlPermissionProvider.cs: 配置权限项
 * StmlUserClaimsPricipalFactory.cs: 权限声明解析
 
-## 运行预览
+## Demo
 
-登录账户：administrator / 123qwe
+http://42.159.146.155
 
-1. 角色列表
+UserName: admin
 
-![角色列表](./docs/pics/role.png)
-
-2. 新建角色
-
-![新建角色](./docs/pics/role_add.png)
-
-3. 用户列表
-
-![用户列表](./docs/pics/user.png)
-
-4. 新建用户
-
-![新建用户](./docs/pics/user_add.png)
+Password: 123qwe
