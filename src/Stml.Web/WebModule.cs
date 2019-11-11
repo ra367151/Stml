@@ -40,6 +40,8 @@ namespace Stml.Web
             services.AddPermissionProvider<StmlPermissionProvider>();
             services.ConfigureAuthorization<StmlUserClaimsPrincipalFactory, User, Role>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             MapCurrentAssembly();
         }
 
