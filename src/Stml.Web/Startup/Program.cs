@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Stml.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace Stml.Web.Startup
 {
@@ -16,15 +17,8 @@ namespace Stml.Web.Startup
             using (var scope = host.Services.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
-                try
-                {
-                    DataSeeder.Seed(serviceProvider);
-                }
-                catch (Exception ex)
-                {
-                    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
+                Migrate<StmlDbContext>(serviceProvider);
+                SeedDatas(serviceProvider);
             }
             host.Run();
         }
@@ -36,5 +30,32 @@ namespace Stml.Web.Startup
                     webBuilder.ConfigureLogging(loggingBuilder => loggingBuilder.AddNLog());
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void Migrate<TDbContext>(IServiceProvider serviceProvider) where TDbContext : DbContext
+        {
+            using var context = serviceProvider.GetService<TDbContext>();
+            try
+            {
+                context.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occured while migrate DbContext: {0}", typeof(TDbContext).Name);
+            }
+        }
+
+        private static void SeedDatas(IServiceProvider serviceProvider)
+        {
+            try
+            {
+                DataSeeder.Seed(serviceProvider);
+            }
+            catch (Exception ex)
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while [{0}] seeding datas.", nameof(DataSeeder));
+            }
+        }
     }
 }
